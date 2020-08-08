@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import './index.css';
-import Demo from './demo';
+// import Demo from './demo';
+import Map from './map';
 import * as serviceWorker from './serviceWorker';
+import 'leaflet/dist/leaflet.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Demo />
+    <Map />
   </React.StrictMode>,
   document.getElementById('root')
 );
