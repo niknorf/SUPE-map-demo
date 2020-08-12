@@ -1,9 +1,10 @@
 import React from 'react';
-import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
+import {Map, TileLayer, Marker, Popup, GeoJSON} from 'react-leaflet';
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import './map.css';
 import 'react-leaflet-markercluster/dist/styles.min.css';
 import customData from './data_map.json';
+import buildingsPolygon from './building-polygon.json'
 
 
 import L from 'leaflet';
@@ -39,12 +40,18 @@ function PlaceMarkers() {
 
   return (markers)
 }
+
+function GeoJsonLayer(){
+
+console.log(buildingsPolygon);
+return <GeoJSON key={'building_polygons'} data={buildingsPolygon}/>;
+}
 export default function() {
   return (<Map className="markercluster-map"   center={position} zoom={16}>
-    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
+    <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
     <MarkerClusterGroup>
       <PlaceMarkers/>
     </MarkerClusterGroup>
-
+<GeoJsonLayer />
   </Map>)
 }
