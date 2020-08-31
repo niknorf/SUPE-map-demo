@@ -24,8 +24,40 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './SidebarList';
 import FilterGroup from './FilterGroup';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import PFDinRegularWoff from "../fonts/PFDinTextCondPro-Regular.woff";
+import '../style.css';
 
 const drawerWidth = 100;
+
+const pfdinRegular = {
+  fontFamily: 'PFDinTextCondPro-Regular',
+  fontStyle: 'normal',
+  fontDisplay: 'swap',
+  fontWeight: '400',
+  src: `
+    local('PFDinTextCondPro-Regular'),
+    url(${PFDinRegularWoff}) format('woff')
+    `,
+}
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'PFDinTextCondPro-Regular !important',
+    fontSize: 11,
+    textTransform: 'uppercase'
+  },
+  typographyStyle: {
+    color: "red"
+  },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+          '@font-face': [pfdinRegular],
+      },
+    },
+  },
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,6 +127,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
+    background: '#E5E5E5',
+    marginLeft: '68px',
+    paddingTop: '40px'
   },
   container: {
     paddingTop: theme.spacing(4),
@@ -109,6 +144,18 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 500,
   },
+  container: {
+    background: "#E5E5E5",
+    paddingLeft: 40,
+    paddingRight:40
+  },
+  drawerPaper: {
+    background: "#252F4A",
+    width: "68px"
+  },
+  listText: {
+    color: "red"
+  }
 }));
 
 
@@ -316,6 +363,8 @@ export default function BalanceGroup() {
             }}
             open='false'
           >
+          <ThemeProvider theme={theme}>
+          <CssBaseline />
 
             <List>
               {mainListItems}
@@ -323,9 +372,13 @@ export default function BalanceGroup() {
             <List className={classes.menuListItems}>
               {secondaryListItems}
             </List>
+            </ThemeProvider>
           </Drawer>
           <main className={classes.content}>
             <Container maxWidth="lg" className={classes.container}>
+            <Typography variant="h2" gutterBottom>
+            Балансовые группы
+            </Typography>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6} lg={6}>
                   <Paper className={fixedHeightPaper}>
