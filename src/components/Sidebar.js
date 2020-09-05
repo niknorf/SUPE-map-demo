@@ -95,7 +95,7 @@ class Sidebar extends Component {
 
           <SidebarMenuItemLabel>Россети</SidebarMenuItemLabel>
         </SidebarMenuItem>
-        <SidebarMenuItem>
+        <SidebarMenuItem component={RouterLink} to="/profile">
           <Icon></Icon>
           <SidebarMenuItemLabel>Кабинет</SidebarMenuItemLabel>
         </SidebarMenuItem>

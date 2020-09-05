@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Grid } from '@material-ui/core';
-import Sidebar from './components/Sidebar';
-import BalanceGroup from './components/BalanceGroup'
+import { BrowserRouter as Router } from "react-router-dom";
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'leaflet/dist/leaflet.css';
 
+const rootElement = document.getElementById("root");
+
 ReactDOM.render(
-  <React.StrictMode>
-  <BalanceGroup/>
-</React.StrictMode>, document.getElementById('root'));
+<React.StrictMode>
+    <Router>
+      <App />
+    </Router>
+  </React.StrictMode>,
+  rootElement
+  );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

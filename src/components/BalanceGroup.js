@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import {GeneralMap} from './Map';
 import {GraphicGroup} from './Graphic';
-import { positions } from '@material-ui/system';
+import { positions, typography } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -26,7 +26,14 @@ import { mainListItems, secondaryListItems } from './SidebarList';
 import FilterGroup from './FilterGroup';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import PFDinRegularWoff from "../fonts/PFDinTextCondPro-Regular.woff";
-import '../style.css';
+import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import SearchIcon from '@material-ui/icons/Search';
+import Select from 'react-select';
+//import '../style.css';
 
 const drawerWidth = 100;
 
@@ -44,8 +51,6 @@ const pfdinRegular = {
 const theme = createMuiTheme({
   typography: {
     fontFamily: 'PFDinTextCondPro-Regular !important',
-    fontSize: 11,
-    textTransform: 'uppercase'
   },
   typographyStyle: {
     color: "red"
@@ -62,6 +67,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    width: '100%'
     },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -127,8 +133,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
-    background: '#E5E5E5',
-    marginLeft: '68px',
+    background: '#F5F6F8',
     paddingTop: '40px'
   },
   container: {
@@ -140,12 +145,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
+    boxShadow: "0px 6px 18px rgba(0, 0, 0, 0.06)"
+
   },
   fixedHeight: {
     height: 500,
   },
   container: {
-    background: "#E5E5E5",
+    background: "#F5F6F8",
     paddingLeft: 40,
     paddingRight:40
   },
@@ -155,8 +162,56 @@ const useStyles = makeStyles((theme) => ({
   },
   listText: {
     color: "red"
+  },
+  header: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "baseline"
+  },
+  balanceLink: {
+    fontSize: "14px",
+    lineHeight: "17px",
+    textDecoration: "underline",
+    marginLeft: "16px"
+  },
+  balanceText: {
+    fontSize: "32px",
+    lineHeight: "38px"
+  },
+  balanceGroupSelectors: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "row",
+    padding: "24px",
+    boxShadow: "0px 6px 18px rgba(0, 0, 0, 0.06)"
+  },
+  adressInput: {
+    display: "flex",
+    marginRight: "32px"
+  },
+  balaceGroupType: {
+    marginLeft: "40px"
+  },
+  selectTopText: {
+    fontSize: "11px",
+    lineHeight: "13px",
+    letterSpacing: "0.01em",
+    color: "#818E9B",
+    paddingBottom: "11px"
+  },
+  selectContainer: {
+    paddingBottom: "24px"
+  },
+  paperStyles: {
+    boxShadow: "0px 6px 18px rgba(0, 0, 0, 0.06)"
   }
 }));
+
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+]
 
 
 const filter1 = {
@@ -356,7 +411,8 @@ export default function BalanceGroup() {
               </IconButton>
             </Toolbar>
           </AppBar> */}
-          <Drawer
+          {/* what was drawer */}
+          {/* <Drawer
             variant="permanent"
             classes={{
               paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
@@ -373,20 +429,56 @@ export default function BalanceGroup() {
               {secondaryListItems}
             </List>
             </ThemeProvider>
-          </Drawer>
+          </Drawer> */}
+          <ThemeProvider theme={theme}>
+          <CssBaseline />
           <main className={classes.content}>
             <Container maxWidth="lg" className={classes.container}>
-            <Typography variant="h2" gutterBottom>
-            Балансовые группы
-            </Typography>
+            <div className={classes.header}>
+              <Typography className={classes.balanceText} variant="h2" gutterBottom>Балансовые группы</Typography>
+              <Typography className={classes.balanceLink}>Посмотреть таблицу всех балансовых групп</Typography>
+            </div>
+            <Grid container className={classes.selectContainer}>
+              <Grid item xs={12}>
+                <Paper className={classes.balanceGroupSelectors}>
+                <Grid item xs={12} sm={6}>
+                  <FormControl className={clsx(classes.adressInput, classes.textField)}>
+                    <InputLabel htmlFor="standard-adornment-password">Найти адрес</InputLabel>
+                    <Input
+                      id="standard-adornment-password"
+                      value=""
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton>
+                            <SearchIcon style={{ color: "#4A9CFF" }} />
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                  </FormControl>
+                  </Grid>
+                
+                 
+                  <Grid item xs={6} sm={3}>
+                    <Typography className={classes.selectTopText}>Трансформаторная подстанция</Typography>
+                    <Select options={options} placeholder='Выберете из списка'/>
+                  </Grid>
+                  <Grid item xs={6} sm={3} className={classes.balaceGroupType}>
+                    <Typography className={classes.selectTopText}>Тип балансовой группы</Typography>
+                    <Select options={options} placeholder='Выберете из списка' />
+                  </Grid>
+              </Paper>
+              </Grid>
+            </Grid>
+            
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6} lg={6}>
-                  <Paper className={fixedHeightPaper}>
+                  <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
                     <GeneralMap/>
                   </Paper>
                 </Grid>
                 <Grid item xs={12} md={6} lg={6}>
-                  <Paper className={fixedHeightPaper}>
+                  <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
                     <Typography variant="h1">
                       Балансовые группы
                     </Typography>
@@ -409,6 +501,7 @@ export default function BalanceGroup() {
               </Grid>
             </Container>
           </main>
+          </ThemeProvider>
         </div>
   );
 }
