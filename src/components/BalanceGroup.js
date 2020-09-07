@@ -177,7 +177,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
     lineHeight: "17px",
     textDecoration: "underline",
-    marginLeft: "16px"
+    marginLeft: "16px",
+    color: "#252F4A"
   },
   balanceText: {
     fontSize: "32px",
@@ -474,7 +475,7 @@ export default function BalanceGroup() {
           <Container maxWidth="lg" className={classes.container}>
             <div className={classes.header}>
               <Typography className={classes.balanceText} variant="h2" gutterBottom>Балансовые группы</Typography>
-              <Typography className={classes.balanceLink}>Посмотреть таблицу всех балансовых групп</Typography>
+              <Link href="#balance-table" className={classes.balanceLink}>Посмотреть таблицу всех балансовых групп</Link>
             </div>
             <Grid container className={classes.selectContainer}>
               <Grid item xs={12}>

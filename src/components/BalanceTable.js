@@ -169,7 +169,7 @@ export default function EnhancedTable() {
 
   return (
     <div className={classes.root}>
-        <TableContainer>
+        <TableContainer id="balance-table">
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
