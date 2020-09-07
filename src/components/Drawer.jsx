@@ -7,15 +7,14 @@ import {
   ListItemText
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import { withRouter } from "react-router-dom";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import clsx from 'clsx';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PFDinBoldWoff from "../fonts/PFDinTextCondPro-Bold.woff";
+import logo from '../img/logo.png';
 
 const pfdinBold = {
   fontFamily: 'PFDinTextCondPro-Bold',
@@ -67,11 +66,16 @@ const useStyles = makeStyles({
   },
   listIcon: {
     color: "#FFF",
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   exit: {
     marginTop: 'auto'
   },
+  logo: {
+    width: "37px",
+    paddingTop: "10px",
+    paddingBottom: "15px"
+  }
 });
 
 const Drawer = props => {
@@ -79,24 +83,12 @@ const Drawer = props => {
   const classes = useStyles();
   const itemsList = [
     {
-      text: "Россети",
-      icon: <SvgIcon><path width="20px"
-      height="20px"
-      fill="none" stroke="black" stroke-width="1" d="M 300.00,0.00
-      C 300.00,0.00 300.00,337.00 300.00,337.00
-        300.00,337.00 0.00,337.00 0.00,337.00
-        0.00,337.00 0.00,0.00 0.00,0.00
-        0.00,0.00 300.00,0.00 300.00,0.00 Z
-      M 300.00,0.00
-      C 300.00,0.00 300.00,338.00 300.00,338.00
-        300.00,338.00 0.00,338.00 0.00,338.00
-        0.00,338.00 0.00,0.00 0.00,0.00
-        0.00,0.00 300.00,0.00 300.00,0.00 Z" /></SvgIcon>,
+      icon: <img src={logo} className={classes.logo} />,
       onClick: () => history.push("/")
     },
     {
       text: "КАБИНЕТ",
-      icon: <PermIdentityIcon />,
+      icon: <PermIdentityIcon className={classes.icon} style={{ fontSize: "25px" }} />,
       onClick: () => history.push("/profile")
     }
   ];
@@ -116,7 +108,7 @@ const Drawer = props => {
             })}
             <ListItem button className={ clsx(classes.listItemContainer, classes.exit)}>
               <ListItemIcon className={classes.listIcon}>
-                <ExitToAppIcon />
+                <ExitToAppIcon style={{ fontSize: "25px" }} />
               </ListItemIcon>
               <ListItemText primary="ВЫХОД" />
             </ListItem>

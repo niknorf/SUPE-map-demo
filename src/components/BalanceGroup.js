@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
-import {GeneralMap} from './Map';
-import {GraphicGroup} from './Graphic';
+import { GeneralMap } from './Map';
+import { GraphicGroup } from './Graphic';
 import { positions, typography } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -33,6 +33,11 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import SearchIcon from '@material-ui/icons/Search';
 import Select from 'react-select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { Filter } from 'react-feather';
+import Button from '@material-ui/core/Button';
+import SelectMaterial from '@material-ui/core/Select';
+import BalanceTable from './BalanceTable';
 //import '../style.css';
 
 const drawerWidth = 100;
@@ -58,7 +63,7 @@ const theme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
       '@global': {
-          '@font-face': [pfdinRegular],
+        '@font-face': [pfdinRegular],
       },
     },
   },
@@ -68,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     width: '100%'
-    },
+  },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
   },
@@ -100,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
   menuButtonHidden: {
     display: 'none',
   },
-  menuListItems :{
+  menuListItems: {
     position: "absolute",
     bottom: 0,
     alignSelf: 'center'
@@ -154,7 +159,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     background: "#F5F6F8",
     paddingLeft: 40,
-    paddingRight:40
+    paddingRight: 40
   },
   drawerPaper: {
     background: "#252F4A",
@@ -204,24 +209,51 @@ const useStyles = makeStyles((theme) => ({
   },
   paperStyles: {
     boxShadow: "0px 6px 18px rgba(0, 0, 0, 0.06)"
+  },
+  tableContainer: {
+    paddingTop: "24px"
+  },
+  tableSortButton: {
+    display: "flex",
+    flexDirection: "row"
+  },
+  formControl: {
+    width: "100%"
+  },
+  buttonFilter: {
+    backgroundColor: "#4A9CFF",
+    boxShadow: "0px 4px 10px rgba(16, 156, 241, 0.24);",
+    borderRadius: "4px",
+    marginLeft: "24px",
+    letterSpacing: "0.01em;",
+    fontWeight: "bold",
+    textTransform: "none",
+    padding: "0 28px"
+  },
+  adressInputTable: {
+    display: "flex"
+  },
+  filterIcon: {
+    width: "20px",
+    height: "20px"
   }
 }));
 
 const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
+  { value: '1', label: 'Option 1' },
+  { value: '2', label: 'Optoon 2' },
+  { value: '3', label: 'Option 3' }
 ]
 
 
 const filter1 = {
   label: 'Балансовая группа',
-  menu_items: [{key: '1', value:'1'}, {key: '2', value:'2'}, {key: '3', value:'3'}],
+  menu_items: [{ key: '1', value: '1' }, { key: '2', value: '2' }, { key: '3', value: '3' }],
 }
 
 const filter2 = {
   label: 'Тип балансовой группы',
-  menu_items: [{key: '1', value:'11'}, {key: '2', value:'22'}, {key: '3', value:'33'}],
+  menu_items: [{ key: '1', value: '11' }, { key: '2', value: '22' }, { key: '3', value: '33' }],
 }
 
 const graphic1 = {
@@ -387,10 +419,16 @@ export default function BalanceGroup() {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-    return (
-      <div className={classes.root}>
-          {/* <CssBaseline /> */}
-          {/* <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+  const [sortItem, setSortItem] = React.useState('');
+
+  const handleChange = (event) => {
+    setSortItem(event.target.value);
+  };
+
+  return (
+    <div className={classes.root}>
+      {/* <CssBaseline /> */}
+      {/* <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
             <Toolbar className={classes.toolbar}>
               <IconButton
                 edge="start"
@@ -411,8 +449,8 @@ export default function BalanceGroup() {
               </IconButton>
             </Toolbar>
           </AppBar> */}
-          {/* what was drawer */}
-          {/* <Drawer
+      {/* what was drawer */}
+      {/* <Drawer
             variant="permanent"
             classes={{
               paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
@@ -430,10 +468,10 @@ export default function BalanceGroup() {
             </List>
             </ThemeProvider>
           </Drawer> */}
-          <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <main className={classes.content}>
-            <Container maxWidth="lg" className={classes.container}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <main className={classes.content}>
+          <Container maxWidth="lg" className={classes.container}>
             <div className={classes.header}>
               <Typography className={classes.balanceText} variant="h2" gutterBottom>Балансовые группы</Typography>
               <Typography className={classes.balanceLink}>Посмотреть таблицу всех балансовых групп</Typography>
@@ -441,67 +479,113 @@ export default function BalanceGroup() {
             <Grid container className={classes.selectContainer}>
               <Grid item xs={12}>
                 <Paper className={classes.balanceGroupSelectors}>
-                <Grid item xs={12} sm={6}>
-                  <FormControl className={clsx(classes.adressInput, classes.textField)}>
-                    <InputLabel htmlFor="standard-adornment-password">Найти адрес</InputLabel>
-                    <Input
-                      id="standard-adornment-password"
-                      value=""
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton>
-                            <SearchIcon style={{ color: "#4A9CFF" }} />
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  </FormControl>
+                  <Grid item xs={12} sm={6}>
+                    <FormControl className={clsx(classes.adressInput, classes.textField)}>
+                      <InputLabel htmlFor="standard-adornment-password">Найти адрес</InputLabel>
+                      <Input
+                        id="standard-adornment-password"
+                        value=""
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton>
+                              <SearchIcon style={{ color: "#4A9CFF" }} />
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                      />
+                    </FormControl>
                   </Grid>
-                
-                 
                   <Grid item xs={6} sm={3}>
                     <Typography className={classes.selectTopText}>Трансформаторная подстанция</Typography>
-                    <Select options={options} placeholder='Выберете из списка'/>
+                    <Select options={options} placeholder='Выберете из списка' />
                   </Grid>
                   <Grid item xs={6} sm={3} className={classes.balaceGroupType}>
                     <Typography className={classes.selectTopText}>Тип балансовой группы</Typography>
                     <Select options={options} placeholder='Выберете из списка' />
                   </Grid>
-              </Paper>
+                </Paper>
               </Grid>
             </Grid>
-            
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={6} lg={6}>
-                  <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
-                    <GeneralMap/>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12} md={6} lg={6}>
-                  <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
-                    <Typography variant="h1">
-                      Балансовые группы
-                    </Typography>
-                    <FilterGroup label={filter1.label} menu_items={filter1.menu_items}/>
-                    <FilterGroup label={filter2.label} menu_items={filter2.menu_items}/>
-                    <GraphicGroup name={graphic1.name} x_coordinates={graphic1.x} y_coordinates={graphic1.y} type={graphic1.type}/>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12} >
-                  <Paper className={classes.paper}>
-                  <GraphicGroup name={graphic2.name} x_coordinates={graphic2.x} y_coordinates={graphic2.y} type={graphic2.type}/>
-                  <GraphicGroup name={graphic3.name} x_coordinates={graphic3.x} y_coordinates={graphic3.y} type={graphic3.type}/>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                  <Paper className={classes.paper}>
-                  <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type}/>
-                  </Paper>
-                </Grid>
+
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6} lg={6}>
+                <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
+                  <GeneralMap />
+                </Paper>
               </Grid>
-            </Container>
-          </main>
-          </ThemeProvider>
-        </div>
+              <Grid item xs={12} md={6} lg={6}>
+                <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
+                  <Typography variant="h1">
+                    Балансовые группы
+                    </Typography>
+                  <FilterGroup label={filter1.label} menu_items={filter1.menu_items} />
+                  <FilterGroup label={filter2.label} menu_items={filter2.menu_items} />
+                  <GraphicGroup name={graphic1.name} x_coordinates={graphic1.x} y_coordinates={graphic1.y} type={graphic1.type} />
+                </Paper>
+              </Grid>
+              <Grid item xs={12} >
+                <Paper className={classes.paper}>
+                  <GraphicGroup name={graphic2.name} x_coordinates={graphic2.x} y_coordinates={graphic2.y} type={graphic2.type} />
+                  <GraphicGroup name={graphic3.name} x_coordinates={graphic3.x} y_coordinates={graphic3.y} type={graphic3.type} />
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type} />
+                </Paper>
+              </Grid>
+            </Grid>
+
+            <Grid container className={classes.tableContainer}>
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <Grid container spacing={3}>
+                    <Grid item xs={8}>
+                      <FormControl className={clsx(classes.adressInputTable, classes.textField)}>
+                        <InputLabel htmlFor="standard-adornment-password">Найти адрес</InputLabel>
+                        <Input
+                          id="standard-adornment-password"
+                          value=""
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton>
+                                <SearchIcon style={{ color: "#4A9CFF" }} />
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                      </FormControl>
+                    </Grid>
+
+                    <Grid item xs className={classes.tableSortButton}>
+                        <FormControl className={classes.formControl}>
+                          <InputLabel id="demo-simple-select-label">Сортировать</InputLabel>
+                          <SelectMaterial
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={sortItem}
+                            onChange={handleChange}
+                          >
+                            <MenuItem value={10}>По номеру группы</MenuItem>
+                          </SelectMaterial>
+                        </FormControl>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.buttonFilter}
+                        endIcon={<Filter className={classes.filterIcon} />}
+                      >
+                        Фильтры
+                      </Button>
+                    </Grid>
+                    <BalanceTable />
+                  </Grid>
+                </Paper>
+              </Grid>
+            </Grid>
+          </Container>
+        </main>
+      </ThemeProvider>
+    </div>
   );
 }
