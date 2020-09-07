@@ -40,7 +40,7 @@ export const mainListItems = (
           <ListItemIcon style={listIcon}>
           <DashboardIcon />
         </ListItemIcon>
-        <ListItemText className={classes.itemText} primary="Россети" multiline/>
+        <ListItemText className={classes.itemText} primary="Россети"/>
       </ListItem>
       <ListItem button style={flexContainer}>
           <ListItemIcon style={listIcon}>

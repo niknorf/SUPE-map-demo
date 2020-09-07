@@ -1,9 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
+import { withStyles } from '@material-ui/styles';
+import PropTypes from 'prop-types';
 import { GeneralMap } from './Map';
 import { GraphicGroup } from './Graphic';
 import { positions, typography } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
@@ -32,12 +35,15 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import SearchIcon from '@material-ui/icons/Search';
-import Select from 'react-select';
+import Select from '@material-ui/core/Select';
+// import Select from 'react-select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Filter } from 'react-feather';
 import Button from '@material-ui/core/Button';
 import SelectMaterial from '@material-ui/core/Select';
 import BalanceTable from './BalanceTable';
+import street_list from '../data/street_list.json';
+import ts_list from '../data/ts_balance_list.json';
 //import '../style.css';
 
 const drawerWidth = 100;
@@ -51,6 +57,17 @@ const pfdinRegular = {
     local('PFDinTextCondPro-Regular'),
     url(${PFDinRegularWoff}) format('woff')
     `,
+}
+
+const ts_select = {
+  label: 'Трансформаторная подстанция',
+  help_text: 'Выберете из списка',
+  menu_items: ts_list.ts_list
+}
+const address_search = {
+  label: '',
+  help_text: 'Найти адрес',
+  menu_items: street_list.street_list
 }
 
 const theme = createMuiTheme({
@@ -69,7 +86,7 @@ const theme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     display: 'flex',
     width: '100%'
@@ -238,7 +255,7 @@ const useStyles = makeStyles((theme) => ({
     width: "20px",
     height: "20px"
   }
-}));
+});
 
 const options = [
   { value: '1', label: 'Option 1' },
@@ -257,175 +274,267 @@ const filter2 = {
   menu_items: [{ key: '1', value: '11' }, { key: '2', value: '22' }, { key: '3', value: '33' }],
 }
 
-const graphic1 = {
-  name: 'График небалансов между показаниями ПСК и ПУ, в % от ПУ',
-  x: [
-    1,
-    1.5,
-    1.6,
-    1.7,
-    1.9,
-    2.1,
-    2.3,
-    2.6,
-    2.8,
-    3.1,
-    3.3,
-    3.6,
-    3.0,
-    9.0,
-    4.0,
-    4.2,
-    4.9,
-    5.1,
-    5.2,
-    5.3,
-    5.7,
-    5.8,
-    5.9,
-    6.3,
-    6.5,
-    6.8,
-    6.9,
-    7.2,
-    7.4,
-    7.8,
-    7.9,
-    8.0,
-    8.6,
-    8.8,
-    9.4,
-    9.5,
-    9.6,
-    10,
-    10.3,
-    10.4,
-    10.5
-  ],
-  y: [
-    -30,
-    -10,
-    -30,
-    30,
-    30,
-    40,
-    37,
-    7,
-    40,
-    25,
-    25,
-    -4,
-    -37,
-    36,
-    36,
-    40,
-    24,
-    -1,
-    -21,
-    -1,
-    -1,
-    -21,
-    11,
-    40,
-    -25,
-    -25,
-    18,
-    -15,
-    -10,
-    -40,
-    38,
-    10,
-    37,
-    -30,
-    -4,
-    -4,
-    -10,
-    -40,
-    -35,
-    10
-  ],
-  type: 'bar'
-};
+// const graphic1 = {
+//   name: 'График небалансов между показаниями ПСК и ПУ, в % от ПУ',
+//   x: [
+//     1,
+//     1.5,
+//     1.6,
+//     1.7,
+//     1.9,
+//     2.1,
+//     2.3,
+//     2.6,
+//     2.8,
+//     3.1,
+//     3.3,
+//     3.6,
+//     3.0,
+//     9.0,
+//     4.0,
+//     4.2,
+//     4.9,
+//     5.1,
+//     5.2,
+//     5.3,
+//     5.7,
+//     5.8,
+//     5.9,
+//     6.3,
+//     6.5,
+//     6.8,
+//     6.9,
+//     7.2,
+//     7.4,
+//     7.8,
+//     7.9,
+//     8.0,
+//     8.6,
+//     8.8,
+//     9.4,
+//     9.5,
+//     9.6,
+//     10,
+//     10.3,
+//     10.4,
+//     10.5
+//   ],
+//   y: [
+//     -30,
+//     -10,
+//     -30,
+//     30,
+//     30,
+//     40,
+//     37,
+//     7,
+//     40,
+//     25,
+//     25,
+//     -4,
+//     -37,
+//     36,
+//     36,
+//     40,
+//     24,
+//     -1,
+//     -21,
+//     -1,
+//     -1,
+//     -21,
+//     11,
+//     40,
+//     -25,
+//     -25,
+//     18,
+//     -15,
+//     -10,
+//     -40,
+//     38,
+//     10,
+//     37,
+//     -30,
+//     -4,
+//     -4,
+//     -10,
+//     -40,
+//     -35,
+//     10
+//   ],
+//   type: 'bar'
+// };
+//
+// const graphic2 = {
+//   name: 'График суммарных помесячных показаний согласно приборам учета, кВтч',
+//   x: [
+//     1, 5, 6
+//   ],
+//   y: [
+//     7, 8, 11
+//   ],
+//   type: 'bar'
+// };
+//
+// const graphic3 = {
+//   name: 'График суммарных помесячных показаний от ПСК, кВтч',
+//   x: [
+//     1, 2, 6
+//   ],
+//   y: [
+//     7, 1.2, 11
+//   ],
+//   type: 'bar'
+// };
+//
+// const graphic4 = {
+//   name: 'Технические потери на балансовой группе, кВтч',
+//   x: [
+//     'Янв 1',
+//     'Янв 2',
+//     'Янв 3',
+//     'Янв 4',
+//     'Янв 5',
+//     'Янв 6',
+//     'Янв 7',
+//     'Янв 8',
+//     'Янв 9',
+//     'Янв 10',
+//     'Янв 11',
+//     'Янв 12',
+//     'Янв 13',
+//     'Янв 14',
+//     'Янв 15',
+//     'Янв 16',
+//     'Янв 17',
+//     'Янв 18',
+//     'Янв 19',
+//     'Янв 20'
+//   ],
+//   y: [
+//     1.6,
+//     0.7,
+//     0.1,
+//     6.7,
+//     3.5,
+//     3.5,
+//     3.8,
+//     1.3,
+//     6.4,
+//     0.8
+//   ],
+//   type: 'scatter'
+// };
+class FilterOptions extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+  }
 
-const graphic2 = {
-  name: 'График суммарных помесячных показаний согласно приборам учета, кВтч',
-  x: [
-    1, 5, 6
-  ],
-  y: [
-    7, 8, 11
-  ],
-  type: 'bar'
-};
+  state = {
+    value: "empty"
+  }
 
-const graphic3 = {
-  name: 'График суммарных помесячных показаний от ПСК, кВтч',
-  x: [
-    1, 2, 6
-  ],
-  y: [
-    7, 1.2, 11
-  ],
-  type: 'bar'
-};
+  handleFilterTextChange(e, value) {
+    if (value.props !== null && typeof value.props.balance_group_list !== 'undefined') {
+      if(typeof value.props === 'object'){
+        /*TODO actually show both currently shows the first from the list*/
+          this.props.onFilterTextChange(value.props.balance_group_list[0]);
+      }else{
+          this.props.onFilterTextChange(value.props.balance_group_list);
+      }
+    }else{
+      this.props.onFilterTextChange('');
+    }
+    this.setState({value: e.target.value});
+  }
 
-const graphic4 = {
-  name: 'Технические потери на балансовой группе, кВтч',
-  x: [
-    'Янв 1',
-    'Янв 2',
-    'Янв 3',
-    'Янв 4',
-    'Янв 5',
-    'Янв 6',
-    'Янв 7',
-    'Янв 8',
-    'Янв 9',
-    'Янв 10',
-    'Янв 11',
-    'Янв 12',
-    'Янв 13',
-    'Янв 14',
-    'Янв 15',
-    'Янв 16',
-    'Янв 17',
-    'Янв 18',
-    'Янв 19',
-    'Янв 20'
-  ],
-  y: [
-    1.6,
-    0.7,
-    0.1,
-    6.7,
-    3.5,
-    3.5,
-    3.8,
-    1.3,
-    6.4,
-    0.8
-  ],
-  type: 'scatter'
-};
+  render() {
+    return (<div>
+      <InputLabel id="demo-simple-select-placeholder-label-label">
+        {ts_select.label}
+      </InputLabel>
+      <Select value={this.state.value} onChange={this.handleFilterTextChange} style={{ width: 300}}>
+        <MenuItem value="empty">{ts_select.help_text}</MenuItem>
+        {ts_select.menu_items.map((item, index) => <MenuItem  balance_group_list={item.balance_group_list} key={item.id} value={item.id}>{item.name}</MenuItem>)}
+      </Select>
+    </div>);
+  }
+
+}
+
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+  }
+
+  handleFilterTextChange(e, value) {
+    if (value !== null) {
+      this.props.onFilterTextChange(value.balance_index);
+    }else{
+      this.props.onFilterTextChange('');
+    }
+  }
+
+  render() {
+    return (<div>
+      <FormControl>
+        <Autocomplete id="street_search"  options={address_search.menu_items} getOptionLabel={(option) => option.name} style={{
+            width: 300
+          }} onChange={this.handleFilterTextChange} renderInput={(params) => <TextField {...params} label={address_search.help_text} margin="normal" endAdornment={
+            <InputAdornment position="end">
+              <IconButton>
+                <SearchIcon style={{ color: "#4A9CFF" }} />
+              </IconButton>
+            </InputAdornment>
+          }/>}/>
+      </FormControl>
+
+    </div>);
+  }
+
+}
 
 
-export default function BalanceGroup() {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+class  BalanceGroup extends React.Component {
+  // const classes = useStyles();
+  // const [open, setOpen] = React.useState(true);
+  // const handleDrawerOpen = () => {
+  //   setOpen(true);
+  // };
+  // const handleDrawerClose = () => {
+  //   setOpen(false);
+  // };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+        sortItem:'',
+        filterText: ''
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+}
+
+handleChange(event) {
+  this.setState({sortItem: event.target.value});
+}
+
+handleFilterTextChange(filterText) {
+  this.setState({filterText: filterText});
+}
+
+
+  //
+  // const [sortItem, setSortItem] = React.useState('');
+  //
+  // const handleChange = (event) => {
+  //   setSortItem(event.target.value);
+  // };
+render(){
+
+  const {classes} =  this.props;
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-  const [sortItem, setSortItem] = React.useState('');
-
-  const handleChange = (event) => {
-    setSortItem(event.target.value);
-  };
-
   return (
     <div className={classes.root}>
       {/* <CssBaseline /> */}
@@ -477,12 +586,15 @@ export default function BalanceGroup() {
               <Typography className={classes.balanceText} variant="h2" gutterBottom>Балансовые группы</Typography>
               <Link href="#balance-table" className={classes.balanceLink}>Посмотреть таблицу всех балансовых групп</Link>
             </div>
-            <Grid container className={classes.selectContainer}>
+            <Grid container
+              // className={classes.selectContainer}
+              >
               <Grid item xs={12}>
                 <Paper className={classes.balanceGroupSelectors}>
                   <Grid item xs={12} sm={6}>
                     <FormControl className={clsx(classes.adressInput, classes.textField)}>
-                      <InputLabel htmlFor="standard-adornment-password">Найти адрес</InputLabel>
+                      <SearchBar filterText={this.state.filterText} onFilterTextChange={this.handleFilterTextChange}/>
+                      {/* <InputLabel htmlFor="standard-adornment-password">Найти адрес</InputLabel>
                       <Input
                         id="standard-adornment-password"
                         value=""
@@ -493,16 +605,19 @@ export default function BalanceGroup() {
                             </IconButton>
                           </InputAdornment>
                         }
-                      />
+                      /> */}
                     </FormControl>
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <Typography className={classes.selectTopText}>Трансформаторная подстанция</Typography>
-                    <Select options={options} placeholder='Выберете из списка' />
+                    {/* <Typography className={classes.selectTopText}>Трансформаторная подстанция</Typography>
+                    <Select options={options} placeholder='Выберете из списка' /> */}
+                    <FilterOptions filterText={this.state.filterText} onFilterTextChange={this.handleFilterTextChange}/>
+
                   </Grid>
                   <Grid item xs={6} sm={3} className={classes.balaceGroupType}>
-                    <Typography className={classes.selectTopText}>Тип балансовой группы</Typography>
-                    <Select options={options} placeholder='Выберете из списка' />
+
+                    {/* <Typography className={classes.selectTopText}>Тип балансовой группы</Typography>
+                    <Select options={options} placeholder='Выберете из списка' /> */}
                   </Grid>
                 </Paper>
               </Grid>
@@ -519,20 +634,22 @@ export default function BalanceGroup() {
                   <Typography variant="h1">
                     Балансовые группы
                     </Typography>
-                  <FilterGroup label={filter1.label} menu_items={filter1.menu_items} />
+                  {/* <FilterGroup label={filter1.label} menu_items={filter1.menu_items} />
                   <FilterGroup label={filter2.label} menu_items={filter2.menu_items} />
-                  <GraphicGroup name={graphic1.name} x_coordinates={graphic1.x} y_coordinates={graphic1.y} type={graphic1.type} />
+                  <GraphicGroup name={graphic1.name} x_coordinates={graphic1.x} y_coordinates={graphic1.y} type={graphic1.type} /> */}
+
                 </Paper>
               </Grid>
               <Grid item xs={12} >
                 <Paper className={classes.paper}>
-                  <GraphicGroup name={graphic2.name} x_coordinates={graphic2.x} y_coordinates={graphic2.y} type={graphic2.type} />
-                  <GraphicGroup name={graphic3.name} x_coordinates={graphic3.x} y_coordinates={graphic3.y} type={graphic3.type} />
+                  <GraphicGroup filterText={this.state.filterText} key={1}/>
+                  {/* <GraphicGroup name={graphic2.name} x_coordinates={graphic2.x} y_coordinates={graphic2.y} type={graphic2.type} /> */}
+                  {/* <GraphicGroup name={graphic3.name} x_coordinates={graphic3.x} y_coordinates={graphic3.y} type={graphic3.type} /> */}
                 </Paper>
               </Grid>
               <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                  <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type} />
+                  {/* <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type} /> */}
                 </Paper>
               </Grid>
             </Grid>
@@ -564,8 +681,8 @@ export default function BalanceGroup() {
                           <SelectMaterial
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={sortItem}
-                            onChange={handleChange}
+                            value={this.state.sortItem}
+                            onChange={this.handleChange}
                           >
                             <MenuItem value={10}>По номеру группы</MenuItem>
                           </SelectMaterial>
@@ -590,3 +707,17 @@ export default function BalanceGroup() {
     </div>
   );
 }
+
+}
+
+
+// function BalanceGroup(props) {
+//   const { classes } = props;
+//   return <Button className={classes.root}>Higher-order component</Button>;
+// }
+
+BalanceGroup.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(BalanceGroup);
