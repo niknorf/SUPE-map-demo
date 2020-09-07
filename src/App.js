@@ -1,7 +1,8 @@
 import React from "react";
 import "./styles.css";
 import BalanceGroup from "./components/BalanceGroup";
-import Profile from "./components/Profile";
+//import Profile from "./components/Profile";
+import Profile from "./components/ProfileNoAuth";
 import { Route, Switch } from "react-router-dom";
 import Drawer from "./components/Drawer";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
