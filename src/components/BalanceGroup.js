@@ -504,7 +504,6 @@ render(){
                 <Paper className={classes.paper}> */}
                   {/* <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type} /> */}
                 {/* </Paper>
-=======
                   <Typography >
                     Балансовые группы
                     coming soon
@@ -512,8 +511,8 @@ render(){
                   {/* <FilterGroup label={filter1.label} menu_items={filter1.menu_items} />
                   <FilterGroup label={filter2.label} menu_items={filter2.menu_items} />
                   <GraphicGroup name={graphic1.name} x_coordinates={graphic1.x} y_coordinates={graphic1.y} type={graphic1.type} /> */}
-                </Paper>
-              </Grid>
+                {/* </Paper>
+              </Grid> */}
               {/* <Grid item xs={12} > */}
                 {/* <Paper className={classes.paper}> */}
                   <GraphicGroup filterText={this.state.filterText} key={1} className={classes.paper}/>
@@ -525,7 +524,6 @@ render(){
                 <Paper className={classes.paper}>
                   <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type} />
                 </Paper>
->>>>>>> 0d2b5626df3f99d3a51a4b04010597c8e6481edc
               </Grid> */}
             </Grid>
 
