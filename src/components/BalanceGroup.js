@@ -484,7 +484,6 @@ render(){
               </Grid>
               <Grid item xs={12} md={6} lg={6}>
                 <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
-<<<<<<< HEAD
                   {/* <Typography variant="h1">
                     Балансовые группы
                     </Typography> */}
