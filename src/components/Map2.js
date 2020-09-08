@@ -21,21 +21,21 @@ export class GeneralMap extends React.Component {
       value: ''
     };
     this.showBuilding = this.showBuilding.bind(this);
-    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    // this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
   }
 
-  handleFilterTextChange(e, value) {
-    if (value.props !== null) {
-      // if(typeof value.props === 'object'){
-        /*TODO actually show both currently shows the first from the list*/
-          // this.props.onFilterTextChange(value.props.balance_group_list[0]);
-      // }else{
-          this.props.onFilterTextChange(value.props.balance_group_list);
-      // }
-    }else{
-      this.props.onFilterTextChange('');
-    }
-  }
+  // handleFilterTextChange(e, value) {
+  //   if (value.props !== null) {
+  //     // if(typeof value.props === 'object'){
+  //       /*TODO actually show both currently shows the first from the list*/
+  //         // this.props.onFilterTextChange(value.props.balance_group_list[0]);
+  //     // }else{
+  //         this.props.onFilterTextChange(value.props.balance_group_list);
+  //     // }
+  //   }else{
+  //     this.props.onFilterTextChange('');
+  //   }
+  // }
 
   showBuilding(e) {
     // var array = this.state.click_happened.map(l => Object.assign({}, l));
@@ -48,6 +48,9 @@ export class GeneralMap extends React.Component {
         array.splice(0, 0, item);
       }
     });
+
+    this.props.onFilterTextChange(e.layer.feature.properties.balance_index);
+
 
     // console.log(arr);
 

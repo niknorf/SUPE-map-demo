@@ -63,7 +63,8 @@ const pfdinRegular = {
 const ts_select = {
   label: 'Трансформаторная подстанция',
   help_text: 'Выберете из списка',
-  menu_items: ts_list.ts_list
+  menu_items: ts_list,
+  keys_list: Object.keys(ts_list)
 }
 const address_search = {
   label: '',
@@ -260,23 +261,6 @@ const styles = theme => ({
   }
 });
 
-const options = [
-  { value: '1', label: 'Option 1' },
-  { value: '2', label: 'Optoon 2' },
-  { value: '3', label: 'Option 3' }
-]
-
-
-const filter1 = {
-  label: 'Балансовая группа',
-  menu_items: [{ key: '1', value: '1' }, { key: '2', value: '2' }, { key: '3', value: '3' }],
-}
-
-const filter2 = {
-  label: 'Тип балансовой группы',
-  menu_items: [{ key: '1', value: '11' }, { key: '2', value: '22' }, { key: '3', value: '33' }],
-}
-
 class FilterOptions extends React.Component {
   constructor(props) {
     super(props);
@@ -301,6 +285,7 @@ class FilterOptions extends React.Component {
     this.setState({value: e.target.value});
   }
 
+
   render() {
     return (<div>
       <InputLabel id="demo-simple-select-placeholder-label-label">
@@ -308,7 +293,10 @@ class FilterOptions extends React.Component {
       </InputLabel>
       <Select value={this.state.value} onChange={this.handleFilterTextChange} style={{ width: 300}}>
         <MenuItem value="empty">{ts_select.help_text}</MenuItem>
-        {ts_select.menu_items.map((item, index) => <MenuItem  balance_group_list={item.balance_group_list} key={item.id} value={item.id}>{item.name}</MenuItem>)}
+        {
+          // ts_select.menu_items.forEach()
+        }
+        {ts_select.keys_list.map((item, index) => <MenuItem  balance_group_list={null} key={item} value={item}>{item}</MenuItem>)}
       </Select>
     </div>);
   }
@@ -479,7 +467,7 @@ render(){
             <Grid container spacing={3}>
               <Grid item xs={12} md={6} lg={6}>
                 <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
-                  <GeneralMap />
+                  <GeneralMap onFilterTextChange={this.handleFilterTextChange} />
                 </Paper>
               </Grid>
               <Grid item xs={12} md={6} lg={6}>
