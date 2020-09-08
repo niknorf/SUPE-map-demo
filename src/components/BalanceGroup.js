@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
-import { GeneralMap } from './Map';
+import { GeneralMap } from './Map2';
 import { GraphicGroup } from './Graphic';
 import { positions, typography } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
@@ -274,156 +274,6 @@ const filter2 = {
   menu_items: [{ key: '1', value: '11' }, { key: '2', value: '22' }, { key: '3', value: '33' }],
 }
 
-// const graphic1 = {
-//   name: 'График небалансов между показаниями ПСК и ПУ, в % от ПУ',
-//   x: [
-//     1,
-//     1.5,
-//     1.6,
-//     1.7,
-//     1.9,
-//     2.1,
-//     2.3,
-//     2.6,
-//     2.8,
-//     3.1,
-//     3.3,
-//     3.6,
-//     3.0,
-//     9.0,
-//     4.0,
-//     4.2,
-//     4.9,
-//     5.1,
-//     5.2,
-//     5.3,
-//     5.7,
-//     5.8,
-//     5.9,
-//     6.3,
-//     6.5,
-//     6.8,
-//     6.9,
-//     7.2,
-//     7.4,
-//     7.8,
-//     7.9,
-//     8.0,
-//     8.6,
-//     8.8,
-//     9.4,
-//     9.5,
-//     9.6,
-//     10,
-//     10.3,
-//     10.4,
-//     10.5
-//   ],
-//   y: [
-//     -30,
-//     -10,
-//     -30,
-//     30,
-//     30,
-//     40,
-//     37,
-//     7,
-//     40,
-//     25,
-//     25,
-//     -4,
-//     -37,
-//     36,
-//     36,
-//     40,
-//     24,
-//     -1,
-//     -21,
-//     -1,
-//     -1,
-//     -21,
-//     11,
-//     40,
-//     -25,
-//     -25,
-//     18,
-//     -15,
-//     -10,
-//     -40,
-//     38,
-//     10,
-//     37,
-//     -30,
-//     -4,
-//     -4,
-//     -10,
-//     -40,
-//     -35,
-//     10
-//   ],
-//   type: 'bar'
-// };
-//
-// const graphic2 = {
-//   name: 'График суммарных помесячных показаний согласно приборам учета, кВтч',
-//   x: [
-//     1, 5, 6
-//   ],
-//   y: [
-//     7, 8, 11
-//   ],
-//   type: 'bar'
-// };
-//
-// const graphic3 = {
-//   name: 'График суммарных помесячных показаний от ПСК, кВтч',
-//   x: [
-//     1, 2, 6
-//   ],
-//   y: [
-//     7, 1.2, 11
-//   ],
-//   type: 'bar'
-// };
-//
-// const graphic4 = {
-//   name: 'Технические потери на балансовой группе, кВтч',
-//   x: [
-//     'Янв 1',
-//     'Янв 2',
-//     'Янв 3',
-//     'Янв 4',
-//     'Янв 5',
-//     'Янв 6',
-//     'Янв 7',
-//     'Янв 8',
-//     'Янв 9',
-//     'Янв 10',
-//     'Янв 11',
-//     'Янв 12',
-//     'Янв 13',
-//     'Янв 14',
-//     'Янв 15',
-//     'Янв 16',
-//     'Янв 17',
-//     'Янв 18',
-//     'Янв 19',
-//     'Янв 20'
-//   ],
-//   y: [
-//     1.6,
-//     0.7,
-//     0.1,
-//     6.7,
-//     3.5,
-//     3.5,
-//     3.8,
-//     1.3,
-//     6.4,
-//     0.8
-//   ],
-//   type: 'scatter'
-// };
 class FilterOptions extends React.Component {
   constructor(props) {
     super(props);
@@ -631,27 +481,27 @@ render(){
               </Grid>
               <Grid item xs={12} md={6} lg={6}>
                 <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
-                  <Typography variant="h1">
+                  <Typography >
                     Балансовые группы
+                    coming soon
                     </Typography>
                   {/* <FilterGroup label={filter1.label} menu_items={filter1.menu_items} />
                   <FilterGroup label={filter2.label} menu_items={filter2.menu_items} />
                   <GraphicGroup name={graphic1.name} x_coordinates={graphic1.x} y_coordinates={graphic1.y} type={graphic1.type} /> */}
-
                 </Paper>
               </Grid>
-              <Grid item xs={12} >
-                <Paper className={classes.paper}>
-                  <GraphicGroup filterText={this.state.filterText} key={1}/>
+              {/* <Grid item xs={12} > */}
+                {/* <Paper className={classes.paper}> */}
+                  <GraphicGroup filterText={this.state.filterText} key={1} className={classes.paper}/>
                   {/* <GraphicGroup name={graphic2.name} x_coordinates={graphic2.x} y_coordinates={graphic2.y} type={graphic2.type} /> */}
                   {/* <GraphicGroup name={graphic3.name} x_coordinates={graphic3.x} y_coordinates={graphic3.y} type={graphic3.type} /> */}
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
+                {/* </Paper> */}
+              {/* </Grid> */}
+              {/* <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                  {/* <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type} /> */}
+                  <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type} />
                 </Paper>
-              </Grid>
+              </Grid> */}
             </Grid>
 
             <Grid container className={classes.tableContainer}>
