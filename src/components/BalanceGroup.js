@@ -504,26 +504,6 @@ render(){
                 <Paper className={classes.paper}> */}
                   {/* <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type} /> */}
                 {/* </Paper>
-                  <Typography >
-                    Балансовые группы
-                    coming soon
-                    </Typography>
-                  {/* <FilterGroup label={filter1.label} menu_items={filter1.menu_items} />
-                  <FilterGroup label={filter2.label} menu_items={filter2.menu_items} />
-                  <GraphicGroup name={graphic1.name} x_coordinates={graphic1.x} y_coordinates={graphic1.y} type={graphic1.type} /> */}
-                {/* </Paper>
-              </Grid> */}
-              {/* <Grid item xs={12} > */}
-                {/* <Paper className={classes.paper}> */}
-                  <GraphicGroup filterText={this.state.filterText} key={1} className={classes.paper}/>
-                  {/* <GraphicGroup name={graphic2.name} x_coordinates={graphic2.x} y_coordinates={graphic2.y} type={graphic2.type} /> */}
-                  {/* <GraphicGroup name={graphic3.name} x_coordinates={graphic3.x} y_coordinates={graphic3.y} type={graphic3.type} /> */}
-                {/* </Paper> */}
-              {/* </Grid> */}
-              {/* <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                  <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type} />
-                </Paper>
               </Grid> */}
             </Grid>
 
