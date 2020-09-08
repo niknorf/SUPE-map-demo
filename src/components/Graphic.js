@@ -1,10 +1,14 @@
 import React from 'react';
+import clsx from 'clsx';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import Plotly from "plotly.js"
 import createPlotlyComponent from 'react-plotly.js/factory';
 import differencePercent from '../data/graphic/transfer_percent.json'
 import indexes from '../data/graphic/indexes.json'
 import tech_losses from '../data/graphic/tech_losses.json'
 import full_res from '../data/graphic/full_res_imbalance.json'
+import '../css/graphic.css';
 const Plot = createPlotlyComponent(Plotly);
 
 const hole_size = .6;
@@ -47,6 +51,10 @@ const pie_markers = {
 const pie_title_font = {
   size: 12,
   color: '#818E9B'
+}
+const column_title_font = {
+  size: 12,
+  color: '#252F4A'
 }
 
 var imbalance_psk_pu = {
@@ -556,7 +564,7 @@ var difference_percent = {
   layout: {
     showlegend: false,
     hoverinfo: 'none',
-    width: 300,
+    width: 270,
     height: 300,
     title: {
       text: 'Процент несоответствия предиктивного <br>и фактического небалансов',
@@ -590,7 +598,7 @@ var person_trust_index = {
   layout: {
     showlegend: false,
     hoverinfo: 'none',
-    width: 300,
+    width: 270,
     height: 300,
     title: {
       text: 'Индекс доверия показаниям <br> физических лиц в ПСК',
@@ -624,7 +632,7 @@ var tech_loss_index = {
   layout: {
     showlegend: false,
     hoverinfo: 'none',
-    width: 300,
+    width: 270,
     height: 300,
     title: {
       text: 'Индекс технических потерь',
@@ -658,10 +666,10 @@ var house_trust_index = {
   layout: {
     showlegend: false,
     hoverinfo: 'none',
-    width: 300,
+    width: 270,
     height: 300,
     title: {
-      text: 'Индекс доверия показаниям общедомовых нужд в ПСК',
+      text: 'Индекс доверия показаниям <br>общедомовых нужд в ПСК',
       x: 0.5,
       xanchor: 'center',
       y: 0.2,
@@ -692,15 +700,15 @@ var compnay_trust_index = {
   layout: {
     showlegend: false,
     hoverinfo: 'none',
-    width: 300,
+    width: 270,
     height: 300,
     title: {
-      text: 'Индекс доверия показаниям юридических лиц в ПСК',
+      text: 'Индекс доверия показаниям<br> юридических лиц в ПСК',
       x: 0.5,
       xanchor: 'center',
       y: 0.2,
       yanchor: 'bottom',
-      font: pie_title_font
+      font: pie_title_font,
     },
     legend: pie_legend,
     annotations: pie_annotations
@@ -725,20 +733,29 @@ var compnay_trust_index = {
 /* Bar charts */
 var month_input = {
   layout: {
-    title: 'График суммарных помесчных показаний согласно приборам учета, кВтч'
+    width: 550,
+    title: {
+      text:'График суммарных помесчных показаний согласно приборам учета, кВтч',
+      font: column_title_font,
+    }
   },
   data: [
     {
       x: [],
       y: [],
-      type: 'bar'
+      marker: {color: '#00EBD3)'},
+      type: 'bar',
     }
   ]
 
 };
 var month_psk_out = {
   layout: {
-    title: 'График суммарных помесчных показаний от ПСК, кВтч'
+    width: 550,
+    title: {
+      text:'График суммарных помесчных показаний от ПСК, кВтч',
+      font: column_title_font,
+    }
   },
   data: [
     {
@@ -751,7 +768,10 @@ var month_psk_out = {
 };
 var balance_group_tech_loss = {
   layout: {
-    title: 'Технические потери на балансовой группе, кВтч'
+    title: {
+      text:'Технические потери на балансовой группе, кВтч',
+      font: column_title_font,
+    }
   },
   data: [
     {
@@ -764,7 +784,10 @@ var balance_group_tech_loss = {
 };
 var meter_avg = {
   layout: {
-    title: 'Передача показаний приборов технического учета, %'
+    title: {
+      text:'Передача показаний приборов технического учета, %',
+      font: column_title_font,
+    }
   },
   data: [
     {
@@ -802,7 +825,7 @@ function createDataArrayPie(rowData, balance_index, chart_data, key) {
 
 function createDataArrayBar(rawData, balance_index) {
 
-  rawData.map(function(item) {
+  rawData.map(function (item) {
     if (item.balance_id.toString() == balance_index.toString()) {
       month_input.data[0].x.push(item.date_month);
       month_input.data[0].y.push(item.input_month);
@@ -832,24 +855,52 @@ export class GraphicGroup extends React.Component {
       console.log(month_input.data);
     }
 
+    let paperGraph = 'paper-graph';
+    let secondBlock = 'second-block';
+    let firstGraph = 'first-graph';
+    let secondGraph = 'second-graph';
+    let thirdtGraph = 'third-graph';
+    let fourthGraph = 'fourth-graph';
+    let pieCharts = 'pie-charts';
+
     return (<div>
 
       {
         filterText !== ''
           ? [<div key='div2'>
 
-            <Plot data={imbalance_psk_pu.data} layout={imbalance_psk_pu.layout}/>
+            {/* <Plot data={imbalance_psk_pu.data} layout={imbalance_psk_pu.layout}/> */}
+            <Grid container spacing={3}>
+              <Grid item xs={6} md={12} lg={12}>
+                <Paper className={clsx(paperGraph, pieCharts)}>
+                <div className="test">
+                  <Plot data={difference_percent.data} layout={difference_percent.layout} config={difference_percent.config} />
+                  <Plot data={person_trust_index.data} layout={person_trust_index.layout} config={person_trust_index.config} />
+                  <Plot data={tech_loss_index.data} layout={tech_loss_index.layout} config={tech_loss_index.config} />
+                  <Plot data={house_trust_index.data} layout={house_trust_index.layout} config={house_trust_index.config} />
+                  <Plot data={compnay_trust_index.data} layout={compnay_trust_index.layout} config={compnay_trust_index.config} />
+                  </div>
+                </Paper>
+              </Grid>
+            </Grid>
 
-            <Plot data={difference_percent.data} layout={difference_percent.layout} config={difference_percent.config}/>
-            <Plot data={person_trust_index.data} layout={person_trust_index.layout} config={person_trust_index.config}/>
-            <Plot data={tech_loss_index.data} layout={tech_loss_index.layout} config={tech_loss_index.config}/>
-            <Plot data={house_trust_index.data} layout={house_trust_index.layout} config={house_trust_index.config}/>
-            <Plot data={compnay_trust_index.data} layout={compnay_trust_index.layout} config={compnay_trust_index.config}/>
+            <Grid container spacing={3}>
+              <Grid item xs={6} md={12} lg={12}>
+                <Paper className={clsx(paperGraph, secondBlock)}>
+                  <Plot data={month_input.data} layout={month_input.layout} className={firstGraph} />
+                  <Plot data={month_psk_out.data} layout={month_psk_out.layout} className={secondGraph} />
+                </Paper>
+              </Grid>
+            </Grid>
 
-            <Plot data={month_input.data} layout={month_input.layout}/>
-            <Plot data={month_psk_out.data} layout={month_psk_out.layout}/>
-            <Plot data={balance_group_tech_loss.data} layout={balance_group_tech_loss.layout}/>
-            <Plot data={meter_avg.data} layout={meter_avg.layout}/>
+            <Grid container spacing={3}>
+              <Grid item xs={6} md={12} lg={12}>
+                <Paper className={clsx(paperGraph, secondBlock)}>
+                  <Plot data={balance_group_tech_loss.data} layout={balance_group_tech_loss.layout} className={thirdtGraph} />
+                  <Plot data={meter_avg.data} layout={meter_avg.layout} className={fourthGraph} />
+                </Paper>
+              </Grid>
+            </Grid>
 
           </div>
             ]

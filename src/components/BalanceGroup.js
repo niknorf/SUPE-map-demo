@@ -44,6 +44,7 @@ import SelectMaterial from '@material-ui/core/Select';
 import BalanceTable from './BalanceTable';
 import street_list from '../data/street_list.json';
 import ts_list from '../data/ts_balance_list.json';
+import { ImbalancePskPu } from './charts/ImbalancePskPu';
 //import '../style.css';
 
 const drawerWidth = 100;
@@ -176,7 +177,8 @@ const styles = theme => ({
   container: {
     background: "#F5F6F8",
     paddingLeft: 40,
-    paddingRight: 40
+    paddingRight: 40,
+    maxWidth: '1292px',
   },
   drawerPaper: {
     background: "#252F4A",
@@ -206,7 +208,8 @@ const styles = theme => ({
     alignItems: "center",
     flexDirection: "row",
     padding: "24px",
-    boxShadow: "0px 6px 18px rgba(0, 0, 0, 0.06)"
+    boxShadow: "0px 6px 18px rgba(0, 0, 0, 0.06)",
+    marginBottom: "24px"
   },
   adressInput: {
     display: "flex",
@@ -481,6 +484,28 @@ render(){
               </Grid>
               <Grid item xs={12} md={6} lg={6}>
                 <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
+<<<<<<< HEAD
+                  {/* <Typography variant="h1">
+                    Балансовые группы
+                    </Typography> */}
+                  {/* <FilterGroup label={filter1.label} menu_items={filter1.menu_items} />
+                  <FilterGroup label={filter2.label} menu_items={filter2.menu_items} />
+                  <GraphicGroup name={graphic1.name} x_coordinates={graphic1.x} y_coordinates={graphic1.y} type={graphic1.type} /> */}
+                  <ImbalancePskPu filterText={this.state.filterText} key={1}/>
+                </Paper>
+              </Grid>
+              {/* <Grid item xs={12} >
+                <Paper className={classes.paper}> */}
+                  <GraphicGroup filterText={this.state.filterText} key={1}/>
+                  {/* <GraphicGroup name={graphic2.name} x_coordinates={graphic2.x} y_coordinates={graphic2.y} type={graphic2.type} /> */}
+                  {/* <GraphicGroup name={graphic3.name} x_coordinates={graphic3.x} y_coordinates={graphic3.y} type={graphic3.type} /> */}
+                {/* </Paper>
+              </Grid> */}
+              {/* <Grid item xs={12}>
+                <Paper className={classes.paper}> */}
+                  {/* <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type} /> */}
+                {/* </Paper>
+=======
                   <Typography >
                     Балансовые группы
                     coming soon
@@ -501,6 +526,7 @@ render(){
                 <Paper className={classes.paper}>
                   <GraphicGroup name={graphic4.name} x_coordinates={graphic4.x} y_coordinates={graphic4.y} type={graphic4.type} />
                 </Paper>
+>>>>>>> 0d2b5626df3f99d3a51a4b04010597c8e6481edc
               </Grid> */}
             </Grid>
 
