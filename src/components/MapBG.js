@@ -1,12 +1,10 @@
 import React from 'react';
 import {Map, TileLayer, Marker, Popup, GeoJSON} from 'react-leaflet';
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import '../map.css';
+import '../css/map.css';
 import 'react-leaflet-markercluster/dist/styles.min.css';
-import customData from '../data_map.json';
 import buildingsPolygon from '../building-polygon.json'
 import polygon_data from './polygon_data.json'
-// import update from 'react-addons-update'
 import L from 'leaflet';
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -24,23 +22,8 @@ export class GeneralMap extends React.Component {
     // this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
   }
 
-  // handleFilterTextChange(e, value) {
-  //   if (value.props !== null) {
-  //     // if(typeof value.props === 'object'){
-  //       /*TODO actually show both currently shows the first from the list*/
-  //         // this.props.onFilterTextChange(value.props.balance_group_list[0]);
-  //     // }else{
-  //         this.props.onFilterTextChange(value.props.balance_group_list);
-  //     // }
-  //   }else{
-  //     this.props.onFilterTextChange('');
-  //   }
-  // }
-
   showBuilding(e) {
-    // var array = this.state.click_happened.map(l => Object.assign({}, l));
-
-    let array = [];
+  let array = [];
 
     e.layer.options.data.features.map(function(item) {
       if (e.layer.feature.properties.balance_index === item.properties.balance_index) {
@@ -50,10 +33,6 @@ export class GeneralMap extends React.Component {
     });
 
     this.props.onFilterTextChange(e.layer.feature.properties.balance_index);
-
-
-    // console.log(arr);
-
     // array = this.state.click_happened.map(l => Object.assign({}, l))
 
     this.setState((prevState) => {
@@ -97,39 +76,3 @@ export class GeneralMap extends React.Component {
 }
 
 const position = [60.08, 30.33];
-
-function PlaceMarkers() {
-  var markers = [];
-
-  // data prossesing, adding markers
-  for (var i = 0; i < customData.length; i++) {
-    var obj = customData[i];
-    var title = obj.loss_probability;
-
-    var icon_url = 'red.png';
-
-    if (parseFloat(obj.loss_probability) <= 20) {
-      icon_url = 'green.png';
-    } else if (parseFloat(obj.loss_probability) >= 21 && parseFloat(obj.loss_probability) <= 70) {
-      icon_url = 'yellow.png';
-    }
-
-    const m_icon = new L.Icon({
-      iconUrl: require('../img/' + icon_url),
-      iconSize: [40, 40]
-    });
-
-    markers.push(<Marker position={[obj.lat, obj.lon]} key={i} icon={m_icon}></Marker>);
-
-  }
-
-  return (markers)
-}
-
-// function GeoJsonLayer() {
-//
-//
-//
-//    console.log(buildingsPolygon);
-//   return ;
-// }

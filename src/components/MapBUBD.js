@@ -1,7 +1,7 @@
 import React from 'react';
 import {Map, TileLayer, Marker, Popup, GeoJSON} from 'react-leaflet';
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import '../map.css';
+import '../css/map.css';
 import 'react-leaflet-markercluster/dist/styles.min.css';
 import customData from '../data_map.json';
 import buildingsPolygon from '../building-polygon.json'

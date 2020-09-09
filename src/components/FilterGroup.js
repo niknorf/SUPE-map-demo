@@ -16,12 +16,6 @@ const address_search = {
   menu_items: street_list.street_list,
 }
 
-// const ts_dropdown = {
-//   label: 'Трансформаторная подстанция',
-//   help_text: 'Выберете из списка',
-//   // menu_items:
-// }
-
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -61,7 +55,7 @@ export default function SimpleSelect(props) {
 
       </Select> */}
     </FormControl>
-      
+
   </div>
 );
 }
