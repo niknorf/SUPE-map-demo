@@ -7,7 +7,8 @@ const Plot = createPlotlyComponent(Plotly);
 var imbalance_psk_pu = {
   layout: {
     hoverinfo: 'none',
-    title: 'График небалансов между показаниями ПСК и ПУ, в % от ПУ'
+    title: 'График небалансов между показаниями ПСК и ПУ, в % от ПУ',
+    width: 550
   },
   data: [
     {
@@ -40,7 +41,10 @@ var imbalance_psk_pu = {
         -18487.81
       ],
       name: '2017',
-      type: 'bar'
+      type: 'bar',
+      marker: {
+        color: '#4A9CFF',
+      }
     }, {
       x: [
         "May",
@@ -87,7 +91,10 @@ var imbalance_psk_pu = {
         -23654.08
       ],
       name: '2018',
-      type: 'bar'
+      type: 'bar',
+      marker: {
+        color: '#00CAFF',
+      }
     }, {
       x: [
         "Jul",
@@ -212,7 +219,10 @@ var imbalance_psk_pu = {
         95313.85
       ],
       name: '2019',
-      type: 'bar'
+      type: 'bar',
+      marker: {
+        color: '#00EBD3',
+      }
     }, {
       x: [
         "Feb",
@@ -484,7 +494,10 @@ var imbalance_psk_pu = {
       ],
       name: '2020',
       type: 'bar',
-      textinfo: 'none'
+      textinfo: 'none',
+      marker: {
+        color: '#A9FF94',
+      }
     }
 
   ]
