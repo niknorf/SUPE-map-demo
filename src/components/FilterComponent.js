@@ -75,7 +75,7 @@ const SearchComponent = () => {
     globalDispach({
       type: "FILTERCOMPONENT",
       bi_value: value === null ? "" : value.kgisId,
-      isPhantomic: value.isPhantomic,
+      isPhantomic: value === null? '': value.isPhantomic,
     });
   };
 
@@ -89,6 +89,8 @@ const SearchComponent = () => {
     temp_obj.isPhantomic = obj.properties.isPhantomic;
     street_array.push(temp_obj);
   });
+
+  // console.log(street_array);
 
   return (
     <FormControl>
