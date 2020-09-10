@@ -1,4 +1,4 @@
-import React , {globalState, useContext} from 'react';
+import React, { globalState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -73,18 +73,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimplePaper() {
-  const { state, globalState } = useContext(Contex);
+  const { state, globalState, globalDispach } = useContext(Contex);
   const classes = useStyles();
 
+
   console.log(globalState);
+
+  const handleClose = () => {
+    globalDispach({ isOpenSidebar: false });
+  };
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper} elevation={0}>
         <Box className={classes.close}>
-        <IconButton aria-label="delete">
-        <CloseIcon />
-      </IconButton>
+          <IconButton onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
         </Box>
         <Typography className={classes.address}>
           Фёдора Абрамова, 19 к1
