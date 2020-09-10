@@ -6,6 +6,7 @@ const reducer = (state, action) => {
 		case "FILTERCOMPONENT":
 			return {
 				bi_value: action.bi_value,
+				isPhantomic: action.isPhantomic
 			};
 			break;
       default: {
@@ -16,7 +17,8 @@ const reducer = (state, action) => {
 
 const useGlobalState = () => {
 	const [globalState, globalDispach] = useReducer(reducer, {
-		bi_value: ''
+		bi_value: '',
+		isPhantomic: false
 	});
 
 	return { globalState, globalDispach };

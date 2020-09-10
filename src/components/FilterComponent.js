@@ -75,6 +75,7 @@ const SearchComponent = () => {
     globalDispach({
       type: "FILTERCOMPONENT",
       bi_value: value === null ? "" : value.kgisId,
+      isPhantomic: value.isPhantomic,
     });
   };
 

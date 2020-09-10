@@ -17,7 +17,13 @@ const GeneralMap = () => {
 
   const position = [59.82655905019564, 30.29526169108005];
 
-  console.log(globalState);
+  if(globalState.isPhantomic){
+    console.log(globalState);
+
+  }
+
+
+
 
   // constructor(props) {
   //   super(props);
