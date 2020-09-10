@@ -74,6 +74,7 @@ const GeneralMap = () => {
   };
 
   const handleClick = (event) =>{
+    
       globalDispach({
         type: "FILTERCOMPONENT",
         bi_value: event.sourceTarget.feature.properties.kgisId,

@@ -23,10 +23,9 @@ import {
 import React, { useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import SelectMaterial from "@material-ui/core/Select";
-
 import PropTypes from "prop-types";
 import clsx from "clsx";
-
+import {GraphicGroup} from './Graphic'
 import { InfoSection } from "./InfoSectionBG";
 import { SelectComponent, SearchComponent } from "./FilterComponent";
 import BalanceTable from "./BalanceTable";
@@ -226,6 +225,10 @@ const BalanceGroup = () => {
                   </Paper>
                 </Grid>
               </Grid>
+
+              {/* GRAPHIC SECTION */}
+              <GraphicGroup />
+
 
               <Grid container className={classes.tableContainer}>
                 <Grid item xs={12}>

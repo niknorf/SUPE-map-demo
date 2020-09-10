@@ -67,13 +67,12 @@ const ShowDataState = () => {
 
 const InfoSection = () => {
   const { state, globalState } = useContext(Contex);
-
   return (
     <Container>
       {(() => {
         if (!globalState.bi_value) {
           return <InitialState />;
-        } else if (globalState.bi_value === 5) {
+        } else if (globalState.isPhantomic) {
           return <WarningState />;
         } else {
           return <ShowDataState />;
