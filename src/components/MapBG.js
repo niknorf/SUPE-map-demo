@@ -13,7 +13,7 @@ delete L.Icon.Default.prototype._getIconUrl;
 
 const GetBalanceGroup = (kgisId) => {
 
-  if(kgisId !== ''){
+  if(kgisId !== '' && typeof kgisId !== 'undefined'){
     var key =  kgis_upe.find((element)=> { return element.kgis_id === kgisId});
 
     console.log(key.upe_id);
@@ -45,11 +45,13 @@ const NonePhantomicBuilding = (kgisId) => {
   return(null);
 }
 
+const DisplayByBalanceGroup = (bg_index_array) =>{
+
+}
+
 const GeneralMap = () => {
   const { state, globalState } = useContext(Contex);
   const { globalDispach } = useContext(Contex);
-
-
 
   const position = [60.043048244264, 30.329257784423913];
 
@@ -74,7 +76,7 @@ const GeneralMap = () => {
   };
 
   const handleClick = (event) =>{
-    
+
       globalDispach({
         type: "FILTERCOMPONENT",
         bi_value: event.sourceTarget.feature.properties.kgisId,

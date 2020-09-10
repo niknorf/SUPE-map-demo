@@ -27,7 +27,7 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import {GraphicGroup} from './Graphic'
 import { InfoSection } from "./InfoSectionBG";
-import { SelectComponent, SearchComponent } from "./FilterComponent";
+import { SelectComponent, SearchComponent, TsSearchComponent } from "./FilterComponent";
 import BalanceTable from "./BalanceTable";
 import GeneralMap from "./MapBG";
 import GlobalStateProvider from "../store/GlobalStateProvider";
@@ -195,7 +195,7 @@ const BalanceGroup = () => {
                     </Grid>
                     {/* SELECT COMPONENT */}
                     <Grid item xs={6} sm={3}>
-                      <SelectComponent />
+                      <TsSearchComponent />
                     </Grid>
                     <Grid
                       item

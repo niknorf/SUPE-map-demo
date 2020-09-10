@@ -11,6 +11,7 @@ import React, { useContext, useState } from "react";
 import Contex from "../store/context";
 import ts_list from "../data/ts_balance_list.json";
 import building_polygons from "../building_polygon.json";
+import ts_balance_dict from "../data/ts_balance_dict.json";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -67,6 +68,42 @@ const SelectComponent = () => {
   );
 };
 
+const TsSearchComponent = () => {
+  const classes = useStyles();
+  const { globalDispach } = useContext(Contex);
+
+  const handleChange = (event, value) => {
+    console.log(value);
+    globalDispach({
+      type: "FILTERCOMPONENT",
+      bg_index_value: value === null ? "" : value.bg_index,
+    });
+  };
+
+  var ts_search = [];
+  for (const key of Object.keys(ts_balance_dict)) {
+    var obj = {};
+      obj.ts_name = key;
+      obj.bg_index = ts_balance_dict[key];
+      ts_search.push(obj)
+  }
+
+  return (
+    <FormControl>
+      <Autocomplete
+        id="ts_search"
+        options={ts_search}
+        getOptionLabel={(option) => option.ts_name}
+        style={{ width: 300 }}
+        onChange={handleChange}
+        renderInput={(params) => (
+          <TextField {...params} label="Выберете из списка " margin="normal" />
+        )}
+      />
+    </FormControl>
+  );
+};
+
 const SearchComponent = () => {
   const classes = useStyles();
   const { globalDispach } = useContext(Contex);
@@ -75,7 +112,7 @@ const SearchComponent = () => {
     globalDispach({
       type: "FILTERCOMPONENT",
       bi_value: value === null ? "" : value.kgisId,
-      isPhantomic: value === null? '': value.isPhantomic,
+      isPhantomic: value === null ? "" : value.isPhantomic,
     });
   };
 
@@ -108,4 +145,4 @@ const SearchComponent = () => {
   );
 };
 
-export { SelectComponent, SearchComponent };
+export { SelectComponent, SearchComponent, TsSearchComponent };
