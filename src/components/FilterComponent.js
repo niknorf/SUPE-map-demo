@@ -9,10 +9,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useState } from "react";
 import Contex from "../store/context";
-import address_search from "../data/street_list";
 import ts_list from "../data/ts_balance_list.json";
-import address_list from '../building_polygon.json'
-
+import building_polygons from "../building_polygon.json";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -38,8 +36,6 @@ const SelectComponent = () => {
     setTp(event.target.value);
     globalDispach({ type: "FILTERCOMPONENT", bi_value: value.props.myvalue });
   };
-
-  // setTp(globalState.toClean);
 
   return (
     <FormControl className={classes.formControl}>
@@ -78,35 +74,26 @@ const SearchComponent = () => {
   const handleChange = (event, value) => {
     globalDispach({
       type: "FILTERCOMPONENT",
-      bi_value: value === null ? "" : value.balance_index,
+      bi_value: value === null ? "" : value.kgisId,
     });
   };
 
-// console.log(Object.entries(address_list));
-var street_array = []
+  //Create array of the steet from the building_polygon file
+  var street_array = [];
 
-// let format = address_list.map((obj) =>{
-//   let obj_push = {}
-//   // obj_push.name = obj.parametre
-//   console.log(obj.propperties);
-//   return obj_push;
-// });
-//
-// console.log(street_array);
-// const allowed = ['name', 'kgisId', 'isPhantomic']
-//   let addres = Object.keys(address_list.properties).filter(key=>allowed.includes(key)).reduce((obj, key)=>{
-//     obj[key] = address_list.propertiesp[key];
-//     return obj;
-//   },{});
-//
-//   console.log(addres);
-
+  building_polygons.map((obj) => {
+    let temp_obj = {};
+    temp_obj.name = obj.properties.name;
+    temp_obj.kgisId = obj.properties.kgisId;
+    temp_obj.isPhantomic = obj.properties.isPhantomic;
+    street_array.push(temp_obj);
+  });
 
   return (
     <FormControl>
       <Autocomplete
         id="street_search"
-        options={address_search.street_list}
+        options={street_array}
         getOptionLabel={(option) => option.name}
         style={{ width: 300 }}
         onChange={handleChange}
