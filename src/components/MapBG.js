@@ -87,7 +87,7 @@ const GeneralMap = () => {
     return (
       <Map className="markercluster-map" center={position} zoom={7} style={mapStyle}>
         <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
-        <GeoJSON key={'building_polygons'} data={buildingsPolygon} />
+        {/* <GeoJSON key={'building_polygons'} data={buildingsPolygon} /> */}
 
       </Map>
     );

@@ -1,25 +1,24 @@
-import  { useReducer} from 'react';
+import { useReducer } from 'react';
 
 const reducer = (state, action) => {
 
-  switch(action.type){
-    case "FILTERCOMPONENT":
-console.log(action.data);
-    return {
-      notTp: action.data
-    };
-    break;
-    default: {
-      return state;
-    }
-  }
+	switch (action.type) {
+		case "FILTERCOMPONENT":
+			return {
+				bi_value: action.bi_value,
+			};
+			break;
+      default: {
+			return state;
+		}
+	}
 };
 
 const useGlobalState = () => {
-  const [globalState, globalDispach] = useReducer(reducer, {
-    notTp: ''
-  });
+	const [globalState, globalDispach] = useReducer(reducer, {
+		bi_value: ''
+	});
 
-  return {globalState, globalDispach};
+	return { globalState, globalDispach };
 }
 export default useGlobalState;
