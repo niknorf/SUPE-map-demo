@@ -3,7 +3,7 @@ import {Map, TileLayer, Marker, Popup, GeoJSON} from 'react-leaflet';
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import '../css/map.css';
 import 'react-leaflet-markercluster/dist/styles.min.css';
-import buildingsPolygon from '../building-polygon.json'
+import buildingsPolygon from '../building_polygon.json'
 import polygon_data from './polygon_data.json'
 import Contex from '../store/context';
 import L from 'leaflet';
@@ -15,7 +15,7 @@ const GeneralMap = () => {
 
   const {state, globalState} = useContext(Contex);
 
-  const position = [30.29526169108005, 59.82655905019564  ];
+  const position = [59.82655905019564, 30.29526169108005];
 
   console.log(globalState);
 
@@ -58,7 +58,7 @@ const GeneralMap = () => {
       color: '#252F4A', //Outline color
       fillOpacity: 0.7
     };
-    
+
     const style_main = {
       fillColor: 'rgba(74, 156, 255, 0.25)',
       weight: 1,
@@ -87,7 +87,7 @@ const GeneralMap = () => {
     return (
       <Map className="markercluster-map" center={position} zoom={7} style={mapStyle}>
         <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
-        {/* <GeoJSON key={'building_polygons'} data={buildingsPolygon} /> */}
+        <GeoJSON key={'building_polygons'} data={buildingsPolygon} />
 
       </Map>
     );

@@ -11,6 +11,7 @@ import React, { useContext, useState } from "react";
 import Contex from "../store/context";
 import address_search from "../data/street_list";
 import ts_list from "../data/ts_balance_list.json";
+import address_list from '../building_polygon.json'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -80,6 +81,26 @@ const SearchComponent = () => {
       bi_value: value === null ? "" : value.balance_index,
     });
   };
+
+// console.log(Object.entries(address_list));
+var street_array = []
+
+// let format = address_list.map((obj) =>{
+//   let obj_push = {}
+//   // obj_push.name = obj.parametre
+//   console.log(obj.propperties);
+//   return obj_push;
+// });
+//
+// console.log(street_array);
+// const allowed = ['name', 'kgisId', 'isPhantomic']
+//   let addres = Object.keys(address_list.properties).filter(key=>allowed.includes(key)).reduce((obj, key)=>{
+//     obj[key] = address_list.propertiesp[key];
+//     return obj;
+//   },{});
+//
+//   console.log(addres);
+
 
   return (
     <FormControl>
