@@ -15,11 +15,11 @@
     "importance_PSK_ur_face": 27,
     "importance_PSK_ODN": 47,
     "holidays": 83,
-    "SPARK": 72,
+    "spark": 72,
     "imbalance": 96,
     "data_PSK": 12,
     "percent_transmission_PU": 51,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1283308,
@@ -37,11 +37,11 @@
     "importance_PSK_ur_face": 80,
     "importance_PSK_ODN": 86,
     "holidays": 21,
-    "SPARK": 46,
+    "spark": 46,
     "imbalance": 48,
     "data_PSK": 49,
     "percent_transmission_PU": 24,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1283710,
@@ -59,11 +59,11 @@
     "importance_PSK_ur_face": 73,
     "importance_PSK_ODN": 18,
     "holidays": 59,
-    "SPARK": 68,
+    "spark": 68,
     "imbalance": 56,
     "data_PSK": 18,
     "percent_transmission_PU": 28,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1288208,
@@ -81,11 +81,11 @@
     "importance_PSK_ur_face": 78,
     "importance_PSK_ODN": 36,
     "holidays": 76,
-    "SPARK": 92,
+    "spark": 92,
     "imbalance": 88,
     "data_PSK": 98,
     "percent_transmission_PU": 20,
-    "TP": "ТП-211"
+    "tp": "ТП-211"
   },
   {
     "object_id": 1282342,
@@ -103,11 +103,11 @@
     "importance_PSK_ur_face": 98,
     "importance_PSK_ODN": 14,
     "holidays": 95,
-    "SPARK": 34,
+    "spark": 34,
     "imbalance": 44,
     "data_PSK": 90,
     "percent_transmission_PU": 28,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1287355,
@@ -125,11 +125,11 @@
     "importance_PSK_ur_face": 83,
     "importance_PSK_ODN": 30,
     "holidays": 86,
-    "SPARK": 38,
+    "spark": 38,
     "imbalance": 47,
     "data_PSK": 69,
     "percent_transmission_PU": 88,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1285064,
@@ -147,11 +147,11 @@
     "importance_PSK_ur_face": 90,
     "importance_PSK_ODN": 73,
     "holidays": 59,
-    "SPARK": 33,
+    "spark": 33,
     "imbalance": 32,
     "data_PSK": 72,
     "percent_transmission_PU": 84,
-    "TP": "ТП-211"
+    "tp": "ТП-211"
   },
   {
     "object_id": 1283788,
@@ -169,11 +169,11 @@
     "importance_PSK_ur_face": 57,
     "importance_PSK_ODN": 76,
     "holidays": 16,
-    "SPARK": 60,
+    "spark": 60,
     "imbalance": 32,
     "data_PSK": 41,
     "percent_transmission_PU": 48,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1282212,
@@ -191,11 +191,11 @@
     "importance_PSK_ur_face": 64,
     "importance_PSK_ODN": 40,
     "holidays": 38,
-    "SPARK": 72,
+    "spark": 72,
     "imbalance": 25,
     "data_PSK": 22,
     "percent_transmission_PU": 37,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1284221,
@@ -213,11 +213,11 @@
     "importance_PSK_ur_face": 58,
     "importance_PSK_ODN": 94,
     "holidays": 84,
-    "SPARK": 89,
+    "spark": 89,
     "imbalance": 93,
     "data_PSK": 96,
     "percent_transmission_PU": 36,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1288479,
@@ -235,11 +235,11 @@
     "importance_PSK_ur_face": 90,
     "importance_PSK_ODN": 29,
     "holidays": 63,
-    "SPARK": 40,
+    "spark": 40,
     "imbalance": 78,
     "data_PSK": 42,
     "percent_transmission_PU": 33,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1282548,
@@ -257,11 +257,11 @@
     "importance_PSK_ur_face": 86,
     "importance_PSK_ODN": 77,
     "holidays": 21,
-    "SPARK": 70,
+    "spark": 70,
     "imbalance": 61,
     "data_PSK": 68,
     "percent_transmission_PU": 6,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1285535,
@@ -279,11 +279,11 @@
     "importance_PSK_ur_face": 31,
     "importance_PSK_ODN": 91,
     "holidays": 97,
-    "SPARK": 34,
+    "spark": 34,
     "imbalance": 29,
     "data_PSK": 18,
     "percent_transmission_PU": 63,
-    "TP": "ТП-211"
+    "tp": "ТП-211"
   },
   {
     "object_id": 1282683,
@@ -301,11 +301,11 @@
     "importance_PSK_ur_face": 63,
     "importance_PSK_ODN": 32,
     "holidays": 58,
-    "SPARK": 63,
+    "spark": 63,
     "imbalance": 55,
     "data_PSK": 56,
     "percent_transmission_PU": 16,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1282196,
@@ -323,11 +323,11 @@
     "importance_PSK_ur_face": 95,
     "importance_PSK_ODN": 85,
     "holidays": 97,
-    "SPARK": 74,
+    "spark": 74,
     "imbalance": 27,
     "data_PSK": 75,
     "percent_transmission_PU": 77,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1283418,
@@ -345,11 +345,11 @@
     "importance_PSK_ur_face": 35,
     "importance_PSK_ODN": 34,
     "holidays": 38,
-    "SPARK": 49,
+    "spark": 49,
     "imbalance": 43,
     "data_PSK": 54,
     "percent_transmission_PU": 49,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1283833,
@@ -367,11 +367,11 @@
     "importance_PSK_ur_face": 40,
     "importance_PSK_ODN": 23,
     "holidays": 94,
-    "SPARK": 59,
+    "spark": 59,
     "imbalance": 37,
     "data_PSK": 97,
     "percent_transmission_PU": 52,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1283729,
@@ -389,11 +389,11 @@
     "importance_PSK_ur_face": 63,
     "importance_PSK_ODN": 31,
     "holidays": 94,
-    "SPARK": 34,
+    "spark": 34,
     "imbalance": 46,
     "data_PSK": 38,
     "percent_transmission_PU": 45,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1283974,
@@ -411,11 +411,11 @@
     "importance_PSK_ur_face": 28,
     "importance_PSK_ODN": 94,
     "holidays": 78,
-    "SPARK": 48,
+    "spark": 48,
     "imbalance": 80,
     "data_PSK": 41,
     "percent_transmission_PU": 98,
-    "TP": "ТП-211"
+    "tp": "ТП-211"
   },
   {
     "object_id": 1282195,
@@ -433,11 +433,11 @@
     "importance_PSK_ur_face": 63,
     "importance_PSK_ODN": 86,
     "holidays": 82,
-    "SPARK": 81,
+    "spark": 81,
     "imbalance": 23,
     "data_PSK": 29,
     "percent_transmission_PU": 31,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1282327,
@@ -455,11 +455,11 @@
     "importance_PSK_ur_face": 59,
     "importance_PSK_ODN": 21,
     "holidays": 21,
-    "SPARK": 28,
+    "spark": 28,
     "imbalance": 17,
     "data_PSK": 74,
     "percent_transmission_PU": 12,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1282199,
@@ -477,11 +477,11 @@
     "importance_PSK_ur_face": 72,
     "importance_PSK_ODN": 47,
     "holidays": 42,
-    "SPARK": 99,
+    "spark": 99,
     "imbalance": 60,
     "data_PSK": 59,
     "percent_transmission_PU": 73,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1282063,
@@ -499,11 +499,11 @@
     "importance_PSK_ur_face": 13,
     "importance_PSK_ODN": 30,
     "holidays": 88,
-    "SPARK": 69,
+    "spark": 69,
     "imbalance": 26,
     "data_PSK": 18,
     "percent_transmission_PU": 3,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1282378,
@@ -521,11 +521,11 @@
     "importance_PSK_ur_face": 94,
     "importance_PSK_ODN": 52,
     "holidays": 30,
-    "SPARK": 52,
+    "spark": 52,
     "imbalance": 80,
     "data_PSK": 84,
     "percent_transmission_PU": 27,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1283487,
@@ -543,11 +543,11 @@
     "importance_PSK_ur_face": 60,
     "importance_PSK_ODN": 78,
     "holidays": 13,
-    "SPARK": 52,
+    "spark": 52,
     "imbalance": 46,
     "data_PSK": 36,
     "percent_transmission_PU": 8,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1283401,
@@ -565,11 +565,11 @@
     "importance_PSK_ur_face": 48,
     "importance_PSK_ODN": 72,
     "holidays": 24,
-    "SPARK": 68,
+    "spark": 68,
     "imbalance": 75,
     "data_PSK": 86,
     "percent_transmission_PU": 86,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1282197,
@@ -587,11 +587,11 @@
     "importance_PSK_ur_face": 45,
     "importance_PSK_ODN": 57,
     "holidays": 27,
-    "SPARK": 84,
+    "spark": 84,
     "imbalance": 69,
     "data_PSK": 65,
     "percent_transmission_PU": 96,
-    "TP": "ТП-211"
+    "tp": "ТП-211"
   },
   {
     "object_id": 1288480,
@@ -609,11 +609,11 @@
     "importance_PSK_ur_face": 30,
     "importance_PSK_ODN": 39,
     "holidays": 80,
-    "SPARK": 58,
+    "spark": 58,
     "imbalance": 69,
     "data_PSK": 84,
     "percent_transmission_PU": 6,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1282198,
@@ -631,11 +631,11 @@
     "importance_PSK_ur_face": 83,
     "importance_PSK_ODN": 26,
     "holidays": 95,
-    "SPARK": 69,
+    "spark": 69,
     "imbalance": 17,
     "data_PSK": 77,
     "percent_transmission_PU": 46,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   },
   {
     "object_id": 1283813,
@@ -653,11 +653,11 @@
     "importance_PSK_ur_face": 13,
     "importance_PSK_ODN": 21,
     "holidays": 59,
-    "SPARK": 54,
+    "spark": 54,
     "imbalance": 30,
     "data_PSK": 18,
     "percent_transmission_PU": 29,
-    "TP": "РТП-8942"
+    "tp": "РТП-8942"
   },
   {
     "object_id": 1283266,
@@ -675,10 +675,10 @@
     "importance_PSK_ur_face": 52,
     "importance_PSK_ODN": 26,
     "holidays": 12,
-    "SPARK": 18,
+    "spark": 18,
     "imbalance": 25,
     "data_PSK": 48,
     "percent_transmission_PU": 45,
-    "TP": "БКТП-9505"
+    "tp": "БКТП-9505"
   }
 ]

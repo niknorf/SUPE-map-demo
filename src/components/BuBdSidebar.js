@@ -9,6 +9,8 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import Contex from "../store/context";
 import clsx from 'clsx';
+import Popup from 'reactjs-popup';
+import '../css/popup.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,8 +82,87 @@ export default function SimplePaper() {
   console.log(globalState);
 
   const handleClose = () => {
-    globalDispach({ isOpenSidebar: false });
+    globalDispach({ type: "BUBD", isOpenSidebar: false });
   };
+
+  var description;
+  var percent;
+
+  if (globalState.markerValue.percent_probability_BU > globalState.markerValue.percent_probability_BD) {
+    description = 'Вероятность безучетного потребления (%): '
+    percent = globalState.markerValue.percent_probability_BU;
+  } else {
+    description = 'Вероятность бездоговорного потребления (%): '
+    percent = globalState.markerValue.percent_probability_BD;
+  }
+
+  const Modal = () => (
+    <Popup
+      trigger={<Button className={classes.justificationButton}
+        startIcon={<InfoOutlinedIcon style={{ color: '#4A9CFF' }} />}
+      >
+        Обоснование
+  </Button>}
+      modal
+      nested
+    >
+      {close => (
+        <div className="modal">
+          <button className="close" onClick={close}>
+            &times;
+        </button>
+          <div className="content">
+            <span className="title">Обоснование</span>
+            <div className="info">
+
+              <table>
+                <tr>
+                  <th align="left">Входные данные</th>
+                  <th align="left">Значимость</th>
+                </tr>
+                <tr>
+                  <td>Индекс доверия ПСК (физ.лица)</td>
+                  <td>{globalState.markerValue.importance_PSK_fiz_face}%</td>
+                </tr>
+                <tr>
+                  <td>Индекс доверия ПСК (юр.лица)</td>
+                  <td>{globalState.markerValue.importance_PSK_ur_face}%</td>
+                </tr>
+                <tr>
+                  <td>Индекс доверия ПСК (ОДН)</td>
+                  <td>{globalState.markerValue.importance_PSK_ODN}%</td>
+                </tr>
+                <tr>
+                  <td>Процент передачи показаний приборов технического учета</td>
+                  <td>{globalState.markerValue.percent_transmission_PU}%</td>
+                </tr>
+                <tr>
+                  <td>Сезонность</td>
+                  <td>none</td>
+                </tr>
+                <tr>
+                  <td>Производственный календарь</td>
+                  <td>{globalState.markerValue.holidays}%</td>
+                </tr>
+                <tr>
+                  <td>Профиль ПСК (показания за месяц)</td>
+                  <td>{globalState.markerValue.data_PSK}%</td>
+                </tr>
+                <tr>
+                  <td>Небаланс в балансовой группе</td>
+                  <td>{globalState.markerValue.imbalance}%</td>
+                </tr>
+                <tr>
+                  <td>данные SPARK</td>
+                  <td>{globalState.markerValue.spark}%</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+    </Popup>
+  );
 
   return (
     <div className={classes.root}>
@@ -92,28 +173,27 @@ export default function SimplePaper() {
           </IconButton>
         </Box>
         <Typography className={classes.address}>
-          Фёдора Абрамова, 19 к1
+          {globalState.markerValue.address}
         </Typography>
         <Box className={classes.probability}>
           <Typography className={classes.probabilityText}>
-            Вероятность бездоговорного потребления (%): &nbsp;
+            {description}
           </Typography>
           <Typography className={classes.probabilityPercent}>
-            27,6
+            {percent}
           </Typography>
         </Box>
-        <Button className={classes.justificationButton}
-          startIcon={<InfoOutlinedIcon style={{ color: '#4A9CFF' }} />}
-        >
-          Обоснование
-        </Button>
+
+        <Modal />
+
         <Box>
           <Box className={classes.infoItem}>
             <Typography className={classes.property}>
               Период прогнозирования: &nbsp;
             </Typography>
             <Typography className={classes.value}>
-              авг.20
+              {/* авг.20 */}
+              {globalState.markerValue.date_month}.{globalState.markerValue.date_year}
             </Typography>
           </Box>
           <Box className={classes.infoItem}>
@@ -129,7 +209,7 @@ export default function SimplePaper() {
               ТП: &nbsp;
             </Typography>
             <Typography className={classes.value}>
-              БКТП-9502; БКТП-9501
+              {globalState.markerValue.tp}
             </Typography>
           </Box>
           <Box className={clsx(classes.infoItem, classes.comment)}>

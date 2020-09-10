@@ -9,6 +9,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Box from '@material-ui/core/Box';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ruRU } from '@material-ui/core/locale';
 
 function createData(address, percent_probability, probability_type, report, status) {
   return { address, percent_probability, probability_type, report, status };
@@ -21,7 +24,6 @@ const rows = [
   createData('195276, г Санкт-Петербург, Калининский р-н, пр-кт Культуры, д 25 к 5', 67,'Безучетное потребление', 'Добавить акт', 'Новое'),
   createData('195276, г Санкт-Петербург, Калининский р-н, пр-кт Культуры, д 27 к 1', 11, 'Безучетное потребление', 'Добавить акт', 'Новое'),
   createData('195276, г Санкт-Петербург, пр-кт Культуры, д 29 к 2', 61, 'Бездоговорное потребление', 'Добавить акт', 'Новое'),
-  createData('195276, г Санкт-Петербург, Калининский р-н, Суздальский пр-кт, д 57', 53, 'Безучетное потребление', 'Добавить акт', 'Новое'),
   createData('195276, г Санкт-Петербург, Калининский р-н, ул Демьяна Бедного, д 28 к 1 литер а', 77, 'Бездоговорное потребление', 'Добавить акт', 'Новое'),
   createData('195276, г Санкт-Петербург, Калининский р-н, пр-кт Просвещения, д 70 к 2', 52, 'Безучетное потребление', 'Добавить акт', 'Новое'),
   createData('195276, г Санкт-Петербург, Калининский р-н, ул Демьяна Бедного, д 22 к 4 литер а', 81, 'Безучетное потребление', 'Добавить акт', 'Новое'),
@@ -29,7 +31,6 @@ const rows = [
   createData('195276, г Санкт-Петербург, Калининский р-н, пр-кт Культуры, д 29 к 4', 81, 'Бездоговорное потребление', 'Добавить акт', 'Новое'),
   createData('195276, г Санкт-Петербург, Калининский р-н, пр-кт Культуры, д 31 к 1', 52, 'Безучетное потребление', 'Добавить акт', 'Новое'),
   createData('195276, г Санкт-Петербург, Калининский р-н, ул Демьяна Бедного, д 26 к 1', 54, 'Безучетное потребление', 'Добавить акт', 'Новое'),
-  createData('195276, г Санкт-Петербург, Калининский р-н, ул Демьяна Бедного, д 22 к 4 литер а', 69, 'Бездоговорное потребление', 'Добавить акт', 'Новое'),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -138,6 +139,13 @@ const useStyles = makeStyles((theme) => ({
   },
   headCellStyle: {
     fontWeight: 'bold'
+  },
+  type: {
+    fontSize: '11px',
+    color: '#818E9B',
+  },
+  labelRowsPerPage: {
+    
   }
 }));
 
@@ -165,7 +173,9 @@ export default function EnhancedTable() {
   };
   
 
+  const theme = createMuiTheme({
 
+  }, ruRU);
 
   return (
     <div className={classes.root}>
@@ -193,7 +203,7 @@ export default function EnhancedTable() {
                       tabIndex={-1}
                       key={row.address}
                     >
-                      <TableCell component="th" scope="row" padding="none"  align="left">{row.address}</TableCell>
+                      <TableCell component="th" scope="row" padding="none"  align="left">{row.address}<Box className={classes.type}>тип ГРЩ</Box></TableCell>
                       <TableCell align="center">{row.percent_probability}%</TableCell>
                       <TableCell align="center">{row.probability_type}</TableCell>
                       <TableCell align="center">{row.report}</TableCell>
@@ -205,6 +215,7 @@ export default function EnhancedTable() {
             </TableBody>
           </Table>
         </TableContainer>
+        <ThemeProvider theme={theme}>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
@@ -214,6 +225,7 @@ export default function EnhancedTable() {
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
+        </ThemeProvider>
     </div>
   );
 }

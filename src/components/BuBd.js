@@ -31,24 +31,23 @@ export default function CenteredGrid() {
 
 
   var displayedObject;
+  var mapSize; 
 
   if (globalState.isOpenSidebar) {
-    displayedObject = <Grid item xs={7} className={classes.fullHeight}>
+    displayedObject = <Grid item xs={3} className={classes.fullHeight}>
                         <BuBdSidebar />
                       </Grid>;
   } else if (globalState.isOpenSidebar == false) {
     displayedObject = <Grid item xs={7} className={classes.fullHeight}>
                         <Paper className={classes.paper}><BuBdTable /></Paper>
                       </Grid>;
-                      console.log(displayedObject);
-                      console.log(globalState.isOpenSidebar);
   }
 
   return (
     <div className={classes.root}>
       <Grid container>
         {displayedObject}
-        <Grid item xs={5} className={classes.fullHeight}>
+        <Grid item xs className={classes.fullHeight}>
           <MapBuBd />
         </Grid>
       </Grid>

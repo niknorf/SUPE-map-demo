@@ -17,7 +17,7 @@ const  GeneralMap = () =>{
   // const { globalState } = useContext(Contex);
 
   const handleChange = (event, value) => {
-    console.log(event, value);
+    //console.log(event, value);
     globalDispach({ type: "BUBD", isOpenSidebar: true, markerValue: event.sourceTarget.options.extra_data });
   };
 
@@ -43,7 +43,7 @@ const  GeneralMap = () =>{
     );
 }
 
-const position = [60.08, 30.33];
+const position = [60.047135, 30.384553];
 
 function PlaceMarkers() {
 
@@ -59,8 +59,8 @@ function PlaceMarkers() {
   var markers = [];
 
   // data prossesing, adding markers
-  for (var i = 0; i < customData.length; i++) {
-    var obj = customData[i];
+  for (var i = 0; i < markers.length; i++) {
+    var obj = markers[i];
     var title = obj.loss_probability;
 
       var icon_url = 'red.png';
