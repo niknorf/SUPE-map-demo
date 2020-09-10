@@ -9,26 +9,40 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import table_down from '../data/table_down.json'
 
 function createData(balanceGroup, imbalancePercent, imbalanceKwh, technicalPercent, technicalKwt, notTechnicalPecent, notTechnicalKwt) {
   return { balanceGroup, imbalancePercent, imbalanceKwh, technicalPercent, technicalKwt, notTechnicalPecent, notTechnicalKwt };
 }
 
-const rows = [
-  createData(5, 64.2, 46786.05, 6.1, 'null', 'null', 'null'),
-  createData(32, '-inf', '-22258.62', 1.6, 'null', 'null', 'null'),
-  createData(3, -8.3, -3326.980000000003, 2,1, 'null', 'null', 'null'),
-  createData(18, 107.7, -53102.63000000001, 3,2, 'null', 'null', 'null'),
-  createData(10, -16284.3, -20062.3, 5, 'null', 'null', 'null'),
-  createData(22, 100.0, 8257.4, 2.9, 'null', 'null', 'null'),
-  createData(14, -20.7, 13426.439999999988, 3.6, 'null', 'null', 'null'),
-  createData(28, -284.6, -10619.84, 3.2, 'null', 'null', 'null'),
-  createData(0, 96.9, 1551018.3700000003, 3.8, 'null', 'null', 'null'),
-  createData(1, 51.6, 27121.209999999995, 4.5, 'null', 'null', 'null'),
-  createData(26, 97.5, 33132.9, 3.5, 'null', 'null', 'null'),
-  createData(17, 19.1, 42612.649999999994, 2.4, 'null', 'null', 'null'),
-  createData(9, 55.7, 68274.6, 5.1, 'null', 'null', 'null'),
-];
+const createRows= ()=>{
+  var rows = [];
+table_down.map((item)=>{
+
+   rows.push(createData(item.balance_id, item.imbalance_percent, item.imbalance_kwh,
+     item.technical_losses_percent, item.technical_losses_kwh, item.non_technical_losses_percent,
+      item.non_technical_losses_kwh ));
+});
+ return rows;
+}
+
+const rows = createRows();
+
+// const rows = [
+//   createData(5, 64.2, 46786.05, 6.1, 'null', 'null', 'null'),
+//   createData(32, '-inf', '-22258.62', 1.6, 'null', 'null', 'null'),
+//   createData(3, -8.3, -3326.980000000003, 2,1, 'null', 'null', 'null'),
+//   createData(18, 107.7, -53102.63000000001, 3,2, 'null', 'null', 'null'),
+//   createData(10, -16284.3, -20062.3, 5, 'null', 'null', 'null'),
+//   createData(22, 100.0, 8257.4, 2.9, 'null', 'null', 'null'),
+//   createData(14, -20.7, 13426.439999999988, 3.6, 'null', 'null', 'null'),
+//   createData(28, -284.6, -10619.84, 3.2, 'null', 'null', 'null'),
+//   createData(0, 96.9, 1551018.3700000003, 3.8, 'null', 'null', 'null'),
+//   createData(1, 51.6, 27121.209999999995, 4.5, 'null', 'null', 'null'),
+//   createData(26, 97.5, 33132.9, 3.5, 'null', 'null', 'null'),
+//   createData(17, 19.1, 42612.649999999994, 2.4, 'null', 'null', 'null'),
+//   createData(9, 55.7, 68274.6, 5.1, 'null', 'null', 'null'),
+// ];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -163,7 +177,7 @@ export default function EnhancedTable() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  
+
 
 
 
@@ -194,7 +208,7 @@ export default function EnhancedTable() {
                       key={row.balanceGroup}
                     >
                       <TableCell component="th" scope="row" padding="none">
-                        Балансовая группа № 
+                        Балансовая группа №
                         {row.balanceGroup}
                       </TableCell>
                       <TableCell align="right">{row.imbalancePercent}</TableCell>
