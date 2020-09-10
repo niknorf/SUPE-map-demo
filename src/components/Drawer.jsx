@@ -106,7 +106,7 @@ const Drawer = props => {
                 </ListItem>
               );
             })}
-            <ListItem button className={ clsx(classes.listItemContainer, classes.exit)}>
+            <ListItem button className={clsx(classes.listItemContainer, classes.exit)}>
               <ListItemIcon className={classes.listIcon}>
                 <ExitToAppIcon style={{ fontSize: "25px" }} />
               </ListItemIcon>

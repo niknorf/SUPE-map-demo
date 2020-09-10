@@ -9,7 +9,7 @@ import L from 'leaflet';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
-export  class GeneralMap extends React.Component{
+class GeneralMap extends React.Component{
   render(){
     return (
       <div>
@@ -61,3 +61,5 @@ function GeoJsonLayer(){
 // console.log(buildingsPolygon);
 return <GeoJSON key={'building_polygons'} data={buildingsPolygon}/>;
 }
+
+export default GeneralMap;

@@ -58,12 +58,17 @@ const GeneralMap = () => {
       color: '#252F4A', //Outline color
       fillOpacity: 0.7
     };
+    
     const style_main = {
       fillColor: 'rgba(74, 156, 255, 0.25)',
       weight: 1,
       opacity: 1,
       color: '#4A9CFF', //Outline color
       // fillOpacity: 0.7
+    };
+
+    const mapStyle = {
+      height: '100vh',
     }
 
     // var building_array = [];
@@ -80,7 +85,7 @@ const GeneralMap = () => {
     // console.log(buildingsPolygon);
 
     return (
-      <Map className="markercluster-map" center={position} zoom={7}>
+      <Map className="markercluster-map" center={position} zoom={7} style={mapStyle}>
         <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
         <GeoJSON key={'building_polygons'} data={buildingsPolygon} />
 

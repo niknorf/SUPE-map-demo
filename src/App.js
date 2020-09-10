@@ -3,6 +3,7 @@ import "./styles.css";
 import BalanceGroup from "./components/BalanceGroup";
 //import Profile from "./components/Profile";
 import Profile from "./components/ProfileNoAuth";
+import BuBd from './components/BuBd';
 import { Route, Switch } from "react-router-dom";
 import Drawer from "./components/Drawer";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -54,6 +55,7 @@ export default function App() {
         <Switch>
           <Route exact from="/" render={props => <BalanceGroup {...props} />} />
           <Route exact path="/profile" render={props => <Profile {...props} />} />
+          <Route exact path="/bubd" render={props => <BuBd {...props} />} />
         </Switch>
     </ThemeProvider>
       
