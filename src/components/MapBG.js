@@ -66,7 +66,7 @@ const GeneralMap = () => {
       />
       <GeoJSON key={"building_polygons"} data={buildingsPolygon} />
 
-      {!globalState.isPhantomic && globalState.bi_value !== '' && typeof globalState.bi_value !== 'undefined'
+      {globalState.isPhantomic && globalState.bi_value !== '' && typeof globalState.bi_value !== 'undefined'
         ? PhantomicBuilding(globalState.bi_value)
         : null}
     </Map>
