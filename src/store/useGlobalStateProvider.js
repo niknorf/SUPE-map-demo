@@ -10,6 +10,11 @@ const reducer = (state, action) => {
 				bg_index_array: action.bg_index_array,
 			};
 			break;
+			case "BUBD":
+			return{
+				isOpenSidebar: action.isOpenSidebar,
+				markerValue:	action.markerValue
+			}
       default: {
 			return state;
 		}
@@ -20,7 +25,9 @@ const useGlobalState = () => {
 	const [globalState, globalDispach] = useReducer(reducer, {
 		bi_value: '',
 		isPhantomic: false,
-		bg_index_array: []
+		bg_index_array: [],
+		isOpenSidebar: false,
+		markerValue: []
 	});
 
 	return { globalState, globalDispach };

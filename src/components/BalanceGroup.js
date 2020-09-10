@@ -168,7 +168,7 @@ const BalanceGroup = () => {
   };
 
   return (
-    <GlobalStateProvider>
+    // <GlobalStateProvider>
       <div className={classes.root}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -290,7 +290,7 @@ const BalanceGroup = () => {
           </main>
         </ThemeProvider>
       </div>
-    </GlobalStateProvider>
+    // </GlobalStateProvider>
   );
 };
 

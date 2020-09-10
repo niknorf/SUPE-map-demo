@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import BalanceGroup from "./components/BalanceGroup";
+import GlobalStateProvider from "./store/GlobalStateProvider";
 //import Profile from "./components/Profile";
 import Profile from "./components/ProfileNoAuth";
 import BuBd from './components/BuBd';
@@ -48,6 +49,7 @@ const useStyles = makeStyles({
 export default function App() {
   const classes = useStyles();
   return (
+    <GlobalStateProvider>
     <div className={classes.container}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -58,7 +60,8 @@ export default function App() {
           <Route exact path="/bubd" render={props => <BuBd {...props} />} />
         </Switch>
     </ThemeProvider>
-      
+
     </div>
+  </GlobalStateProvider>
   );
 }

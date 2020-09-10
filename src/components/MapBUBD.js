@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext, useState } from "react";
 import {Map, TileLayer, Marker, Popup, GeoJSON} from 'react-leaflet';
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import '../css/map.css';
 import 'react-leaflet-markercluster/dist/styles.min.css';
 import customData from '../data_map.json';
+import Contex from "../store/context";
 import buildingsPolygon from '../building-polygon.json'
 import L from 'leaflet';
 
@@ -29,6 +30,16 @@ class GeneralMap extends React.Component{
 const position = [60.08, 30.33];
 
 function PlaceMarkers() {
+
+  // const [tp, setTp] = useState("");
+  const { state, globalDispach } = useContext(Contex);
+  // const { globalState } = useContext(Contex);
+
+  const handleChange = (event, value) => {
+    console.log(event, value);
+    globalDispach({ type: "BUBD", isOpenSidebar: true, markerValue: event.sourceTarget.options.extra_data });
+  };
+
   var markers = [];
 
   // data prossesing, adding markers
@@ -49,7 +60,7 @@ function PlaceMarkers() {
       iconSize: [40, 40]
     });
 
-    markers.push(<Marker position={[obj.lat, obj.lon]} key={i}  icon={m_icon} ></Marker>);
+    markers.push(<Marker extra_data="look at me" position={[obj.lat, obj.lon]} key={i}  icon={m_icon} onClick={handleChange} ></Marker>);
 
 }
 

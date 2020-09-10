@@ -8,10 +8,11 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useState } from "react";
+
 import Contex from "../store/context";
-import ts_list from "../data/ts_balance_list.json";
 import building_polygons from "../building_polygon.json";
 import ts_balance_dict from "../data/ts_balance_dict.json";
+
 
 const useStyles = makeStyles((theme) => ({
   formControl: {

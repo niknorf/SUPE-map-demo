@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {globalState, useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import IconButton from '@material-ui/core/IconButton';
+import Contex from "../store/context";
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -72,7 +73,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimplePaper() {
+  const { state, globalState } = useContext(Contex);
   const classes = useStyles();
+
+  console.log(globalState);
 
   return (
     <div className={classes.root}>
