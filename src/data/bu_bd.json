@@ -1,27 +1,5 @@
 [
   {
-    "object_id": 1285064,
-    "fias_id": "5463aa11-19c3-4480-8083-8ad63a2af835",
-    "address": "195276, г Санкт-Петербург, Калининский р-н, Суздальский пр-кт, д 57",
-    "lat": 60.051365,
-    "lon": 30.383817,
-    "date_month": 5,
-    "date_year": 2020,
-    "probability_BU": 1,
-    "probability_BD": 0,
-    "percent_probability_BU": 53,
-    "percent_probability_BD": 15,
-    "importance_PSK_fiz_face": 83,
-    "importance_PSK_ur_face": 55,
-    "importance_PSK_ODN": 42,
-    "holidays": 86,
-    "SPARK": 82,
-    "imbalance": 52,
-    "data_PSK": 15,
-    "percent_transmission_PU": 99,
-    "TP": "ТП-211"
-  },
-  {
     "object_id": 1288774,
     "fias_id": "32dd838f-fbe5-4313-b206-406a23b66ee0",
     "address": "195276, г Санкт-Петербург, Калининский р-н, Суздальский пр-кт, д 67",
@@ -900,27 +878,6 @@
     "data_PSK": 48,
     "percent_transmission_PU": 45,
     "TP": "БКТП-9505"
-  },
-  {
-    "object_id": 1287355,
-    "fias_id": "0907ebe6-9f81-477b-96e3-9eac06899eac",
-    "address": "195276, г Санкт-Петербург, пр-кт Культуры, д 29 к 2",
-    "lat": 60.049653,
-    "lon": 30.381885,
-    "date_month": 9,
-    "date_year": 2020,
-    "probability_BU": 1,
-    "probability_BD": 0,
-    "percent_probability_BU": 51,
-    "percent_probability_BD": 32,
-    "importance_PSK_fiz_face": 74,
-    "importance_PSK_ur_face": 85,
-    "importance_PSK_ODN": 27,
-    "holidays": 50,
-    "SPARK": 69,
-    "imbalance": 40,
-    "data_PSK": 54,
-    "percent_transmission_PU": 1,
-    "TP": "РТП-8942"
   }
+
 ]

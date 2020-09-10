@@ -6,25 +6,41 @@ import 'react-leaflet-markercluster/dist/styles.min.css';
 import customData from '../data_map.json';
 import Contex from "../store/context";
 import buildingsPolygon from '../building-polygon.json'
+import markers from '../data/bu_bd.json'
 import L from 'leaflet';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
-class GeneralMap extends React.Component{
-  render(){
+const  GeneralMap = () =>{
+  // const [tp, setTp] = useState("");
+  const { state, globalDispach } = useContext(Contex);
+  // const { globalState } = useContext(Contex);
+
+  const handleChange = (event, value) => {
+    console.log(event, value);
+    globalDispach({ type: "BUBD", isOpenSidebar: true, markerValue: event.sourceTarget.options.extra_data });
+  };
+
+    const m_icon =   new L.Icon({
+        iconUrl: require('../img/red.png'),
+        iconSize: [40, 40]
+      });
+
     return (
       <div>
         <Map className="markercluster-map"   center={position} zoom={16}>
             <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
             <MarkerClusterGroup>
-              <PlaceMarkers/>
+              {markers.map((item)=>
+                <Marker extra_data={item} position={[item.lat, item.lon]} key={item.object_id}  icon={m_icon} onClick={handleChange} ></Marker>
+              )}
+              {/* <PlaceMarkers/> */}
             </MarkerClusterGroup>
             <GeoJsonLayer/>
           </Map>
       </div>
 
     );
-  }
 }
 
 const position = [60.08, 30.33];
