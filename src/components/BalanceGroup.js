@@ -226,8 +226,7 @@ const BalanceGroup = () => {
                   </Paper>
                 </Grid>
                 {/* IMBALACE GRAPHIC */}
-                    <ImbalancePskPu/>
-
+                <ImbalancePskPu/>
               </Grid>
 
               {/* GRAPHIC SECTION */}

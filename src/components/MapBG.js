@@ -13,8 +13,6 @@ import L from "leaflet";
 delete L.Icon.Default.prototype._getIconUrl;
 
 const GetBalanceGroup = (kgisId) => {
-  const { state, globalDispach } = useContext(Contex);
-
   if (kgisId !== "" && typeof kgisId !== "undefined") {
     //Map the kgisId to upe_id
     var key = kgis_upe.find((element) => {
@@ -23,28 +21,39 @@ const GetBalanceGroup = (kgisId) => {
 
     //check if  there is a balance id if not display a message
     var balance_index = balance_result_full.find((element) => {
-      return element.branch_id == key.upe_id;
+      return element.branch_id === key.upe_id.toString();
     });
 
-    if (typeof balance_index !== "undefined") {
-      //get all the balance group objects
-      var object_ep_list = balance_result_full.filter((element) => {
-        return element.balance_index === balance_index.balance_index;
-      });
-      //extract to array branch ids
-      let result = object_ep_list.map((a) => a.branch_id);
-      var final_array = []
 
-      kgis_upe.map((element)=>{
-        if(result.includes(element.upe_id,toString())){
-          final_array.push(element.kgis_id)
-        }
-      });
-      console.log(final_array);
-    }else{
-globalDispach({ type: "FILTERCOMPONENT", data_for_item_not_found: true });
+    var temp_obj = {
+      isClean: "balance_id_not_found",
+      balance_index: "",
+    };
+    if (typeof balance_index !== "undefined") {
+      temp_obj.isClean = balance_index.is_clean;
+      temp_obj.balance_index = balance_index.balance_index.toString();
     }
+
+    return temp_obj;
   }
+};
+
+const GetAllObjBalanaceId = (balance_index) => {
+  //get all the balance group objects
+  var object_ep_list = balance_result_full.filter((element) => {
+    return element.balance_index == balance_index;
+  });
+  //extract to array branch ids
+  let result = object_ep_list.map((a) => a.branch_id);
+  var final_array = [];
+
+  kgis_upe.map((element) => {
+    if (result.includes(element.upe_id.toString())) {
+      final_array.push(element.kgis_id);
+    }
+  });
+
+  return final_array;
 };
 
 const PhantomicBuilding = (kgisId) => {
@@ -64,10 +73,29 @@ const PhantomicBuilding = (kgisId) => {
   return <GeoJSON key={kgisId} data={temp} style={style} />;
 };
 
-const NonePhantomicBuilding = (kgisId) => {
-  GetBalanceGroup(kgisId);
+const NonePhantomicBuilding = (globalState) => {
+  let style = {
+    color: "red",
+  };
 
-  return null;
+  let bi = globalState.balance_index;
+  let kgisId = globalState.bi_value;
+
+  let kgis_building_list = GetAllObjBalanaceId(bi);
+  let temp;
+  temp = buildingsPolygon.map((building) => {
+    for (const element of kgis_building_list) {
+      if (building.properties.kgisId == element) {
+        return building;
+      }
+    }
+  });
+
+  temp = temp.filter((obj) => {
+    return typeof obj !== "undefined";
+  });
+
+   return <GeoJSON key={kgisId} data={temp} style={style} />;;
 };
 
 const DisplayByBalanceGroup = (bg_index_array) => {};
@@ -76,7 +104,7 @@ const GeneralMap = () => {
   const { state, globalState } = useContext(Contex);
   const { globalDispach } = useContext(Contex);
 
-  const position = [60.04220088616337, 30.33962811123527];
+  const position = [60.04506711185432, 30.39647037897212];
 
   const style = {
     fillColor: "rgba(37, 47, 74, 0.24)",
@@ -103,6 +131,13 @@ const GeneralMap = () => {
       type: "FILTERCOMPONENT",
       bi_value: event.sourceTarget.feature.properties.kgisId,
       isPhantomic: event.sourceTarget.feature.properties.isPhantomic,
+      balance_index: GetBalanceGroup(
+        event.sourceTarget.feature.properties.kgisId
+      ).balance_index,
+      isClean: GetBalanceGroup(event.sourceTarget.feature.properties.kgisId)
+        .isClean,
+      objSelected: true,
+      building_address: event.sourceTarget.feature.properties.name,
     });
   };
 
@@ -110,7 +145,7 @@ const GeneralMap = () => {
     <Map
       className="markercluster-map"
       center={position}
-      zoom={17}
+      zoom={16}
       style={mapStyle}
     >
       <TileLayer
@@ -123,12 +158,17 @@ const GeneralMap = () => {
         onClick={handleClick}
       />
 
-      {globalState.isPhantomic &&
-      globalState.bi_value !== "" &&
-      typeof globalState.bi_value !== "undefined"
-        ? PhantomicBuilding(globalState.bi_value)
-        : NonePhantomicBuilding(globalState.bi_value)}
+      {globalState.objSelected ? checkDisplay(globalState) : null}
+
     </Map>
   );
+};
+
+const checkDisplay = (globalState) => {
+  if (globalState.isPhantomic) {
+    return PhantomicBuilding(globalState.bi_value);
+  } else {
+    return NonePhantomicBuilding(globalState);
+  }
 };
 export default GeneralMap;

@@ -19,7 +19,7 @@ const pie_legend = {
   y: -0.3, // play with it
   x: 0.5, // play with it
 };
-// const pie_annotations = ;
+
 const pie_markers = {
   colors: pie_colors,
 };
@@ -418,119 +418,127 @@ var meter_avg = {
   ],
 };
 
-function createDataArrayPie(b_index) {
-  const balance_index = 366;
-  indexes.map((item) => {
-    if (
-      item.balance_id.toString() == balance_index.toString() &&
-      item.date_year === 2020 &&
-      item.date_month === "сентябрь"
-    ) {
-      compnay_trust_index.data[0].values.push(
-        item.trust_index_PSK_urik,
-        100 - parseInt(item.trust_index_PSK_urik)
-      );
-      compnay_trust_index.layout.annotations[0].text =
-        item.trust_index_PSK_urik.toString() + "%";
+function createDataArrayPie(balance_index) {
+  // const balance_index = 366;
+    // console.log(balance_index);
+  if(balance_index !== '' && typeof balance_index !== 'undefined'){
+    indexes.map((item) => {
+      if (
+        item.balance_id.toString() == balance_index.toString() &&
+        item.date_year === 2020 &&
+        item.date_month === "сентябрь"
+      ) {
+        compnay_trust_index.data[0].values.push(
+          item.trust_index_PSK_urik,
+          100 - parseInt(item.trust_index_PSK_urik)
+        );
+        compnay_trust_index.layout.annotations[0].text =
+          item.trust_index_PSK_urik.toString() + "%";
 
-      if (parseInt(item.trust_index_PSK_urik) > 50) {
-        compnay_trust_index.layout.annotations[1].text = "Высокий";
-        compnay_trust_index.layout.annotations[1].font.color = '#D33126';
-        compnay_trust_index.layout.annotations[1].font.bgcolor = 'rgba(222, 32, 19, 0.4)';
-      } else {
-        compnay_trust_index.layout.annotations[1].text = "Низкий";
-        compnay_trust_index.layout.annotations[1].font.color = "#21BA49";
-        compnay_trust_index.layout.annotations[1].font.bgcolor =
-          "rgba(96, 200, 125, 0.4)";
+        if (parseInt(item.trust_index_PSK_urik) > 50) {
+          compnay_trust_index.layout.annotations[1].text = "Высокий";
+          compnay_trust_index.layout.annotations[1].font.color = '#D33126';
+          compnay_trust_index.layout.annotations[1].font.bgcolor = 'rgba(222, 32, 19, 0.4)';
+        } else {
+          compnay_trust_index.layout.annotations[1].text = "Низкий";
+          compnay_trust_index.layout.annotations[1].font.color = "#21BA49";
+          compnay_trust_index.layout.annotations[1].font.bgcolor =
+            "rgba(96, 200, 125, 0.4)";
+        }
+
+        person_trust_index.data[0].values.push(
+          parseInt(item.trust_index_PSK_fiz),
+          100 - parseInt(item.trust_index_PSK_fiz)
+        );
+        person_trust_index.layout.annotations[0].text =
+          item.trust_index_PSK_fiz.toString() + "%";
+
+        if (parseInt(item.trust_index_PSK_fiz) > 50) {
+          person_trust_index.layout.annotations[1].text = "Высокий";
+          person_trust_index.layout.annotations[1].font.color = '#D33126';
+          person_trust_index.layout.annotations[1].font.bgcolor = 'rgba(222, 32, 19, 0.4)';
+        } else {
+          person_trust_index.layout.annotations[1].text = "Низкий";
+          person_trust_index.layout.annotations[1].font.color = "#21BA49";
+          person_trust_index.layout.annotations[1].font.bgcolor =
+            "rgba(96, 200, 125, 0.4)";
+        }
+
+        house_trust_index.data[0].values.push(
+          item.trust_index_PSK_ODN,
+          100 - parseInt(item.trust_index_PSK_ODN)
+        );
+        house_trust_index.layout.annotations[0].text =
+          item.trust_index_PSK_ODN.toString() + "%";
+
+        if (parseInt(item.trust_index_PSK_ODN) > 50) {
+          house_trust_index.layout.annotations[1].text = "Высокий";
+          house_trust_index.layout.annotations[1].font.color = '#D33126';
+          house_trust_index.layout.annotations[1].font.bgcolor = 'rgba(222, 32, 19, 0.4)';
+        } else {
+          house_trust_index.layout.annotations[1].text = "Низкий";
+          house_trust_index.layout.annotations[1].font.color = "#21BA49";
+          house_trust_index.layout.annotations[1].font.bgcolor =
+            "rgba(96, 200, 125, 0.4)";
+        }
+
+        transfer_percent.data[0].values.push(
+          item.percent_transmission_PU,
+          100 - parseInt(item.percent_transmission_PU)
+        );
+        transfer_percent.layout.annotations[0].text =
+          item.percent_transmission_PU.toString() + "%";
+        if (parseInt(item.percent_transmission_PU) > 50) {
+          transfer_percent.layout.annotations[1].text = "Высокий";
+          transfer_percent.layout.annotations[1].font.color = '#D33126';
+          transfer_percent.layout.annotations[1].font.bgcolor = 'rgba(222, 32, 19, 0.4)';
+        } else {
+          transfer_percent.layout.annotations[1].text = "Низкий";
+          transfer_percent.layout.annotations[1].font.color = "#21BA49";
+          transfer_percent.layout.annotations[1].font.bgcolor =
+            "rgba(96, 200, 125, 0.4)";
+        }
+
+        difference_percent.data[0].values.push(
+          item.index_compliance_forecast_present_unbalance,
+          100 - parseInt(item.index_compliance_forecast_present_unbalance)
+        );
+        difference_percent.layout.annotations[0].text =
+          item.index_compliance_forecast_present_unbalance.toString() + "%";
+        if (parseInt(item.index_compliance_forecast_present_unbalance) > 50) {
+          difference_percent.layout.annotations[1].text = "Высокий";
+          difference_percent.layout.annotations[1].font.color = '#D33126';
+          difference_percent.layout.annotations[1].font.bgcolor = 'rgba(222, 32, 19, 0.4)';
+        } else {
+          difference_percent.layout.annotations[1].text = "Низкий";
+          difference_percent.layout.annotations[1].font.color = "#21BA49";
+          difference_percent.layout.annotations[1].font.bgcolor =
+            "rgba(96, 200, 125, 0.4)";
+        }
       }
+    });
+  }
 
-      person_trust_index.data[0].values.push(
-        parseInt(item.trust_index_PSK_fiz),
-        100 - parseInt(item.trust_index_PSK_fiz)
-      );
-      person_trust_index.layout.annotations[0].text =
-        item.trust_index_PSK_fiz.toString() + "%";
-
-      if (parseInt(item.trust_index_PSK_fiz) > 50) {
-        person_trust_index.layout.annotations[1].text = "Высокий";
-        person_trust_index.layout.annotations[1].font.color = '#D33126';
-        person_trust_index.layout.annotations[1].font.bgcolor = 'rgba(222, 32, 19, 0.4)';
-      } else {
-        person_trust_index.layout.annotations[1].text = "Низкий";
-        person_trust_index.layout.annotations[1].font.color = "#21BA49";
-        person_trust_index.layout.annotations[1].font.bgcolor =
-          "rgba(96, 200, 125, 0.4)";
-      }
-
-      house_trust_index.data[0].values.push(
-        item.trust_index_PSK_ODN,
-        100 - parseInt(item.trust_index_PSK_ODN)
-      );
-      house_trust_index.layout.annotations[0].text =
-        item.trust_index_PSK_ODN.toString() + "%";
-
-      if (parseInt(item.trust_index_PSK_ODN) > 50) {
-        house_trust_index.layout.annotations[1].text = "Высокий";
-        house_trust_index.layout.annotations[1].font.color = '#D33126';
-        house_trust_index.layout.annotations[1].font.bgcolor = 'rgba(222, 32, 19, 0.4)';
-      } else {
-        house_trust_index.layout.annotations[1].text = "Низкий";
-        house_trust_index.layout.annotations[1].font.color = "#21BA49";
-        house_trust_index.layout.annotations[1].font.bgcolor =
-          "rgba(96, 200, 125, 0.4)";
-      }
-
-      transfer_percent.data[0].values.push(
-        item.percent_transmission_PU,
-        100 - parseInt(item.percent_transmission_PU)
-      );
-      transfer_percent.layout.annotations[0].text =
-        item.percent_transmission_PU.toString() + "%";
-      if (parseInt(item.percent_transmission_PU) > 50) {
-        transfer_percent.layout.annotations[1].text = "Высокий";
-        transfer_percent.layout.annotations[1].font.color = '#D33126';
-        transfer_percent.layout.annotations[1].font.bgcolor = 'rgba(222, 32, 19, 0.4)';
-      } else {
-        transfer_percent.layout.annotations[1].text = "Низкий";
-        transfer_percent.layout.annotations[1].font.color = "#21BA49";
-        transfer_percent.layout.annotations[1].font.bgcolor =
-          "rgba(96, 200, 125, 0.4)";
-      }
-
-      difference_percent.data[0].values.push(
-        item.index_compliance_forecast_present_unbalance,
-        100 - parseInt(item.index_compliance_forecast_present_unbalance)
-      );
-      difference_percent.layout.annotations[0].text =
-        item.index_compliance_forecast_present_unbalance.toString() + "%";
-      if (parseInt(item.index_compliance_forecast_present_unbalance) > 50) {
-        difference_percent.layout.annotations[1].text = "Высокий";
-        difference_percent.layout.annotations[1].font.color = '#D33126';
-        difference_percent.layout.annotations[1].font.bgcolor = 'rgba(222, 32, 19, 0.4)';
-      } else {
-        difference_percent.layout.annotations[1].text = "Низкий";
-        difference_percent.layout.annotations[1].font.color = "#21BA49";
-        difference_percent.layout.annotations[1].font.bgcolor =
-          "rgba(96, 200, 125, 0.4)";
-      }
-    }
-  });
 }
 
-function createDataArrayBar(rawData, balance_index) {
-  rawData.map(function (item) {
-    if (item.balance_id.toString() == balance_index.toString()) {
-      month_input.data[0].x.push(item.date_month);
+function createDataArrayBar(balance_index) {
+// console.log(full_res);
+  full_res.map(function (item) {
+    // console.log(item);
+    if (item.balance_id.toString() == balance_index) {
+
+      month_input.data[0].x.push(item.month);
       month_input.data[0].y.push(item.input_month);
-      month_psk_out.data[0].x.push(item.date_month);
+      month_psk_out.data[0].x.push(item.month);
       month_psk_out.data[0].y.push(item.out_psk_month);
-      balance_group_tech_loss.data[0].x.push(item.date_month_text);
+      balance_group_tech_loss.data[0].x.push(item.month);
       balance_group_tech_loss.data[0].y.push(item.imbalance_kwh);
-      meter_avg.data[0].x.push(item.date_month_text);
+      meter_avg.data[0].x.push(item.month);
       meter_avg.data[0].y.push(item.na_meter_avg);
     }
   });
 }
+ console.log(month_input.data[0].x);
 
 const GraphicGroup = () => {
   const { state, globalState } = useContext(Contex);
@@ -543,12 +551,19 @@ const GraphicGroup = () => {
   let fourthGraph = "fourth-graph";
   let pieCharts = "pie-charts";
 
-  updateGraphic(globalState.bi_value);
+// if(globalState.balance_index !== '' && typeof globalState.balance_index !== 'undefined'){
+  // updateGraphic(globalState.balance_index);
+  // console.log(globalState.balance_index);
+  if(globalState.balance_index !== ''){
+    createDataArrayPie(globalState.balance_index);
+    createDataArrayBar(globalState.balance_index);
+  }
+
+// }
 
   return (
     <div>
-      {globalState.bi_value && !globalState.isPhantomic
-        ? [
+      {globalState.isClean == true && typeof globalState.balance_index !== 'undefined'  ? [
             <div key="div2">
               <Grid container spacing={3}>
                 <Grid item xs={6} md={12} lg={12}>
@@ -625,7 +640,7 @@ const GraphicGroup = () => {
 };
 
 function updateGraphic(filterText) {
-  createDataArrayPie(filterText);
+
   // createDataArrayPie(indexes, filterText, person_trust_index, "entity_conf");
   // createDataArrayPie(
   //   tech_losses,

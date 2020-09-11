@@ -77,6 +77,7 @@ const TsSearchComponent = () => {
     globalDispach({
       type: "FILTERCOMPONENT",
       bg_index_value: value === null ? "" : value.bg_index,
+      objSelected: value === null ? false : true
     });
   };
 
@@ -113,6 +114,8 @@ const SearchComponent = () => {
       type: "FILTERCOMPONENT",
       bi_value: value === null ? "" : value.kgisId,
       isPhantomic: value === null ? "" : value.isPhantomic,
+      balance_index: '',
+      objSelected: value === null ? false : true
     });
   };
 

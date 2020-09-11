@@ -82,7 +82,7 @@ const Data_not_found = () => {
     </Container>
   );
 };
-const WarningState = () => {
+const WarningState = ({label}) => {
   const classes = useStyles();
 
   return (
@@ -94,7 +94,7 @@ const WarningState = () => {
         <img className={classes.imageIcon} src={triangle_icon}/>
       </Icon>
       <Typography>
-       Не удалось определить балансовую группу для выбранного обьекта
+       {label}
       </Typography>
 
 
@@ -182,6 +182,7 @@ const ShowDataState = () => {
 const classes = useStyles();
 const [page, setPage] = React.useState(0);
 const [rowsPerPage, setRowsPerPage] = React.useState(5);
+const { state, globalState } = useContext(Contex);
 
 
 const handleChangePage = (event, newPage) => {
@@ -193,26 +194,26 @@ const handleChangePage = (event, newPage) => {
     setPage(0);
   };
 
-const balance_id = 10;
-const address_name = "улица Гагарина д.90";
+const balance_id = globalState.balance_index;
+
+const address_name = "(" + globalState.building_address + ")";
 
 var rows = [];
 
 balance_group_items.map((item)=>{
 
-if(item.balance_index === balance_id){
+if(item.balance_index.toString() == balance_id){
 rows.push(createData(item.name, item.type))
 }
 });
 
 const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-
-
+console.log(globalState);
 
   return (
     <Typography>
       <Container>
-        Балансовая группа №{balance_id} ({address_name})
+        Балансовая группа №{balance_id} {address_name}
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -278,20 +279,39 @@ const InfoSection = () => {
   return (
     // TODO check the logic it doesnt work correctly
     <Container>
-      {(() => {
-        if (!globalState.bi_value) {
-          return <InitialState />;
-        } else if (globalState.isPhantomic && !globalState.is_in_psk) {
-          return <NotInPsk />;
-        }else if(globalState.isPhantomic){
-          return <WarningState />;
+      {(() =>
+        {
+          if (globalState.isPhantomic){
+            return <WarningState label="Не удалось определить балансовую группу для выбранного обьекта" />;
+          }else if(globalState.isClean === 'balance_id_not_found'){
+             return <WarningState label= "balance_id_not_found"/>;
+          }else if(globalState.isClean == false && globalState.balance_index !== ''){
+            return <NotInPsk />;
+          }if(globalState.isClean == true && globalState.balance_index !== ''){
+            return <ShowDataState />;
+          }
+          else{
+            return <InitialState />;
+          }
 
-        }else if(globalState.data_for_item_not_found){
-          return <Data_not_found/>
-        } else {
-          return <ShowDataState />;
         }
-      })()}
+      //   {
+      //   if (!globalState.bi_value) {
+      //     return <InitialState />;
+      //   } else if (globalState.isPhantomic && !globalState.is_in_psk) {
+      //     return <NotInPsk />;
+      //   }else if(globalState.isPhantomic){
+      //     return <WarningState />;
+      //
+      //   }else if(globalState.data_for_item_not_found){
+      //     return <Data_not_found/>
+      //   }else if(!globalState.isClean){
+      //     return <NotInPsk />;
+      //   } else {
+      //     return <ShowDataState />;
+      //   }
+      // }
+    )()}
     </Container>
   );
 };
