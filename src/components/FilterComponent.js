@@ -31,8 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const SelectComponent = () => {
   const classes = useStyles();
   const [tp, setTp] = useState("");
-  const { state, globalDispach } = useContext(Contex);
-  const { globalState } = useContext(Contex);
+  const { state, globalDispach, globalState } = useContext(Contex);
 
   const handleChange = (event, value) => {
     setTp(event.target.value);

@@ -27,6 +27,7 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import {GraphicGroup} from './Graphic'
 import { InfoSection } from "./InfoSectionBG";
+import {ImbalancePskPu} from "./charts/ImbalancePskPu"
 import { SelectComponent, SearchComponent, TsSearchComponent } from "./FilterComponent";
 import BalanceTable from "./BalanceTable";
 import GeneralMap from "./MapBG";
@@ -224,6 +225,9 @@ const BalanceGroup = () => {
                     <InfoSection />
                   </Paper>
                 </Grid>
+                {/* IMBALACE GRAPHIC */}
+                    <ImbalancePskPu/>
+
               </Grid>
 
               {/* GRAPHIC SECTION */}
@@ -242,7 +246,7 @@ const BalanceGroup = () => {
                           )}
                         >
                           <InputLabel htmlFor="standard-adornment-password">
-                            Найти адрес
+                            Найти балансовые группы
                           </InputLabel>
                           <Input
                             id="standard-adornment-password"

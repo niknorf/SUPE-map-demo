@@ -1,14 +1,27 @@
-import React from 'react';
-import Plotly from "plotly.js"
-import createPlotlyComponent from 'react-plotly.js/factory';
-import full_res from '../../data/graphic/full_res_imbalance.json';
+import { Grid, Paper } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import Plotly from "plotly.js";
+import React, { useContext } from "react";
+import createPlotlyComponent from "react-plotly.js/factory";
+import clsx from "clsx";
+
+import Contex from "../../store/context";
+
 const Plot = createPlotlyComponent(Plotly);
+const useStyles = makeStyles((theme) => ({
+  paperStyles: {
+    boxShadow: "0px 6px 18px rgba(0, 0, 0, 0.06)",
+  },
+  fixedHeight: {
+    height: 500,
+  },
+}));
 
 var imbalance_psk_pu = {
   layout: {
-    hoverinfo: 'none',
-    title: 'График небалансов между показаниями ПСК и ПУ, в % от ПУ',
-    width: 550
+    hoverinfo: "none",
+    title: "График небалансов между показаниями ПСК и ПУ, в % от ПУ",
+    width: 550,
   },
   data: [
     {
@@ -24,7 +37,7 @@ var imbalance_psk_pu = {
         "Sep",
         "Oct",
         "Nov",
-        "Dec"
+        "Dec",
       ],
       y: [
         -22258.62,
@@ -38,14 +51,15 @@ var imbalance_psk_pu = {
         -13830.52,
         -18908.49,
         -22282,
-        -18487.81
+        -18487.81,
       ],
-      name: '2017',
-      type: 'bar',
+      name: "2017",
+      type: "bar",
       marker: {
-        color: '#4A9CFF',
-      }
-    }, {
+        color: "#4A9CFF",
+      },
+    },
+    {
       x: [
         "May",
         "Jun",
@@ -66,7 +80,7 @@ var imbalance_psk_pu = {
         "Sep",
         "Oct",
         "Nov",
-        "Dec"
+        "Dec",
       ],
       y: [
         -52525.83,
@@ -88,14 +102,15 @@ var imbalance_psk_pu = {
         -15534.51,
         -17244.41,
         -17986.74,
-        -23654.08
+        -23654.08,
       ],
-      name: '2018',
-      type: 'bar',
+      name: "2018",
+      type: "bar",
       marker: {
-        color: '#00CAFF',
-      }
-    }, {
+        color: "#00CAFF",
+      },
+    },
+    {
       x: [
         "Jul",
         "Aug",
@@ -155,7 +170,7 @@ var imbalance_psk_pu = {
         "Sep",
         "Oct",
         "Nov",
-        "Dec"
+        "Dec",
       ],
       y: [
         -13426.44,
@@ -216,14 +231,15 @@ var imbalance_psk_pu = {
         85701.76,
         63208.5,
         74687.43,
-        95313.85
+        95313.85,
       ],
-      name: '2019',
-      type: 'bar',
+      name: "2019",
+      type: "bar",
       marker: {
-        color: '#00EBD3',
-      }
-    }, {
+        color: "#00EBD3",
+      },
+    },
+    {
       x: [
         "Feb",
         "Mar",
@@ -356,7 +372,7 @@ var imbalance_psk_pu = {
         "Apr",
         "May",
         "Jun",
-        "Jul"
+        "Jul",
       ],
       y: [
         1551018.37,
@@ -490,60 +506,50 @@ var imbalance_psk_pu = {
         88028.83,
         93891.84,
         65149.96,
-        72616.67
+        72616.67,
       ],
-      name: '2020',
-      type: 'bar',
-      textinfo: 'none',
+      name: "2020",
+      type: "bar",
+      textinfo: "none",
       marker: {
-        color: '#A9FF94',
-      }
-    }
+        color: "#A9FF94",
+      },
+    },
+  ],
+};
 
-  ]
+const PhantomicBuilding = ({building_id}) => {
+  return null;
 
 };
 
-function createDataArrayBar(rawData, balance_index) {
+const BalanceId = () => {
+  return null;
+};
 
-  rawData.map(function(item) {
-    if (item.balance_id.toString() == balance_index.toString()) {
-    }
-  });
-}
+const ImbalancePskPu = () => {
+  const { state, globalState } = useContext(Contex);
+  const classes = useStyles();
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  return (
+    globalState.bi_value !== '' ? [
+      <Grid item xs={12} md={6} lg={6}>
+        <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
+          {(() => {
+            if (globalState.isPhantomic) {
+              return <PhantomicBuilding building_id={globalState.bi_value}/>;
+            } else {
+              return <BalanceId />;
+            }
+          })()}
+        </Paper>
+      </Grid>
+    ] : null
 
-export class ImbalancePskPu extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.state = { data: [], layout: {}, config: {}, revision: 0 };
-  }
+  );
 
-  render() {
-    const filterText = this.props.filterText;
+  // <Plot data={imbalance_psk_pu.data} layout={imbalance_psk_pu.layout}/>
+};
 
-    if (filterText !== '') {
-      updateGraphic(this.props.filterText);
-    }
-
-    return (<div>
-
-      {
-        filterText !== ''
-          ? [<div key='div2'>
-
-            <Plot data={imbalance_psk_pu.data} layout={imbalance_psk_pu.layout}/>
-
-
-          </div>
-            ]
-          : null
-      }
-    </div>);
-
-  }
-}
-
-function updateGraphic(filterText) {
-  // createDataArrayBar(full_res, filterText)
-}
+export { ImbalancePskPu };

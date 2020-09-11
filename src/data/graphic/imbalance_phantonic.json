@@ -1,0 +1,272 @@
+[
+  {
+    "balance_id": 725,
+    "date": "01-10-19",
+    "out_phantom_kwh": 105155.61,
+    "imbalance_phantom_kwh": -71733.02,
+    "date_month": 10,
+    "date_month_text": "Oct",
+    "date_year": 2019
+  },
+  {
+    "balance_id": 725,
+    "date": "01-11-19",
+    "out_phantom_kwh": 106752.61,
+    "imbalance_phantom_kwh": -37513.54,
+    "date_month": 11,
+    "date_month_text": "Nov",
+    "date_year": 2019
+  },
+  {
+    "balance_id": 725,
+    "date": "01-12-19",
+    "out_phantom_kwh": 103442.94,
+    "imbalance_phantom_kwh": -42040.85,
+    "date_month": 12,
+    "date_month_text": "Dec",
+    "date_year": 2019
+  },
+  {
+    "balance_id": 725,
+    "date": "01-01-20",
+    "out_phantom_kwh": 111808.8,
+    "imbalance_phantom_kwh": -50325.71,
+    "date_month": 1,
+    "date_month_text": "Jan",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 725,
+    "date": "01-02-20",
+    "out_phantom_kwh": 98576.76,
+    "imbalance_phantom_kwh": -50574.11,
+    "date_month": 2,
+    "date_month_text": "Feb",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 725,
+    "date": "01-03-20",
+    "out_phantom_kwh": 98125.1,
+    "imbalance_phantom_kwh": -38661.54,
+    "date_month": 3,
+    "date_month_text": "Mar",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 725,
+    "date": "01-04-20",
+    "out_phantom_kwh": 94768.43,
+    "imbalance_phantom_kwh": -41123.4,
+    "date_month": 4,
+    "date_month_text": "Apr",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 725,
+    "date": "01-05-20",
+    "out_phantom_kwh": 83005.31,
+    "imbalance_phantom_kwh": -33647.36,
+    "date_month": 5,
+    "date_month_text": "May",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 725,
+    "date": "01-06-20",
+    "out_phantom_kwh": 102173.12,
+    "imbalance_phantom_kwh": -29343.5,
+    "date_month": 6,
+    "date_month_text": "Jun",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 725,
+    "date": "01-07-20",
+    "out_phantom_kwh": 86541.92,
+    "imbalance_phantom_kwh": -37850.53,
+    "date_month": 7,
+    "date_month_text": "Jul",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 629,
+    "date": "01-10-19",
+    "out_phantom_kwh": 100837.24,
+    "imbalance_phantom_kwh": -23676.41,
+    "date_month": 10,
+    "date_month_text": "Oct",
+    "date_year": 2019
+  },
+  {
+    "balance_id": 629,
+    "date": "01-11-19",
+    "out_phantom_kwh": 84167.46,
+    "imbalance_phantom_kwh": -41365.62,
+    "date_month": 11,
+    "date_month_text": "Nov",
+    "date_year": 2019
+  },
+  {
+    "balance_id": 629,
+    "date": "01-12-19",
+    "out_phantom_kwh": 85896.83,
+    "imbalance_phantom_kwh": -26358.82,
+    "date_month": 12,
+    "date_month_text": "Dec",
+    "date_year": 2019
+  },
+  {
+    "balance_id": 629,
+    "date": "01-01-20",
+    "out_phantom_kwh": 93970.72,
+    "imbalance_phantom_kwh": -36068.44,
+    "date_month": 1,
+    "date_month_text": "Jan",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 629,
+    "date": "01-02-20",
+    "out_phantom_kwh": 91386.68,
+    "imbalance_phantom_kwh": 141731.84,
+    "date_month": 2,
+    "date_month_text": "Feb",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 629,
+    "date": "01-03-20",
+    "out_phantom_kwh": 91981.39,
+    "imbalance_phantom_kwh": 173810.97,
+    "date_month": 3,
+    "date_month_text": "Mar",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 629,
+    "date": "01-04-20",
+    "out_phantom_kwh": 90094.37,
+    "imbalance_phantom_kwh": 184900.28,
+    "date_month": 4,
+    "date_month_text": "Apr",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 629,
+    "date": "01-05-20",
+    "out_phantom_kwh": 87712.7,
+    "imbalance_phantom_kwh": 409548.32,
+    "date_month": 5,
+    "date_month_text": "May",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 629,
+    "date": "01-06-20",
+    "out_phantom_kwh": 88700.43,
+    "imbalance_phantom_kwh": 406642.31,
+    "date_month": 6,
+    "date_month_text": "Jun",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 629,
+    "date": "01-07-20",
+    "out_phantom_kwh": 88129.52,
+    "imbalance_phantom_kwh": 375985.93,
+    "date_month": 7,
+    "date_month_text": "Jul",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 211,
+    "date": "01-10-19",
+    "out_phantom_kwh": 83244.1,
+    "imbalance_phantom_kwh": 342173.1,
+    "date_month": 10,
+    "date_month_text": "Oct",
+    "date_year": 2019
+  },
+  {
+    "balance_id": 211,
+    "date": "01-11-19",
+    "out_phantom_kwh": 86584.18,
+    "imbalance_phantom_kwh": 344272.07,
+    "date_month": 11,
+    "date_month_text": "Nov",
+    "date_year": 2019
+  },
+  {
+    "balance_id": 211,
+    "date": "01-12-19",
+    "out_phantom_kwh": 83204.07,
+    "imbalance_phantom_kwh": 290177.58,
+    "date_month": 12,
+    "date_month_text": "Dec",
+    "date_year": 2019
+  },
+  {
+    "balance_id": 211,
+    "date": "01-01-20",
+    "out_phantom_kwh": 21378.5,
+    "imbalance_phantom_kwh": 276078.4,
+    "date_month": 1,
+    "date_month_text": "Jan",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 211,
+    "date": "01-02-20",
+    "out_phantom_kwh": 21789.08,
+    "imbalance_phantom_kwh": 227975.62,
+    "date_month": 2,
+    "date_month_text": "Feb",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 211,
+    "date": "01-03-20",
+    "out_phantom_kwh": 22748.7,
+    "imbalance_phantom_kwh": 234160.33,
+    "date_month": 3,
+    "date_month_text": "Mar",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 211,
+    "date": "01-04-20",
+    "out_phantom_kwh": 19441.6,
+    "imbalance_phantom_kwh": -21255.3,
+    "date_month": 4,
+    "date_month_text": "Apr",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 211,
+    "date": "01-05-20",
+    "out_phantom_kwh": 20649.23,
+    "imbalance_phantom_kwh": -21074.18,
+    "date_month": 5,
+    "date_month_text": "May",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 211,
+    "date": "01-06-20",
+    "out_phantom_kwh": 15510.67,
+    "imbalance_phantom_kwh": -22145.8,
+    "date_month": 6,
+    "date_month_text": "Jun",
+    "date_year": 2020
+  },
+  {
+    "balance_id": 211,
+    "date": "01-07-20",
+    "out_phantom_kwh": 23542.75,
+    "imbalance_phantom_kwh": -19524.13,
+    "date_month": 7,
+    "date_month_text": "Jul",
+    "date_year": 2020
+  }
+]

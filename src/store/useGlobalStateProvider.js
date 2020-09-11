@@ -8,6 +8,8 @@ const reducer = (state, action) => {
 				bi_value: action.bi_value,
 				isPhantomic: action.isPhantomic,
 				bg_index_array: action.bg_index_array,
+				is_in_psk: action.is_in_psk,
+				data_for_item_not_found: action.data_for_item_not_found,
 			};
 			break;
 			case "BUBD":
@@ -26,6 +28,8 @@ const useGlobalState = () => {
 		bi_value: '',
 		isPhantomic: false,
 		bg_index_array: [],
+		data_for_item_not_found: false,
+		is_in_psk: false,
 		isOpenSidebar: false,
 		markerValue: []
 	});
