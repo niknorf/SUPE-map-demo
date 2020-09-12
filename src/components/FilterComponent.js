@@ -115,9 +115,12 @@ const SearchComponent = () => {
       bi_value: value === null ? "" : value.kgisId,
       isPhantomic: value === null ? "" : value.isPhantomic,
       balance_index: '',
-      objSelected: value === null ? false : true
+      objSelected: value === null ? false : true,
+      // isClean:
     });
   };
+
+  // console.log(kgisId);
 
   //Create array of the steet from the building_polygon file
   var street_array = [];

@@ -102,26 +102,6 @@ const WarningState = ({label}) => {
   );
 };
 
-const NotInPsk = () => {
-  const classes = useStyles();
-
-  return (
-    <Container>
-      <Typography>
-        Балансовая группа
-      </Typography>
-      <Icon classes={{root: classes.iconRoot}}>
-        <img className={classes.imageIcon} src={triangle_icon}/>
-      </Icon>
-      <Typography>
-      В базе данных сбытовой компании не содержится информация о выбранном объекте
-      </Typography>
-
-
-    </Container>
-  );
-};
-
 function createData(name, type) {
   return { name, type};
 }
@@ -281,13 +261,14 @@ const InfoSection = () => {
     <Container>
       {(() =>
         {
-          if (globalState.isPhantomic){
+          console.log(globalState);
+          if (globalState.isPhantomic && globalState.balance_index === ''){
             return <WarningState label="Не удалось определить балансовую группу для выбранного обьекта" />;
-          }else if(globalState.isClean === 'balance_id_not_found'){
+          }else if(globalState.balance_index === '' && globalState.isClean === 'balance_id_not_found'){
              return <WarningState label= "balance_id_not_found"/>;
           }else if(globalState.isClean == false && globalState.balance_index !== ''){
-            return <NotInPsk />;
-          }if(globalState.isClean == true && globalState.balance_index !== ''){
+            return <WarningState  label= "В базе данных сбытовой компании не содержится информация о выбранном объекте"/>;
+          }if(globalState.balance_index !== '' && globalState.isClean){
             return <ShowDataState />;
           }
           else{
@@ -295,22 +276,6 @@ const InfoSection = () => {
           }
 
         }
-      //   {
-      //   if (!globalState.bi_value) {
-      //     return <InitialState />;
-      //   } else if (globalState.isPhantomic && !globalState.is_in_psk) {
-      //     return <NotInPsk />;
-      //   }else if(globalState.isPhantomic){
-      //     return <WarningState />;
-      //
-      //   }else if(globalState.data_for_item_not_found){
-      //     return <Data_not_found/>
-      //   }else if(!globalState.isClean){
-      //     return <NotInPsk />;
-      //   } else {
-      //     return <ShowDataState />;
-      //   }
-      // }
     )()}
     </Container>
   );

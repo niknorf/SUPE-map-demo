@@ -4,57 +4,58 @@ import MarkerClusterGroup from "react-leaflet-markercluster";
 import "../css/map.css";
 import "react-leaflet-markercluster/dist/styles.min.css";
 import buildingsPolygon from "../building_polygon.json";
-import polygon_data from "./polygon_data.json";
+import polygon_data from "../data/polygon_data.json";
 import Contex from "../store/context";
 import kgis_upe from "../data/kgis_upe.json";
 import balance_result_full from "../data/balance_result_full.json";
+import {GetBalanceGroup, GetAllObjBalanaceId} from '../scripts/kgisid_mapping.js'
 import L from "leaflet";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
-const GetBalanceGroup = (kgisId) => {
-  if (kgisId !== "" && typeof kgisId !== "undefined") {
-    //Map the kgisId to upe_id
-    var key = kgis_upe.find((element) => {
-      return element.kgis_id === kgisId;
-    });
+// const GetBalanceGroup = (kgisId) => {
+//   if (kgisId !== "" && typeof kgisId !== "undefined") {
+//     //Map the kgisId to upe_id
+//     var key = kgis_upe.find((element) => {
+//       return element.kgis_id === kgisId;
+//     });
+//
+//     //check if  there is a balance id if not display a message
+//     var balance_index = balance_result_full.find((element) => {
+//       return element.branch_id === key.upe_id.toString();
+//     });
+//
+//
+//     var temp_obj = {
+//       isClean: "balance_id_not_found",
+//       balance_index: "",
+//     };
+//     if (typeof balance_index !== "undefined") {
+//       temp_obj.isClean = balance_index.is_clean;
+//       temp_obj.balance_index = balance_index.balance_index.toString();
+//     }
+//
+//     return temp_obj;
+//   }
+// };
 
-    //check if  there is a balance id if not display a message
-    var balance_index = balance_result_full.find((element) => {
-      return element.branch_id === key.upe_id.toString();
-    });
-
-
-    var temp_obj = {
-      isClean: "balance_id_not_found",
-      balance_index: "",
-    };
-    if (typeof balance_index !== "undefined") {
-      temp_obj.isClean = balance_index.is_clean;
-      temp_obj.balance_index = balance_index.balance_index.toString();
-    }
-
-    return temp_obj;
-  }
-};
-
-const GetAllObjBalanaceId = (balance_index) => {
-  //get all the balance group objects
-  var object_ep_list = balance_result_full.filter((element) => {
-    return element.balance_index == balance_index;
-  });
-  //extract to array branch ids
-  let result = object_ep_list.map((a) => a.branch_id);
-  var final_array = [];
-
-  kgis_upe.map((element) => {
-    if (result.includes(element.upe_id.toString())) {
-      final_array.push(element.kgis_id);
-    }
-  });
-
-  return final_array;
-};
+// const GetAllObjBalanaceId = (balance_index) => {
+//   //get all the balance group objects
+//   var object_ep_list = balance_result_full.filter((element) => {
+//     return element.balance_index == balance_index;
+//   });
+//   //extract to array branch ids
+//   let result = object_ep_list.map((a) => a.branch_id);
+//   var final_array = [];
+//
+//   kgis_upe.map((element) => {
+//     if (result.includes(element.upe_id.toString())) {
+//       final_array.push(element.kgis_id);
+//     }
+//   });
+//
+//   return final_array;
+// };
 
 const PhantomicBuilding = (kgisId) => {
   var temp;
@@ -81,6 +82,7 @@ const NonePhantomicBuilding = (globalState) => {
   let bi = globalState.balance_index;
   let kgisId = globalState.bi_value;
 
+/*TODO if it is an array consosts of 1 element proceed of many loop though them and get the building lists*/
   let kgis_building_list = GetAllObjBalanaceId(bi);
   let temp;
   temp = buildingsPolygon.map((building) => {
@@ -127,6 +129,8 @@ const GeneralMap = () => {
   };
 
   const handleClick = (event) => {
+    console.log(event.sourceTarget.feature.properties.isPhantomic);
+
     globalDispach({
       type: "FILTERCOMPONENT",
       bi_value: event.sourceTarget.feature.properties.kgisId,
@@ -165,10 +169,12 @@ const GeneralMap = () => {
 };
 
 const checkDisplay = (globalState) => {
-  if (globalState.isPhantomic) {
+  console.log(globalState);
+  if (globalState.isClean === 'balance_id_not_found' || globalState.isPhantomic) {
     return PhantomicBuilding(globalState.bi_value);
   } else {
     return NonePhantomicBuilding(globalState);
+    /*TODO add the varibale to identify if it came from TS filter display all balance group*/
   }
 };
 export default GeneralMap;
