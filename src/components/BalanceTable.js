@@ -178,7 +178,9 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
-
+  const handleRowClick = (event, value) =>{
+console.log(event);
+  }
 
 
   return (
@@ -206,6 +208,7 @@ export default function EnhancedTable() {
                       hover
                       tabIndex={-1}
                       key={row.balanceGroup}
+                      onClick={handleRowClick}
                     >
                       <TableCell component="th" scope="row" padding="none">
                         Балансовая группа №

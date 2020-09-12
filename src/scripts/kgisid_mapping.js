@@ -44,22 +44,23 @@ const GetBalanceGroup = (kgisId) => {
     var balance_index = balance_result_full.find((element) => {
       return element.branch_id === key.upe_id.toString();
     });
-
-
-    var temp_obj = {
-      isClean: "balance_id_not_found",
-      balance_index: "",
-    };
-    if (typeof balance_index !== "undefined") {
-      temp_obj.isClean = balance_index.is_clean;
-      temp_obj.balance_index = balance_index.balance_index.toString();
-    }
-
-console.log(temp_obj);
-
-    return temp_obj;
+    return balance_index;
   }
 };
+
+const GetBalanceIndexIsClean = (balance_index) =>{
+  var temp_obj = {
+    isClean: "balance_id_not_found",
+    balance_index: "",
+  };
+  if (typeof balance_index !== "undefined") {
+    temp_obj.isClean = balance_index.is_clean;
+    temp_obj.balance_index = balance_index.balance_index.toString();
+  }
+
+  return temp_obj;
+
+}
 
 const GetAllObjBalanaceId = (balance_index) => {
   //get all the balance group objects
@@ -80,4 +81,4 @@ const GetAllObjBalanaceId = (balance_index) => {
 };
 
 
-export { GetAllObjBalanaceId, GetBalanceGroup};
+export { GetAllObjBalanaceId, GetBalanceGroup, GetBalanceIndexIsClean};

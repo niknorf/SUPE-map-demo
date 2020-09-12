@@ -12,6 +12,7 @@ import React, { useContext, useState } from "react";
 import Contex from "../store/context";
 import building_polygons from "../building_polygon.json";
 import ts_balance_dict from "../data/ts_balance_dict.json";
+import {GetBalanceGroup, GetAllObjBalanaceId, GetBalanceIndexIsClean} from '../scripts/kgisid_mapping.js'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -73,7 +74,6 @@ const TsSearchComponent = () => {
   const { globalDispach } = useContext(Contex);
 
   const handleChange = (event, value) => {
-    console.log(value);
     globalDispach({
       type: "FILTERCOMPONENT",
       bg_index_value: value === null ? "" : value.bg_index,
@@ -114,13 +114,11 @@ const SearchComponent = () => {
       type: "FILTERCOMPONENT",
       bi_value: value === null ? "" : value.kgisId,
       isPhantomic: value === null ? "" : value.isPhantomic,
-      balance_index: '',
-      objSelected: value === null ? false : true,
-      // isClean:
+      balance_index: value === null ? '' : GetBalanceIndexIsClean(GetBalanceGroup(value.kgisId)).balance_index,
+      isClean: value === null ? '' : GetBalanceIndexIsClean(GetBalanceGroup(value.kgisId)).isClean,
+      objSelected: value === null ? false : true
     });
   };
-
-  // console.log(kgisId);
 
   //Create array of the steet from the building_polygon file
   var street_array = [];
@@ -132,8 +130,6 @@ const SearchComponent = () => {
     temp_obj.isPhantomic = obj.properties.isPhantomic;
     street_array.push(temp_obj);
   });
-
-  // console.log(street_array);
 
   return (
     <FormControl>
