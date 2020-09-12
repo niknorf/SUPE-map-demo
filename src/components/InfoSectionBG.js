@@ -176,7 +176,7 @@ const handleChangePage = (event, newPage) => {
 
 const balance_id = globalState.balance_index;
 
-const address_name = "(" + globalState.building_address + ")";
+const address_name =  globalState.building_address !== "" ? "(" + globalState.building_address + ")" : '';
 
 var rows = [];
 

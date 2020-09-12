@@ -59,8 +59,31 @@ const GetBalanceIndexIsClean = (balance_index) =>{
   }
 
   return temp_obj;
+}
+
+const GetIsCleanByBalanceIndex = (balance_index) =>{
+
+  var balance_index_obj = balance_result_full.find((element) => {
+    return element.balance_index === balance_index && element.type === 'ConsumerBuilding';
+  });
+
+  console.log(balance_index_obj);
+
+  return balance_index_obj;
+}
+
+const GetKgisIdByBranchId = (branch_id)=>{
+
+  var obj = kgis_upe.find((element) => {
+    return element.upe_id.toString() === branch_id;
+  });
+
+  // console.log(obj, branch_id);
+
+  return typeof obj !== 'undefined' ? obj.kgis_id.toString() : "";
 
 }
+
 
 const GetAllObjBalanaceId = (balance_index) => {
   //get all the balance group objects
@@ -81,4 +104,4 @@ const GetAllObjBalanaceId = (balance_index) => {
 };
 
 
-export { GetAllObjBalanaceId, GetBalanceGroup, GetBalanceIndexIsClean};
+export { GetAllObjBalanaceId, GetBalanceGroup, GetBalanceIndexIsClean, GetIsCleanByBalanceIndex, GetKgisIdByBranchId};

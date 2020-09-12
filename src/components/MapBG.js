@@ -41,6 +41,7 @@ const NonePhantomicBuilding = (globalState) => {
 /*TODO if it is an array consosts of 1 element proceed of many loop though them and get the building lists*/
   let kgis_building_list = GetAllObjBalanaceId(bi);
   let temp;
+
   temp = buildingsPolygon.map((building) => {
     for (const element of kgis_building_list) {
       if (building.properties.kgisId == element) {
@@ -48,7 +49,7 @@ const NonePhantomicBuilding = (globalState) => {
       }
     }
   });
-
+// console.log(temp);
   temp = temp.filter((obj) => {
     return typeof obj !== "undefined";
   });
@@ -85,7 +86,7 @@ const GeneralMap = () => {
   };
 
   const handleClick = (event) => {
-    console.log(event.sourceTarget.feature.properties.isPhantomic);
+    // console.log(event.sourceTarget.feature.properties.isPhantomic);
 
     globalDispach({
       type: "FILTERCOMPONENT",
@@ -122,7 +123,7 @@ const GeneralMap = () => {
 };
 
 const checkDisplay = (globalState) => {
-  console.log(globalState);
+  // console.log(globalState);
   if (globalState.balance_index === '') {
     return PhantomicBuilding(globalState.bi_value);
   } else {
