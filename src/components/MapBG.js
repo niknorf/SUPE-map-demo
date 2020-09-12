@@ -8,7 +8,7 @@ import polygon_data from "../data/polygon_data.json";
 import Contex from "../store/context";
 import kgis_upe from "../data/kgis_upe.json";
 import balance_result_full from "../data/balance_result_full.json";
-import {GetBalanceGroup, GetAllObjBalanaceId, GetBalanceIndexIsClean} from '../scripts/kgisid_mapping.js'
+import {GetBalanceGroup, GetAllObjBalanaceId, GetBalanceIndexIsClean, GetIsCleanByBalanceIndex, GetKgisIdByBranchId, GetAllBuildingByKgisList} from '../scripts/kgisid_mapping.js'
 import L from "leaflet";
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -37,27 +37,45 @@ const NonePhantomicBuilding = (globalState) => {
 
   let bi = globalState.balance_index;
   let kgisId = globalState.bi_value;
-
-/*TODO if it is an array consosts of 1 element proceed of many loop though them and get the building lists*/
   let kgis_building_list = GetAllObjBalanaceId(bi);
-  let temp;
 
-  temp = buildingsPolygon.map((building) => {
-    for (const element of kgis_building_list) {
-      if (building.properties.kgisId == element) {
-        return building;
-      }
-    }
-  });
-// console.log(temp);
-  temp = temp.filter((obj) => {
-    return typeof obj !== "undefined";
-  });
-
-   return <GeoJSON key={kgisId} data={temp} style={style} />;;
+   return <GeoJSON key={kgisId} data={GetAllBuildingByKgisList(kgis_building_list)} style={style} />;
 };
 
-const DisplayByBalanceGroup = (bg_index_array) => {};
+const DisplayMultipleBalanceGroups = (globalState) => {
+  const { globalDispach } = useContext(Contex);
+
+
+  const handleTsClick = (event) => {
+
+    globalDispach({
+      type: "FILTERCOMPONENT",
+      bi_value: event.sourceTarget.feature.properties.kgisId,
+      isPhantomic: event.sourceTarget.feature.properties.isPhantomic,
+      balance_index: GetBalanceIndexIsClean(GetBalanceGroup(event.sourceTarget.feature.properties.kgisId)).balance_index,
+      isClean: GetBalanceIndexIsClean(GetBalanceGroup(event.sourceTarget.feature.properties.kgisId)).isClean,
+      objSelected: true,
+      building_address: event.sourceTarget.feature.properties.name,
+      obj_from: 'map_click'
+    });
+  };
+
+  let style = {
+    color: "green",
+  };
+
+  var branch_ids = [];
+  var array = [];
+  for (const balance_index of globalState.balance_index_array) {
+    branch_ids.push(GetAllObjBalanaceId(balance_index));
+  }
+
+  for (const obj of branch_ids) {
+    array.push(<GeoJSON key={obj[0]} data={GetAllBuildingByKgisList(obj)} style={style}   onClick={handleTsClick}/>);
+  }
+
+   return array;
+};
 
 const GeneralMap = () => {
   const { state, globalState } = useContext(Contex);
@@ -86,7 +104,6 @@ const GeneralMap = () => {
   };
 
   const handleClick = (event) => {
-    // console.log(event.sourceTarget.feature.properties.isPhantomic);
 
     globalDispach({
       type: "FILTERCOMPONENT",
@@ -96,8 +113,11 @@ const GeneralMap = () => {
       isClean: GetBalanceIndexIsClean(GetBalanceGroup(event.sourceTarget.feature.properties.kgisId)).isClean,
       objSelected: true,
       building_address: event.sourceTarget.feature.properties.name,
+      obj_from: 'map_click'
     });
   };
+
+
 
   return (
     <Map
@@ -123,12 +143,17 @@ const GeneralMap = () => {
 };
 
 const checkDisplay = (globalState) => {
-  // console.log(globalState);
-  if (globalState.balance_index === '') {
-    return PhantomicBuilding(globalState.bi_value);
-  } else {
-    return NonePhantomicBuilding(globalState);
-    /*TODO add the varibale to identify if it came from TS filter display all balance group*/
+
+  if(globalState.obj_from === 'ts_select'){
+    return DisplayMultipleBalanceGroups(globalState);
+  }else{
+    if (globalState.balance_index === '') {
+      return PhantomicBuilding(globalState.bi_value);
+    } else {
+      return NonePhantomicBuilding(globalState);
+    }
   }
+
+
 };
 export default GeneralMap;

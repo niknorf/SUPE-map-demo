@@ -259,6 +259,7 @@ var building_obj = GetIsCleanByBalanceIndex(balance_index);
       isClean: building_obj.is_clean,
       objSelected: true,
       building_address: "",
+      obj_from: 'table_click'
     });
   };
 

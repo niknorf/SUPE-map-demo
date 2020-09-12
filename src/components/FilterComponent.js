@@ -29,46 +29,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SelectComponent = () => {
-  const classes = useStyles();
-  const [tp, setTp] = useState("");
-  const { state, globalDispach, globalState } = useContext(Contex);
-
-  const handleChange = (event, value) => {
-    setTp(event.target.value);
-    globalDispach({ type: "FILTERCOMPONENT", bi_value: value.props.myvalue });
-  };
-
-  return (
-    <FormControl className={classes.formControl}>
-      <InputLabel shrink="shrink" id="tp_select_label">
-        Трансформаторная подстанция
-      </InputLabel>
-      <Select
-        labelId="tp_select_label"
-        id="tp_select"
-        value={tp}
-        onChange={handleChange}
-        displayEmpty="displayEmpty"
-        className={classes.selectEmpty}
-      >
-        <MenuItem name="" value="">
-          Выберете из списка
-        </MenuItem>
-        <MenuItem myvalue={[1, 4, 5]} value={10}>
-          Ten
-        </MenuItem>
-        <MenuItem myvalue={[5]} value={78}>
-          Twenty
-        </MenuItem>
-        <MenuItem myvalue={[566, 45, 4]} value={45}>
-          Thirty
-        </MenuItem>
-      </Select>
-    </FormControl>
-  );
-};
-
 const TsSearchComponent = () => {
   const classes = useStyles();
   const { globalDispach } = useContext(Contex);
@@ -76,8 +36,9 @@ const TsSearchComponent = () => {
   const handleChange = (event, value) => {
     globalDispach({
       type: "FILTERCOMPONENT",
-      bg_index_value: value === null ? "" : value.bg_index,
-      objSelected: value === null ? false : true
+      balance_index_array: value === null ? "" : value.bg_index,
+      objSelected: value === null ? false : true,
+      obj_from: 'ts_select',
     });
   };
 
@@ -116,7 +77,9 @@ const SearchComponent = () => {
       isPhantomic: value === null ? "" : value.isPhantomic,
       balance_index: value === null ? '' : GetBalanceIndexIsClean(GetBalanceGroup(value.kgisId)).balance_index,
       isClean: value === null ? '' : GetBalanceIndexIsClean(GetBalanceGroup(value.kgisId)).isClean,
-      objSelected: value === null ? false : true
+      objSelected: value === null ? false : true,
+      fromTsFilter: false,
+      obj_from: 'street_select',
     });
   };
 
@@ -147,4 +110,4 @@ const SearchComponent = () => {
   );
 };
 
-export { SelectComponent, SearchComponent, TsSearchComponent };
+export { SearchComponent, TsSearchComponent };

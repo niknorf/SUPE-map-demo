@@ -1,35 +1,28 @@
 import React from 'react';
 import balance_result_full from "../data/balance_result_full.json";
 import kgis_upe from "../data/kgis_upe.json";
+import buildingsPolygon from "../building_polygon.json";
 
 
+const GetAllBuildingByKgisList= (kgis_building_list) =>{
 
+  let temp;
 
+  temp = buildingsPolygon.map((building) => {
+    for (const element of kgis_building_list) {
+      if (building.properties.kgisId == element) {
+        return building;
+      }
+    }
+  });
+// console.log(temp);
+  temp = temp.filter((obj) => {
+    return typeof obj !== "undefined";
+  });
 
+return temp;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
@@ -67,8 +60,6 @@ const GetIsCleanByBalanceIndex = (balance_index) =>{
     return element.balance_index === balance_index && element.type === 'ConsumerBuilding';
   });
 
-  console.log(balance_index_obj);
-
   return balance_index_obj;
 }
 
@@ -104,4 +95,4 @@ const GetAllObjBalanaceId = (balance_index) => {
 };
 
 
-export { GetAllObjBalanaceId, GetBalanceGroup, GetBalanceIndexIsClean, GetIsCleanByBalanceIndex, GetKgisIdByBranchId};
+export { GetAllObjBalanaceId, GetBalanceGroup, GetBalanceIndexIsClean, GetIsCleanByBalanceIndex, GetKgisIdByBranchId, GetAllBuildingByKgisList};

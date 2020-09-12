@@ -7,13 +7,14 @@ const reducer = (state, action) => {
 			return {
 				bi_value: action.bi_value,
 				isPhantomic: action.isPhantomic,
-				bg_index_array: action.bg_index_array,
 				is_in_psk: action.is_in_psk,
 				data_for_item_not_found: action.data_for_item_not_found,
 				balance_index: action.balance_index,
 				isClean: action.isClean,
 				objSelected: action.objSelected,
 				building_address: action.building_address,
+				obj_from: action.obj_from,
+				balance_index_array: action.balance_index_array,
 			};
 			break;
 			case "BUBD":
@@ -31,9 +32,10 @@ const useGlobalState = () => {
 	const [globalState, globalDispach] = useReducer(reducer, {
 		bi_value: '',
 		isPhantomic: false,
-		bg_index_array: [],
+		balance_index_array: [],
 		balance_index: '',
 		isClean: '',
+		obj_from: '',
 		objSelected: false,
 		data_for_item_not_found: false,
 		is_in_psk: false,
