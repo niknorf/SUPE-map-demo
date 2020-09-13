@@ -96,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "baseline",
+    paddingTop: 30
   },
   balanceLink: {
     fontSize: "14px",
@@ -119,8 +120,9 @@ const useStyles = makeStyles((theme) => ({
   balaceGroupType: {
     marginLeft: "40px",
   },
-  paperStyles: {
+  infoSectionStyles: {
     boxShadow: "0px 6px 18px rgba(0, 0, 0, 0.06)",
+    height: "35vh", //half of the map height
   },
   tableContainer: {
     paddingTop: "24px",
@@ -187,51 +189,46 @@ const BalanceGroup = () => {
                   Посмотреть таблицу всех балансовых групп
                 </Link>
               </div>
-              <Grid>
+              <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <Paper className={classes.balanceGroupSelectors}>
                     {/* SEARCH STREET COMPONENT */}
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={6} md={6} lg={6}>
                       <SearchComponent />
                     </Grid>
                     {/* SELECT COMPONENT */}
-                    <Grid item xs={6} sm={3}>
+                    <Grid item xs={6} sm={6} md={6} lg={6}>
                       <TsSearchComponent />
                     </Grid>
-                    <Grid
+                    {/* PLACE FOR THIRD FILTER */}
+                    {/* <Grid
                       item
                       xs={6}
                       sm={3}
                       className={classes.balaceGroupType}
-                    ></Grid>
+                    ></Grid> */}
                   </Paper>
                 </Grid>
               </Grid>
 
               <Grid container spacing={3}>
                 {/* MAP SECTION */}
-                <Grid item xs={12} md={6} lg={6}>
-                  <Paper
-                    className={clsx(fixedHeightPaper, classes.paperStyles)}
-                  >
+                <Grid item xs={12} sm={12} md={12} lg={6}>
                     <GeneralMap />
-                  </Paper>
                 </Grid>
                 {/* INFO SECTION */}
-                <Grid item xs={12} md={6} lg={6}>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
                   <Paper
-                    className={clsx(fixedHeightPaper, classes.paperStyles)}
-                  >
+                    className={clsx(fixedHeightPaper, classes.infoSectionStyles)}>
                     <InfoSection />
                   </Paper>
                 </Grid>
                 {/* IMBALACE GRAPHIC */}
                 <ImbalancePskPu/>
               </Grid>
-
               {/* GRAPHIC SECTION */}
               <GraphicGroup />
-
+              
 
               <Grid container className={classes.tableContainer}>
                 <Grid item xs={12}>

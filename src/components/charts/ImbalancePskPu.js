@@ -18,55 +18,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-let year_2017 = {
-  x: [],
-  y: [],
-  name: "2017",
-  type: "bar",
-  marker: {
-    color: "#A9FF94",
-  },
-};
-let year_2018 = {
-  x: [],
-  y: [],
-  name: "2018",
-  type: "bar",
-  marker: {
-    color: "#00EBD3",
-  },
-};
-let year_2019 = {
-  x: [],
-  y: [],
-  name: "2019",
-  type: "bar",
-  marker: {
-    color: "#00CAFF",
-  },
-};
-let year_2020 = {
-  x: [],
-  y: [],
-  name: "2020",
-  type: "bar",
-  marker: {
-    color: "#4A9CFF",
-  },
-};
-var imbalance_psk_pu = {
-  layout: {
-    hoverinfo: "none",
-    title: "График небалансов между <br>показаниями ПСК и ПУ, в кВт/ч от ПУ",
-    width: 550,
-  },
-  data: [],
-};
+const CreateImabalancePSK = ({balance_index, object}) => {
+  let year_2017 = {
+    x: [],
+    y: [],
+    name: "2017",
+    type: "bar",
+    marker: {
+      color: "#A9FF94",
+    },
+  };
+  let year_2018 = {
+    x: [],
+    y: [],
+    name: "2018",
+    type: "bar",
+    marker: {
+      color: "#00EBD3",
+    },
+  };
+  let year_2019 = {
+    x: [],
+    y: [],
+    name: "2019",
+    type: "bar",
+    marker: {
+      color: "#00CAFF",
+    },
+  };
+  let year_2020 = {
+    x: [],
+    y: [],
+    name: "2020",
+    type: "bar",
+    marker: {
+      color: "#4A9CFF",
+    },
+  };
 
-const createData = (balance_index) => {
-  imbalance_psk_pu.data = [];
   full_res.map(function (item) {
-    if (item.balance_id.toString() === balance_index) {
+    console.log(item);
+    if (item.balance_id.toString() === balance_index.toString()) {
       if (item.year == "2017") {
         year_2017.x.push(item.month);
         year_2017.y.push(item.imbalance_kwh);
@@ -87,39 +79,40 @@ const createData = (balance_index) => {
     }
   });
 
-  imbalance_psk_pu.data.push(year_2017, year_2018, year_2019, year_2020);
+  object.data.push(year_2017, year_2018, year_2019, year_2020);
+console.log(object);
+  return(<Plot
+    data={object.data}
+    layout={object.layout}
+  />);
 };
+
 
 const ImbalancePskPu = () => {
   const { state, globalState } = useContext(Contex);
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  if (
-    globalState.balance_index !== "" &&
-    globalState.isPhantomic == false &&
-    globalState.isClean == true
-  ) {
-    createData(globalState.balance_index);
 
-  }
+  var imbalance_psk_pu = {
+    layout: {
+      hoverinfo: "none",
+      title: "График небалансов между <br>показаниями ПСК и ПУ, в кВтч от ПУ",
+      width: 550,
+    },
+    data: [],
+  };
 
   return globalState.balance_index !== "" &&
-    globalState.isPhantomic == false &&
     globalState.isClean == true
     ? [
         <Grid item xs={12} md={6} lg={6}>
           <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
-            <Plot
-              data={imbalance_psk_pu.data}
-              layout={imbalance_psk_pu.layout}
-            />
+            <CreateImabalancePSK balance_index={globalState.balance_index} object={imbalance_psk_pu}/>
           </Paper>
         </Grid>,
       ]
     : null;
-
-  // <Plot data={imbalance_psk_pu.data} layout={imbalance_psk_pu.layout}/>
 };
 
 export { ImbalancePskPu };

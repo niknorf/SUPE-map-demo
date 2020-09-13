@@ -104,10 +104,12 @@ const GeneralMap = () => {
   };
 
   const mapStyle = {
-    height: "100vh",
+    height: "70vh",
   };
 
   const handleClick = (event) => {
+
+console.log(event.sourceTarget.feature.properties);
 
     map.leafletElement.fitBounds(event.sourceTarget.getBounds());
 
