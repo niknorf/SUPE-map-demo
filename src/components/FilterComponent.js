@@ -71,6 +71,10 @@ const SearchComponent = () => {
   const { globalDispach } = useContext(Contex);
 
   const handleChange = (event, value) => {
+
+    // map.leafletElement.fitBounds(event.sourceTarget.getBounds());
+console.log(event);
+
     globalDispach({
       type: "FILTERCOMPONENT",
       bi_value: value === null ? "" : value.kgisId,
@@ -80,6 +84,7 @@ const SearchComponent = () => {
       objSelected: value === null ? false : true,
       fromTsFilter: false,
       obj_from: 'street_select',
+      isInPSK: value === null ? false : value.isInPSK,
     });
   };
 
@@ -91,6 +96,7 @@ const SearchComponent = () => {
     temp_obj.name = obj.properties.name;
     temp_obj.kgisId = obj.properties.kgisId;
     temp_obj.isPhantomic = obj.properties.isPhantomic;
+    temp_obj.isInPSK = obj.properties.isInPSK;
     street_array.push(temp_obj);
   });
 

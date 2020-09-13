@@ -267,7 +267,7 @@ const InfoSection = () => {
           }else if(globalState.balance_index === '' && globalState.isClean === 'balance_id_not_found'){
              return <WarningState label= "balance_id_not_found"/>;
           }else if(globalState.isClean == false && globalState.balance_index !== ''){
-            return <WarningState  label= "В базе данных сбытовой компании не содержится информация о выбранном объекте"/>;
+            return <WarningState  label= "Рекомендуем проверить наличие ПУ в данной балансовой группе и при необходимости доставить их, с целью расчета небалансов"/>;
           }if(globalState.balance_index !== '' && globalState.isClean){
             return <ShowDataState />;
           }

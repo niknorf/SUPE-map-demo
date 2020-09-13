@@ -47,7 +47,6 @@ const DisplayMultipleBalanceGroups = (globalState) => {
 
 
   const handleTsClick = (event) => {
-
     globalDispach({
       type: "FILTERCOMPONENT",
       bi_value: event.sourceTarget.feature.properties.kgisId,
@@ -56,7 +55,8 @@ const DisplayMultipleBalanceGroups = (globalState) => {
       isClean: GetBalanceIndexIsClean(GetBalanceGroup(event.sourceTarget.feature.properties.kgisId)).isClean,
       objSelected: true,
       building_address: event.sourceTarget.feature.properties.name,
-      obj_from: 'map_click'
+      obj_from: 'map_click',
+      isInPSK: false,
     });
   };
 
@@ -82,6 +82,10 @@ const GeneralMap = () => {
   const { globalDispach } = useContext(Contex);
 
   const position = [60.04506711185432, 30.39647037897212];
+  const zoom_level = 15;
+
+  let map = '';
+  let basic_layer =  ''
 
   const style = {
     fillColor: "rgba(37, 47, 74, 0.24)",
@@ -105,6 +109,8 @@ const GeneralMap = () => {
 
   const handleClick = (event) => {
 
+    map.leafletElement.fitBounds(event.sourceTarget.getBounds());
+
     globalDispach({
       type: "FILTERCOMPONENT",
       bi_value: event.sourceTarget.feature.properties.kgisId,
@@ -113,17 +119,17 @@ const GeneralMap = () => {
       isClean: GetBalanceIndexIsClean(GetBalanceGroup(event.sourceTarget.feature.properties.kgisId)).isClean,
       objSelected: true,
       building_address: event.sourceTarget.feature.properties.name,
-      obj_from: 'map_click'
+      obj_from: 'map_click',
+      isInPSK: event.sourceTarget.feature.properties.isInPSK,
     });
   };
-
-
 
   return (
     <Map
       className="markercluster-map"
-      center={position}
-      zoom={16}
+      center={typeof globalState.position !== 'undefined' ? globalState.position : position}
+      zoom={typeof globalState.zoom_level !== 'undefined' ? globalState.zoom_level : zoom_level}
+      ref={(ref) => { map = ref; }}
       style={mapStyle}
     >
       <TileLayer
@@ -134,6 +140,7 @@ const GeneralMap = () => {
         key={"building_polygons"}
         data={buildingsPolygon}
         onClick={handleClick}
+          ref={(ref) => { basic_layer = ref; }}
       />
 
       {globalState.objSelected ? checkDisplay(globalState) : null}
