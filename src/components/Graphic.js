@@ -92,6 +92,8 @@ const GraphicGroup = () => {
     ],
     config: {
       responsive: true,
+      modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'resetScale2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+      displaylogo: false
     },
   };
   var difference_percent = {
@@ -150,6 +152,8 @@ const GraphicGroup = () => {
     ],
     config: {
       responsive: true,
+      modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'resetScale2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+      displaylogo: false
     },
   };
   var person_trust_index = {
@@ -207,6 +211,8 @@ const GraphicGroup = () => {
     ],
     config: {
       responsive: true,
+      modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'resetScale2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+      displaylogo: false
     },
   };
   // // var tech_loss_index = {
@@ -296,6 +302,8 @@ const GraphicGroup = () => {
     ],
     config: {
       responsive: true,
+      modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'resetScale2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+      displaylogo: false
     },
   };
   var compnay_trust_index = {
@@ -353,6 +361,8 @@ const GraphicGroup = () => {
     ],
     config: {
       responsive: true,
+      modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'resetScale2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+      displaylogo: false
     },
   };
   /* Bar charts */
@@ -373,6 +383,10 @@ const GraphicGroup = () => {
         type: "bar",
       },
     ],
+    config:{
+      modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'resetScale2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+      displaylogo: false
+    }
   };
   var out_psk_month = {
     layout: {
@@ -390,6 +404,10 @@ const GraphicGroup = () => {
         type: "bar",
       },
     ],
+    config:{
+      modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'resetScale2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+      displaylogo: false
+    }
   };
   var balance_group_tech_loss = {
     layout: {
@@ -406,6 +424,10 @@ const GraphicGroup = () => {
         type: "bar",
       },
     ],
+    config:{
+      modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'resetScale2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+      displaylogo: false
+    },
   };
   var meter_avg = {
     layout: {
@@ -422,6 +444,10 @@ const GraphicGroup = () => {
         type: "bar",
       },
     ],
+    config:{
+      modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'resetScale2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+      displaylogo: false
+    },
   };
 
   let paperGraph = "paper-graph";
