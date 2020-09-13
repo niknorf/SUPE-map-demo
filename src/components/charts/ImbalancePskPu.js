@@ -1,9 +1,10 @@
-import { Grid, Paper } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Paper, Switch } from "@material-ui/core";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Plotly from "plotly.js";
-import React, { useContext } from "react";
+import React, { useContext, setState } from "react";
 import createPlotlyComponent from "react-plotly.js/factory";
 import full_res from "../../data/graphic/full_res_imbalance.json";
+import full_res_phantom from "../../data/graphic/imbalance_phantom.json";
 import clsx from "clsx";
 
 import Contex from "../../store/context";
@@ -16,9 +17,32 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 500,
   },
+  switchRightText:{
+    color: '#F19E69',
+  },
+  switchLeftText:{
+    color: '#818E9B',
+  },
+
 }));
 
-const CreateImabalancePSK = ({balance_index, object}) => {
+
+const OrangeSwitch = withStyles({
+  switchBase: {
+    color: "#818E9B",
+    '&$checked': {
+      color: "#F19E69",
+    },
+    '&$checked + $track': {
+      backgroundColor: '#F19E69',
+    },
+  },
+  checked: {},
+  track: {},
+})(Switch);
+
+
+const CreateImabalancePSK = ({balance_index, object, switchState}) => {
   let year_2017 = {
     x: [],
     y: [],
@@ -56,8 +80,31 @@ const CreateImabalancePSK = ({balance_index, object}) => {
     },
   };
 
+if(switchState){
+  full_res_phantom.map(function (item) {
+    if (item.balance_id.toString() === balance_index.toString()) {
+      if (item.date_year.toString() === "2017") {
+        year_2017.x.push(item.date_month);
+        year_2017.y.push(item.out_phantom_kwh);
+      }
+      if (item.date_year.toString() === "2018") {
+        year_2018.x.push(item.date_month);
+        year_2018.y.push(item.out_phantom_kwh);
+      }
+      if (item.date_year.toString() === "2019") {
+        year_2019.x.push(item.date_month);
+        year_2019.y.push(item.out_phantom_kwh);
+      }
+
+      if (item.date_year.toString() === "2020") {
+        year_2020.x.push(item.date_month);
+        year_2020.y.push(item.out_phantom_kwh);
+      }
+    }
+  });
+
+}else{
   full_res.map(function (item) {
-    console.log(item);
     if (item.balance_id.toString() === balance_index.toString()) {
       if (item.year == "2017") {
         year_2017.x.push(item.month);
@@ -79,20 +126,26 @@ const CreateImabalancePSK = ({balance_index, object}) => {
     }
   });
 
+}
+
   object.data.push(year_2017, year_2018, year_2019, year_2020);
 console.log(object);
   return(<Plot
     data={object.data}
     layout={object.layout}
+    config={object.config}
   />);
 };
 
-
 const ImbalancePskPu = () => {
+  const [switchState, setState] = React.useState(false);
   const { state, globalState } = useContext(Contex);
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const handleSwitchChange = (event) => {
+    setState(event.target.checked);
+  };
 
   var imbalance_psk_pu = {
     layout: {
@@ -101,18 +154,34 @@ const ImbalancePskPu = () => {
       width: 550,
     },
     data: [],
+    config:{
+      modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'resetScale2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+      displaylogo: false
+    }
   };
 
-  return globalState.balance_index !== "" &&
+  return(
+    globalState.balance_index !== "" &&
     globalState.isClean == true
     ? [
         <Grid item xs={12} md={6} lg={6}>
           <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
-            <CreateImabalancePSK balance_index={globalState.balance_index} object={imbalance_psk_pu}/>
+            <Grid component="label" container alignItems="center" justify="flex-end" direction="row" spacing={1}>
+                    <Grid item className={classes.switchLeftText}>Без фантомных обьектов</Grid>
+                    <Grid item>
+                      <OrangeSwitch
+                        checked={switchState}
+                        onChange={handleSwitchChange}
+                        name="checkedA"
+                      />
+                    </Grid>
+                    <Grid item className={classes.switchRightText}>Включая фантомные обьекты</Grid>
+                  </Grid>
+            <CreateImabalancePSK balance_index={globalState.balance_index} object={imbalance_psk_pu} switchState={switchState} />
           </Paper>
-        </Grid>,
-      ]
-    : null;
+        </Grid>
+      ] : null
+    );
 };
 
 export { ImbalancePskPu };
