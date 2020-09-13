@@ -22,8 +22,12 @@ delete L.Icon.Default.prototype._getIconUrl;
 
 const PhantomicBuilding = (kgisId) => {
   var temp;
-  let style = {
-    color: "red",
+  const style = {
+    fillColor: "rgba(241, 158, 105, 0.2)",
+    weight: 1,
+    opacity: 1,
+    color: "#EC8041", //Outline color
+    fillOpacity: 0.7,
   };
   temp = buildingsPolygon.map((building) => {
     if (building.properties.kgisId == kgisId) {
@@ -38,8 +42,12 @@ const PhantomicBuilding = (kgisId) => {
 };
 
 const NonePhantomicBuilding = (globalState) => {
-  let style = {
-    color: "red",
+  const style = {
+    fillColor: "rgba(37, 47, 74, 0.24)",
+    weight: 1,
+    opacity: 1,
+    color: "#252F4A", //Outline color
+    fillOpacity: 0.7,
   };
 
   let bi = globalState.balance_index;
@@ -51,7 +59,7 @@ const NonePhantomicBuilding = (globalState) => {
 
   let final_array = [...substation_nn, ...substation_vn, ...building_objects];
 
-   return <GeoJSON key={kgisId} data={final_array} style={style} />;
+  return <GeoJSON key={kgisId} data={final_array} style={style} />;
 };
 
 const DisplayMultipleBalanceGroups = (globalState) => {
@@ -72,8 +80,12 @@ const DisplayMultipleBalanceGroups = (globalState) => {
     });
   };
 
-  let style = {
-    color: "green",
+  const style = {
+    fillColor: "rgba(37, 47, 74, 0.24)",
+    weight: 1,
+    opacity: 1,
+    color: "#252F4A", //Outline color
+    fillOpacity: 0.7,
   };
 
   var branch_ids = [];
@@ -99,14 +111,6 @@ const GeneralMap = () => {
   let map = '';
   let basic_layer =  ''
 
-  const style = {
-    fillColor: "rgba(37, 47, 74, 0.24)",
-    weight: 1,
-    opacity: 1,
-    color: "#252F4A", //Outline color
-    fillOpacity: 0.7,
-  };
-
   const style_main = {
     fillColor: "rgba(74, 156, 255, 0.25)",
     weight: 1,
@@ -121,7 +125,6 @@ const GeneralMap = () => {
 
   const handleClick = (event) => {
 
-console.log(event.sourceTarget.feature.properties);
 
     map.leafletElement.fitBounds(event.sourceTarget.getBounds());
 
@@ -154,7 +157,8 @@ console.log(event.sourceTarget.feature.properties);
         key={"building_polygons"}
         data={buildingsPolygon}
         onClick={handleClick}
-          ref={(ref) => { basic_layer = ref; }}
+        ref={(ref) => { basic_layer = ref; }}
+        style={style_main}
       />
 
       {globalState.objSelected ? checkDisplay(globalState) : null}
