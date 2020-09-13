@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import BalanceGroup from "./components/BalanceGroup";
+import Home from './components/Home';
 import GlobalStateProvider from "./store/GlobalStateProvider";
 //import Profile from "./components/Profile";
 import Profile from "./components/ProfileNoAuth";
@@ -55,7 +56,8 @@ export default function App() {
       <CssBaseline />
       <Drawer />
         <Switch>
-          <Route exact from="/" render={props => <BalanceGroup {...props} />} />
+          <Route exact from="/" render={props => <Home {...props} />} />
+          <Route exact from="/balancegroup" render={props => <BalanceGroup {...props} />} />
           <Route exact path="/profile" render={props => <Profile {...props} />} />
           <Route exact path="/bubd" render={props => <BuBd {...props} />} />
         </Switch>

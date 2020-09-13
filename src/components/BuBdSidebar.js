@@ -1,5 +1,5 @@
 import React, { globalState, useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import CloseIcon from '@material-ui/icons/Close';
@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     height: '100vh',
     width: '100%',
+    display: 'flex',
+    flexDirection: 'column'
   },
   close: {
     display: 'flex',
@@ -56,7 +58,8 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '17px',
     color: '#252F4A',
     marginTop: '17px',
-    marginBottom: '24px'
+    marginBottom: '24px',
+    justifyContent: 'end',
   },
   infoItem: {
     display: 'flex',
@@ -71,6 +74,32 @@ const useStyles = makeStyles((theme) => ({
   },
   comment: {
     display: 'inline'
+  },
+  bottomButtons: {
+    marginTop: 'auto',
+  },
+  showActButton: {
+    width: '100%',
+    backgroundColor: '#4A9CFF',
+    textTransform: 'none',
+    fontWeight: 'bold',
+    marginBottom: '11px',
+    boxShadow: '0px 4px 10px rgba(74, 156, 255, 0.33)',
+    '&:hover': {
+      backgroundColor: '#4A9CFF',
+    },
+  },
+  createTaskButton: {
+    width: '100%',
+    backgroundColor: '#FFF',
+    color: '#C2CFE0',
+    textTransform: 'none',
+    fontWeight: 'bold',
+    border: '1px solid #C2CFE0',
+    boxShadow: 'none',
+    '&:hover': {
+      backgroundColor: '#FFF',
+    },
   }
 }));
 
@@ -220,6 +249,14 @@ export default function SimplePaper() {
               на основе анализа актов БУ и БД, небалансов, наличие нежелых помещений
             </Typography>
           </Box>
+        </Box>
+        <Box className={classes.bottomButtons}>
+          <Button variant="contained" color="primary" className={classes.showActButton}>
+            Посмотреть акт
+          </Button>
+          <Button variant="contained" color="primary" className={classes.createTaskButton}>
+            Создать задание
+          </Button>
         </Box>
       </Paper >
     </div>
