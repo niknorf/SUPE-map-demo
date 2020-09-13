@@ -8,7 +8,14 @@ import polygon_data from "../data/polygon_data.json";
 import Contex from "../store/context";
 import kgis_upe from "../data/kgis_upe.json";
 import balance_result_full from "../data/balance_result_full.json";
-import {GetBalanceGroup, GetAllObjBalanaceId, GetBalanceIndexIsClean, GetIsCleanByBalanceIndex, GetKgisIdByBranchId, GetAllBuildingByKgisList} from '../scripts/kgisid_mapping.js'
+import {
+  GetBalanceGroup, GetAllObjBalanaceId,
+  GetBalanceIndexIsClean,
+  GetIsCleanByBalanceIndex,
+  GetKgisIdByBranchId,
+  GetAllBuildingByKgisList,
+  GetAllSubstationNnByKgisList,
+  GetAllSubstationVnByKgisList} from '../scripts/kgisid_mapping.js'
 import L from "leaflet";
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -38,8 +45,13 @@ const NonePhantomicBuilding = (globalState) => {
   let bi = globalState.balance_index;
   let kgisId = globalState.bi_value;
   let kgis_building_list = GetAllObjBalanaceId(bi);
+  let building_objects = GetAllBuildingByKgisList(kgis_building_list)
+  let substation_nn = GetAllSubstationNnByKgisList(kgis_building_list);
+  let substation_vn = GetAllSubstationVnByKgisList(kgis_building_list)
 
-   return <GeoJSON key={kgisId} data={GetAllBuildingByKgisList(kgis_building_list)} style={style} />;
+  let final_array = [...substation_nn, ...substation_vn, ...building_objects];
+
+   return <GeoJSON key={kgisId} data={final_array} style={style} />;
 };
 
 const DisplayMultipleBalanceGroups = (globalState) => {

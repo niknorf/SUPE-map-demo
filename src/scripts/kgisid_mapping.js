@@ -2,10 +2,11 @@ import React from 'react';
 import balance_result_full from "../data/balance_result_full.json";
 import kgis_upe from "../data/kgis_upe.json";
 import buildingsPolygon from "../building_polygon.json";
+import substation_nn from '../data/substation_nn.json'
+import substation_vn from '../data/substation_vn.json'
 
 
 const GetAllBuildingByKgisList= (kgis_building_list) =>{
-
   let temp;
 
   temp = buildingsPolygon.map((building) => {
@@ -15,13 +16,47 @@ const GetAllBuildingByKgisList= (kgis_building_list) =>{
       }
     }
   });
-// console.log(temp);
   temp = temp.filter((obj) => {
     return typeof obj !== "undefined";
   });
 
 return temp;
 
+}
+
+const GetAllSubstationVnByKgisList = (kgis_building_list) =>{
+  let temp;
+
+  temp = substation_vn.map((building) => {
+    for (const element of kgis_building_list) {
+      if (building.properties.kgis_id == element) {
+        return building;
+      }
+    }
+  });
+  temp = temp.filter((obj) => {
+    return typeof obj !== "undefined";
+  });
+
+return temp;
+}
+
+const GetAllSubstationNnByKgisList = (kgis_building_list) =>{
+  let temp;
+
+  temp = substation_nn.map((building) => {
+    for (const element of kgis_building_list) {
+      if (building.properties.kgis_id.toString() === element.toString()) {
+        return building;
+      }
+    }
+  });
+
+  temp = temp.filter((obj) => {
+    return typeof obj !== "undefined";
+  });
+
+return temp;
 }
 
 
@@ -85,6 +120,8 @@ const GetAllObjBalanaceId = (balance_index) => {
   let result = object_ep_list.map((a) => a.branch_id);
   var final_array = [];
 
+  console.log(result);
+
   kgis_upe.map((element) => {
     if (result.includes(element.upe_id.toString())) {
       final_array.push(element.kgis_id);
@@ -95,4 +132,4 @@ const GetAllObjBalanaceId = (balance_index) => {
 };
 
 
-export { GetAllObjBalanaceId, GetBalanceGroup, GetBalanceIndexIsClean, GetIsCleanByBalanceIndex, GetKgisIdByBranchId, GetAllBuildingByKgisList};
+export { GetAllObjBalanaceId, GetBalanceGroup, GetBalanceIndexIsClean, GetIsCleanByBalanceIndex, GetKgisIdByBranchId, GetAllBuildingByKgisList, GetAllSubstationVnByKgisList, GetAllSubstationNnByKgisList};

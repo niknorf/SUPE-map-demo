@@ -129,7 +129,7 @@ if(switchState){
 }
 
   object.data.push(year_2017, year_2018, year_2019, year_2020);
-console.log(object);
+
   return(<Plot
     data={object.data}
     layout={object.layout}
