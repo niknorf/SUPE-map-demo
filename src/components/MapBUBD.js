@@ -6,7 +6,7 @@ import 'react-leaflet-markercluster/dist/styles.min.css';
 import customData from '../data_map.json';
 import Contex from "../store/context";
 import buildingsPolygon from '../building-polygon.json'
-import markers from '../data/bu_bd.json'
+import markers from '../data/bu_bd_new.json'
 import L from 'leaflet';
 
 delete L.Icon.Default.prototype._getIconUrl;
