@@ -50,6 +50,19 @@ const NonePhantomicBuilding = (globalState) => {
     fillOpacity: 0.7,
   };
 
+  const PhantomicStyle = {
+    fillColor: "rgba(241, 158, 105, 0.2)",
+    weight: 1,
+    opacity: 1,
+    color: "#EC8041", //Outline color
+    fillOpacity: 0.7,
+  };
+
+// getFeatures(feature) = ()=>{
+//   console.log(feature);
+// }
+
+
   let bi = globalState.balance_index;
   let kgisId = globalState.bi_value;
   let kgis_building_list = GetAllObjBalanaceId(bi);
@@ -59,7 +72,7 @@ const NonePhantomicBuilding = (globalState) => {
 
   let final_array = [...substation_nn, ...substation_vn, ...building_objects];
 
-  return <GeoJSON key={kgisId} data={final_array} style={style} />;
+  return <GeoJSON key={kgisId} data={final_array} style={(features) => {return features.properties.isPhantomic ? PhantomicStyle : style} }/>;
 };
 
 const DisplayMultipleBalanceGroups = (globalState) => {
@@ -88,6 +101,14 @@ const DisplayMultipleBalanceGroups = (globalState) => {
     fillOpacity: 0.7,
   };
 
+  const PhantomicStyle = {
+    fillColor: "rgba(241, 158, 105, 0.2)",
+    weight: 1,
+    opacity: 1,
+    color: "#EC8041", //Outline color
+    fillOpacity: 0.7,
+  };
+
   var branch_ids = [];
   var array = [];
   for (const balance_index of globalState.balance_index_array) {
@@ -95,7 +116,7 @@ const DisplayMultipleBalanceGroups = (globalState) => {
   }
 
   for (const obj of branch_ids) {
-    array.push(<GeoJSON key={obj[0]} data={GetAllBuildingByKgisList(obj)} style={style}   onClick={handleTsClick}/>);
+    array.push(<GeoJSON key={obj[0]} data={GetAllBuildingByKgisList(obj)} style={(features) => {return features.properties.isPhantomic ? PhantomicStyle : style} }   onClick={handleTsClick}/>);
   }
 
    return array;
