@@ -61,7 +61,10 @@ const NonePhantomicBuilding = (globalState) => {
   let substations = GetAllSubstationsByFiasList(fiasId_building_list);
   let final_array = [...substations, ...building_objects];
 
-  return <GeoJSON key={bi} data={building_objects} style={(features) => {return features.properties.isPhantomic ? PhantomicBuildingstyle : NonPhantomicBuildingstyle} }/>;
+  console.log(fiasId_building_list);
+
+  // return <GeoJSON key={bi} data={building_objects} style={(features) => {return features.properties.isPhantomic ? PhantomicBuildingstyle : NonPhantomicBuildingstyle} }/>;
+  return null;
 };
 
 const DisplayMultipleBalanceGroups = (globalState) => {

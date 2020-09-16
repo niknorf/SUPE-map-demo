@@ -501,8 +501,6 @@ const GraphicGroup = () => {
 };
 
 const DisplayBarChart = ({balance_index,type, obj_name}) => {
-// type.data[0].x = [];
-// type.data[0].y = [];
 
   full_res.map(function (item) {
     if (item.balance_id.toString() === balance_index.toString()) {
@@ -519,8 +517,6 @@ return(<Plot
 };
 
 const DisplayPieChart = ({balance_index, type, obj_name}) => {
-// type.data[0].values = [];
-
 indexes.map((item) => {
       if (
         item.balance_id.toString() === balance_index.toString() &&

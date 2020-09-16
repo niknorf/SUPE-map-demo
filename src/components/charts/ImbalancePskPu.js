@@ -6,7 +6,7 @@ import createPlotlyComponent from "react-plotly.js/factory";
 import full_res from "../../data/graphic/full_res_imbalance.json";
 import full_res_phantom from "../../data/graphic/imbalance_phantom.json";
 import clsx from "clsx";
-
+import phantomic_buildings from "../../data/balance_phantom_dict.json";
 import Contex from "../../store/context";
 
 const Plot = createPlotlyComponent(Plotly);
@@ -17,32 +17,33 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 500,
   },
-  switchRightText:{
-    color: '#F19E69',
+  switchRightText: {
+    color: "#F19E69",
   },
-  switchLeftText:{
-    color: '#818E9B',
+  switchLeftText: {
+    color: "#818E9B",
   },
-
 }));
-
 
 const OrangeSwitch = withStyles({
   switchBase: {
     color: "#818E9B",
-    '&$checked': {
+    "&$checked": {
       color: "#F19E69",
     },
-    '&$checked + $track': {
-      backgroundColor: '#F19E69',
+    "&$checked + $track": {
+      backgroundColor: "#F19E69",
     },
   },
   checked: {},
   track: {},
 })(Switch);
 
+const IsPhantomicIncluded = (balance_index) =>{
+  return typeof phantomic_buildings[balance_index] === 'undefined' ? false : true;
+}
 
-const CreateImabalancePSK = ({balance_index, object, switchState}) => {
+const CreateImabalancePSK = ({ balance_index, object, switchState }) => {
   let year_2017 = {
     x: [],
     y: [],
@@ -80,61 +81,61 @@ const CreateImabalancePSK = ({balance_index, object, switchState}) => {
     },
   };
 
-if(switchState){
-  full_res_phantom.map(function (item) {
-    if (item.balance_id.toString() === balance_index.toString()) {
-      if (item.date_year.toString() === "2017") {
-        year_2017.x.push(item.date_month);
-        year_2017.y.push(item.out_phantom_kwh);
-      }
-      if (item.date_year.toString() === "2018") {
-        year_2018.x.push(item.date_month);
-        year_2018.y.push(item.out_phantom_kwh);
-      }
-      if (item.date_year.toString() === "2019") {
-        year_2019.x.push(item.date_month);
-        year_2019.y.push(item.out_phantom_kwh);
-      }
+  if (switchState) {
 
-      if (item.date_year.toString() === "2020") {
-        year_2020.x.push(item.date_month);
-        year_2020.y.push(item.out_phantom_kwh);
-      }
-    }
-  });
+    full_res_phantom.map(function (item) {
+      if (item.balance_id.toString() === balance_index.toString()) {
+        if (item.year.toString() === "2017") {
+          year_2017.x.push(item.month);
+          year_2017.y.push(item.imbalance_phantom_kwh);
+        }
+        if (item.year.toString() === "2018") {
+          year_2018.x.push(item.month);
+          year_2018.y.push(item.out_phantom_kwh);
+        }
+        if (item.year.toString() === "2019") {
+          year_2019.x.push(item.month);
+          year_2019.y.push(item.out_phantom_kwh);
+        }
 
-}else{
-  full_res.map(function (item) {
-    if (item.balance_id.toString() === balance_index.toString()) {
-      if (item.year == "2017") {
-        year_2017.x.push(item.month);
-        year_2017.y.push(item.imbalance_kwh);
+        if (item.year.toString() === "2020") {
+          year_2020.x.push(item.month);
+          year_2020.y.push(item.out_phantom_kwh);
+        }
       }
-      if (item.year == "2018") {
-        year_2018.x.push(item.month);
-        year_2018.y.push(item.imbalance_kwh);
-      }
-      if (item.year == "2019") {
-        year_2019.x.push(item.month);
-        year_2019.y.push(item.imbalance_kwh);
-      }
+    });
+  } else {
 
-      if (item.year == "2020") {
-        year_2020.x.push(item.month);
-        year_2020.y.push(item.imbalance_kwh);
-      }
-    }
-  });
+    full_res.map(function (item) {
+      if (item.balance_id.toString() === balance_index.toString()) {
+        if (item.year.toString() === "2017") {
+          year_2017.x.push(item.month);
+          year_2017.y.push(item.imbalance_kwh);
+        }
+        if (item.year.toString() === "2018") {
+          year_2018.x.push(item.month);
+          year_2018.y.push(item.imbalance_kwh);
+        }
+        if (item.year.toString() === "2019") {
+          year_2019.x.push(item.month);
+          year_2019.y.push(item.imbalance_kwh);
+        }
 
-}
+        if (item.year.toString() === "2020") {
+          year_2020.x.push(item.month);
+          year_2020.y.push(item.imbalance_kwh);
+        }
+      }
+    });
+  }
+
+  console.log(year_2019);
 
   object.data.push(year_2017, year_2018, year_2019, year_2020);
 
-  return(<Plot
-    data={object.data}
-    layout={object.layout}
-    config={object.config}
-  />);
+  return (
+    <Plot data={object.data} layout={object.layout} config={object.config} />
+  );
 };
 
 const ImbalancePskPu = () => {
@@ -154,34 +155,59 @@ const ImbalancePskPu = () => {
       width: 550,
     },
     data: [],
-    config:{
-      modeBarButtonsToRemove: ['pan2d', 'select2d', 'lasso2d', 'resetScale2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
-      displaylogo: false
-    }
+    config: {
+      modeBarButtonsToRemove: [
+        "pan2d",
+        "select2d",
+        "lasso2d",
+        "resetScale2d",
+        "toggleSpikelines",
+        "hoverClosestCartesian",
+        "hoverCompareCartesian",
+      ],
+      displaylogo: false,
+    },
   };
 
-  return(
-    globalState.balance_index !== "" &&
-    globalState.isClean == true
+  return globalState.balance_index !== "" && globalState.isClean == true
     ? [
         <Grid item xs={12} md={6} lg={6}>
           <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
-            <Grid component="label" container alignItems="center" justify="flex-end" direction="row" spacing={1}>
-                    <Grid item className={classes.switchLeftText}>Без фантомных обьектов</Grid>
-                    <Grid item>
-                      <OrangeSwitch
-                        checked={switchState}
-                        onChange={handleSwitchChange}
-                        name="checkedA"
-                      />
-                    </Grid>
-                    <Grid item className={classes.switchRightText}>Включая фантомные обьекты</Grid>
-                  </Grid>
-            <CreateImabalancePSK balance_index={globalState.balance_index} object={imbalance_psk_pu} switchState={switchState} />
+
+            {IsPhantomicIncluded(globalState.balance_index) ?
+              <Grid
+                component="label"
+                container
+                alignItems="center"
+                justify="flex-end"
+                direction="row"
+                spacing={1}
+              >
+                <Grid item className={classes.switchLeftText}>
+                  Без фантомных обьектов
+                </Grid>
+                <Grid item>
+                  <OrangeSwitch
+                    checked={switchState}
+                    onChange={handleSwitchChange}
+                    name="checkedA"
+                  />
+                </Grid>
+                <Grid item className={classes.switchRightText}>
+                  Включая фантомные обьекты
+                </Grid>
+              </Grid>
+             : null }
+
+            <CreateImabalancePSK
+              balance_index={globalState.balance_index}
+              object={imbalance_psk_pu}
+              switchState={switchState}
+            />
           </Paper>
-        </Grid>
-      ] : null
-    );
+        </Grid>,
+      ]
+    : null;
 };
 
 export { ImbalancePskPu };

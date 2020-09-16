@@ -228,13 +228,13 @@ const BalanceGroup = () => {
               </Grid>
               {/* GRAPHIC SECTION */}
               <GraphicGroup />
-              
+
 
               <Grid container className={classes.tableContainer}>
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
                     <Grid container spacing={3}>
-                      <Grid item xs={8}>
+                      {/* <Grid item xs={8}>
                         <FormControl
                           className={clsx(
                             classes.adressInputTable,
@@ -256,9 +256,9 @@ const BalanceGroup = () => {
                             }
                           />
                         </FormControl>
-                      </Grid>
+                      </Grid> */}
 
-                      <Grid item xs className={classes.tableSortButton}>
+                      {/* <Grid item xs className={classes.tableSortButton}>
                         <FormControl className={classes.formControl}>
                           <InputLabel id="demo-simple-select-label">
                             Сортировать
@@ -280,7 +280,7 @@ const BalanceGroup = () => {
                         >
                           Фильтры
                         </Button>
-                      </Grid>
+                      </Grid> */}
                       <BalanceTable />
                     </Grid>
                   </Paper>

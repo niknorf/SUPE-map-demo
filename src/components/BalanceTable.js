@@ -36,6 +36,7 @@ function createData(
 const createRows = () => {
   var rows = [];
   table_down.map((item) => {
+  if(item.date_month === 'сентябрь'){
     rows.push(
       createData(
         item.balance_id,
@@ -47,6 +48,7 @@ const createRows = () => {
         item.non_technical_losses_kwh
       )
     );
+  }
   });
   return rows;
 };
@@ -98,30 +100,30 @@ const headCells = [
     disablePadding: false,
     label: "Небалансы (кВт)",
   },
-  {
-    id: "technicalPercent",
-    numeric: true,
-    disablePadding: false,
-    label: "Технические (%)",
-  },
-  {
-    id: "technicalKwt",
-    numeric: true,
-    disablePadding: false,
-    label: "Технические (кВт)",
-  },
-  {
-    id: "notTechnicalPecent",
-    numeric: true,
-    disablePadding: false,
-    label: "Нетехнические потери (%)",
-  },
-  {
-    id: "notTechnicalKwt",
-    numeric: true,
-    disablePadding: false,
-    label: "Нетехнические потери (кВт)",
-  },
+  // {
+  //   id: "technicalPercent",
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: "Технические (%)",
+  // },
+  // {
+  //   id: "technicalKwt",
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: "Технические (кВт)",
+  // },
+  // {
+  //   id: "notTechnicalPecent",
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: "Нетехнические потери (%)",
+  // },
+  // {
+  //   id: "notTechnicalKwt",
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: "Нетехнические потери (кВт)",
+  // },
 ];
 
 function EnhancedTableHead(props) {
@@ -281,12 +283,12 @@ var building_obj = GetIsCleanByBalanceIndex(balance_index);
                     </TableCell>
                     <TableCell align="right">{row.imbalancePercent}</TableCell>
                     <TableCell align="right">{row.imbalanceKwh}</TableCell>
-                    <TableCell align="right">{row.technicalPercent}</TableCell>
-                    <TableCell align="right">{row.technicalKwt}</TableCell>
-                    <TableCell align="right">
+                    {/* <TableCell align="right">{row.technicalPercent}</TableCell> */}
+                    {/* <TableCell align="right">{row.technicalKwt}</TableCell> */}
+                    {/* <TableCell align="right">
                       {row.notTechnicalPecent}
-                    </TableCell>
-                    <TableCell align="right">{row.notTechnicalKwt}</TableCell>
+                    </TableCell> */}
+                    {/* <TableCell align="right">{row.notTechnicalKwt}</TableCell> */}
                   </TableRow>
                 );
               })}
