@@ -5,7 +5,8 @@ const reducer = (state, action) => {
 	switch (action.type) {
 		case "FILTERCOMPONENT":
 			return {
-				bi_value: action.bi_value,
+				kgis_id: action.kgis_id,
+				fiasId: action.fiasId,
 				isPhantomic: action.isPhantomic,
 				isInPSK: action.isInPSK,
 				data_for_item_not_found: action.data_for_item_not_found,
@@ -15,8 +16,8 @@ const reducer = (state, action) => {
 				building_address: action.building_address,
 				obj_from: action.obj_from,
 				balance_index_array: action.balance_index_array,
-				zoom_level: action.zoom_level,
-				position: action.position,
+				// zoom_level: action.zoom_level,
+				// position: action.position,
 			};
 			break;
 			case "BUBD":
@@ -32,12 +33,13 @@ const reducer = (state, action) => {
 
 const useGlobalState = () => {
 	const [globalState, globalDispach] = useReducer(reducer, {
-		bi_value: '',
+		kgis_id: '',
+		fiasId: '',
 		isPhantomic: false,
 		balance_index_array: [],
 		balance_index: '',
-		zoom_level: 16,
-		position: [60.04506711185432, 30.39647037897212],
+		// zoom_level: 16,
+		// position: [60.04506711185432, 30.39647037897212],
 		isClean: '',
 		obj_from: '',
 		objSelected: false,

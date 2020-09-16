@@ -9,26 +9,37 @@ import Contex from "../store/context";
 import kgis_upe from "../data/kgis_upe.json";
 import balance_result_full from "../data/balance_result_full.json";
 import {
-  GetBalanceGroup, GetAllObjBalanaceId,
+  GetBalanceGroupObj, GetAllObjBalanaceId,
   GetBalanceIndexIsClean,
   GetIsCleanByBalanceIndex,
   GetKgisIdByBranchId,
-  GetAllBuildingByKgisList,
-  GetAllSubstationNnByKgisList,
-  GetAllSubstationVnByKgisList} from '../scripts/kgisid_mapping.js'
+  GetAllBuildingByFiasList,
+  GetAllSubstationsByFiasList,
+  GetPhantomicBuildingsObjects,
+} from '../scripts/kgisid_mapping.js'
 import L from "leaflet";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
+const PhantomicBuildingstyle = {
+  fillColor: "rgba(241, 158, 105, 0.2)",
+  weight: 1,
+  opacity: 1,
+  color: "#EC8041", //Outline color
+  fillOpacity: 0.7,
+};
+
+const NonPhantomicBuildingstyle = {
+  fillColor: "rgba(37, 47, 74, 0.24)",
+  weight: 1,
+  opacity: 1,
+  color: "#252F4A", //Outline color
+  fillOpacity: 0.7,
+};
+
 const PhantomicBuilding = (kgisId) => {
   var temp;
-  const style = {
-    fillColor: "rgba(241, 158, 105, 0.2)",
-    weight: 1,
-    opacity: 1,
-    color: "#EC8041", //Outline color
-    fillOpacity: 0.7,
-  };
+
   temp = buildingsPolygon.map((building) => {
     if (building.properties.kgisId == kgisId) {
       return building;
@@ -38,59 +49,40 @@ const PhantomicBuilding = (kgisId) => {
   temp = temp.filter((obj) => {
     return typeof obj !== "undefined";
   });
-  return <GeoJSON key={kgisId} data={temp} style={style} />;
+  return <GeoJSON key={kgisId} data={temp} style={PhantomicBuildingstyle} />;
 };
 
 const NonePhantomicBuilding = (globalState) => {
-  const style = {
-    fillColor: "rgba(37, 47, 74, 0.24)",
-    weight: 1,
-    opacity: 1,
-    color: "#252F4A", //Outline color
-    fillOpacity: 0.7,
-  };
-
-  const PhantomicStyle = {
-    fillColor: "rgba(241, 158, 105, 0.2)",
-    weight: 1,
-    opacity: 1,
-    color: "#EC8041", //Outline color
-    fillOpacity: 0.7,
-  };
-
-// getFeatures(feature) = ()=>{
-//   console.log(feature);
-// }
-
 
   let bi = globalState.balance_index;
-  let kgisId = globalState.bi_value;
-  let kgis_building_list = GetAllObjBalanaceId(bi);
-  let building_objects = GetAllBuildingByKgisList(kgis_building_list)
-  let substation_nn = GetAllSubstationNnByKgisList(kgis_building_list);
-  let substation_vn = GetAllSubstationVnByKgisList(kgis_building_list)
+  let fiasId_building_list = GetAllObjBalanaceId(bi);
+  let phantomic_building_objects = GetPhantomicBuildingsObjects(bi);
+  let building_objects = GetAllBuildingByFiasList(fiasId_building_list.concat(phantomic_building_objects));
+  let substations = GetAllSubstationsByFiasList(fiasId_building_list);
+  let final_array = [...substations, ...building_objects];
 
-  let final_array = [...substation_nn, ...substation_vn, ...building_objects];
-
-  return <GeoJSON key={kgisId} data={final_array} style={(features) => {return features.properties.isPhantomic ? PhantomicStyle : style} }/>;
+  return <GeoJSON key={bi} data={building_objects} style={(features) => {return features.properties.isPhantomic ? PhantomicBuildingstyle : NonPhantomicBuildingstyle} }/>;
 };
 
 const DisplayMultipleBalanceGroups = (globalState) => {
   const { globalDispach } = useContext(Contex);
 
-
   const handleTsClick = (event) => {
-    globalDispach({
-      type: "FILTERCOMPONENT",
-      bi_value: event.sourceTarget.feature.properties.kgisId,
-      isPhantomic: event.sourceTarget.feature.properties.isPhantomic,
-      balance_index: GetBalanceIndexIsClean(GetBalanceGroup(event.sourceTarget.feature.properties.kgisId)).balance_index,
-      isClean: GetBalanceIndexIsClean(GetBalanceGroup(event.sourceTarget.feature.properties.kgisId)).isClean,
-      objSelected: true,
-      building_address: event.sourceTarget.feature.properties.name,
-      obj_from: 'map_click',
-      isInPSK: false,
-    });
+    if(globalState.balance_index_array.length > 1){
+
+      globalDispach({
+        type: "FILTERCOMPONENT",
+        kgis_id: event.sourceTarget.feature.properties.kgisId,
+        fiasId: event.sourceTarget.feature.properties.fiasId,
+        isPhantomic: event.sourceTarget.feature.properties.isPhantomic,
+        balance_index: GetBalanceIndexIsClean(GetBalanceGroupObj(event.sourceTarget.feature.properties.fiasId)).balance_index,
+        isClean: GetBalanceIndexIsClean(GetBalanceGroupObj(event.sourceTarget.feature.properties.fiasId)).isClean,
+        objSelected: true,
+        building_address: event.sourceTarget.feature.properties.name,
+        obj_from: 'map_click',
+        isInPSK: false,
+      });
+    }
   };
 
   const style = {
@@ -116,7 +108,7 @@ const DisplayMultipleBalanceGroups = (globalState) => {
   }
 
   for (const obj of branch_ids) {
-    array.push(<GeoJSON key={obj[0]} data={GetAllBuildingByKgisList(obj)} style={(features) => {return features.properties.isPhantomic ? PhantomicStyle : style} }   onClick={handleTsClick}/>);
+    array.push(<GeoJSON key={obj[0]} data={GetAllBuildingByFiasList(obj)} style={(features) => {return features.properties.isPhantomic ? PhantomicStyle : style} }   onClick={handleTsClick}/>);
   }
 
    return array;
@@ -146,15 +138,15 @@ const GeneralMap = () => {
 
   const handleClick = (event) => {
 
-
-    map.leafletElement.fitBounds(event.sourceTarget.getBounds());
+    // map.leafletElement.fitBounds(event.sourceTarget.getBounds());
 
     globalDispach({
       type: "FILTERCOMPONENT",
-      bi_value: event.sourceTarget.feature.properties.kgisId,
+      kgis_id: event.sourceTarget.feature.properties.kgisId,
+      fiasId: event.sourceTarget.feature.properties.fiasId,
       isPhantomic: event.sourceTarget.feature.properties.isPhantomic,
-      balance_index: GetBalanceIndexIsClean(GetBalanceGroup(event.sourceTarget.feature.properties.kgisId)).balance_index,
-      isClean: GetBalanceIndexIsClean(GetBalanceGroup(event.sourceTarget.feature.properties.kgisId)).isClean,
+      balance_index: GetBalanceIndexIsClean(GetBalanceGroupObj(event.sourceTarget.feature.properties.fiasId)).balance_index,
+      isClean: GetBalanceIndexIsClean(GetBalanceGroupObj(event.sourceTarget.feature.properties.fiasId)).isClean,
       objSelected: true,
       building_address: event.sourceTarget.feature.properties.name,
       obj_from: 'map_click',
@@ -165,8 +157,8 @@ const GeneralMap = () => {
   return (
     <Map
       className="markercluster-map"
-      center={typeof globalState.position !== 'undefined' ? globalState.position : position}
-      zoom={typeof globalState.zoom_level !== 'undefined' ? globalState.zoom_level : zoom_level}
+      center={position}
+      zoom={zoom_level}
       ref={(ref) => { map = ref; }}
       style={mapStyle}
     >
@@ -193,8 +185,8 @@ const checkDisplay = (globalState) => {
   if(globalState.obj_from === 'ts_select'){
     return DisplayMultipleBalanceGroups(globalState);
   }else{
-    if (globalState.balance_index === '') {
-      return PhantomicBuilding(globalState.bi_value);
+    if (globalState.isPhantomic) {
+      return PhantomicBuilding(globalState.kgis_id);
     } else {
       return NonePhantomicBuilding(globalState);
     }

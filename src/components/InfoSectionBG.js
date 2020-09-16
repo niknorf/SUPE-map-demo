@@ -268,7 +268,6 @@ const InfoSection = () => {
   return (
     <Container>
       {(() => {
-        console.log(globalState);
         if (globalState.isPhantomic && globalState.balance_index === "") {
           return (
             <WarningState label="Не удалось определить балансовую группу для выбранного обьекта" />

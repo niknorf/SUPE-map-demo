@@ -12,7 +12,7 @@ import React, { useContext, useState } from "react";
 import Contex from "../store/context";
 import building_polygons from "../building_polygon.json";
 import ts_balance_dict from "../data/ts_balance_dict.json";
-import {GetBalanceGroup, GetAllObjBalanaceId, GetBalanceIndexIsClean} from '../scripts/kgisid_mapping.js'
+import {GetBalanceGroupObj, GetAllObjBalanaceId, GetBalanceIndexIsClean} from '../scripts/kgisid_mapping.js'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -73,14 +73,14 @@ const SearchComponent = () => {
   const handleChange = (event, value) => {
 
     // map.leafletElement.fitBounds(event.sourceTarget.getBounds());
-console.log(event);
 
     globalDispach({
       type: "FILTERCOMPONENT",
-      bi_value: value === null ? "" : value.kgisId,
+      kgis_id: value === null ? "" : value.kgisId,
+      fiasId: value === null ? "" : value.fiasId,
       isPhantomic: value === null ? "" : value.isPhantomic,
-      balance_index: value === null ? '' : GetBalanceIndexIsClean(GetBalanceGroup(value.kgisId)).balance_index,
-      isClean: value === null ? '' : GetBalanceIndexIsClean(GetBalanceGroup(value.kgisId)).isClean,
+      balance_index: value === null ? '' : GetBalanceIndexIsClean(GetBalanceGroupObj(value.fiasId)).balance_index,
+      isClean: value === null ? '' : GetBalanceIndexIsClean(GetBalanceGroupObj(value.fiasId)).isClean,
       objSelected: value === null ? false : true,
       fromTsFilter: false,
       obj_from: 'street_select',
@@ -94,7 +94,7 @@ console.log(event);
   building_polygons.map((obj) => {
     let temp_obj = {};
     temp_obj.name = obj.properties.name;
-    temp_obj.kgisId = obj.properties.kgisId;
+    temp_obj.fiasId = obj.properties.fiasId;
     temp_obj.isPhantomic = obj.properties.isPhantomic;
     temp_obj.isInPSK = obj.properties.isInPSK;
     street_array.push(temp_obj);

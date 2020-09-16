@@ -237,7 +237,7 @@ var building_obj = GetIsCleanByBalanceIndex(balance_index);
 
     globalDispach({
       type: "FILTERCOMPONENT",
-      bi_value: GetKgisIdByBranchId(building_obj.branch_id),
+      kgis_id: GetKgisIdByBranchId(building_obj.branch_id),
       isPhantomic: false,
       balance_index: balance_index,
       isClean: building_obj.is_clean,
