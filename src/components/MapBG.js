@@ -63,8 +63,8 @@ const NonePhantomicBuilding = (globalState) => {
 
   console.log(fiasId_building_list);
 
-  // return <GeoJSON key={bi} data={building_objects} style={(features) => {return features.properties.isPhantomic ? PhantomicBuildingstyle : NonPhantomicBuildingstyle} }/>;
-  return null;
+  return <GeoJSON key={bi} data={final_array} style={(features) => {return features.properties.isPhantomic ? PhantomicBuildingstyle : NonPhantomicBuildingstyle} }/>;
+  // return null;
 };
 
 const DisplayMultipleBalanceGroups = (globalState) => {
