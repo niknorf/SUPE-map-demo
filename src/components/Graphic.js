@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Container, Grid, Paper } from "@material-ui/core";
+import { Container, Grid, Paper, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 import Contex from "../store/context";
 import clsx from "clsx";
 import Plotly from "plotly.js";
@@ -10,6 +11,16 @@ import tech_losses from "../data/graphic/tech_losses.json";
 import full_res from "../data/graphic/full_res_imbalance.json";
 import "../css/graphic.css";
 const Plot = createPlotlyComponent(Plotly);
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const hole_size = 0.6;
 const pie_colors = ["rgb(65,123,236)", "rgba(140, 148, 158, 0.2)"];
@@ -33,7 +44,15 @@ const column_title_font = {
 };
 
 const GraphicGroup = () => {
+   const [month, setMonth] = React.useState('сентябрь');
   const { state, globalState } = useContext(Contex);
+  const classes = useStyles();
+
+
+  const handleMonthChange = (event) => {
+  setMonth(event.target.value);
+};
+
 
   /* Pie charts */
   var transfer_percent = {
@@ -465,14 +484,30 @@ const GraphicGroup = () => {
         if (globalState.isClean && globalState.balance_index !== "") {
           return (
             <Container>
+
               <Grid container spacing={3}>
                 <Grid item xs={6} md={12} lg={12}>
                   <Paper>
-                    <DisplayPieChart balance_index={globalState.balance_index} type={transfer_percent} obj_name='percent_transmission_PU'/>
-                    <DisplayPieChart balance_index={globalState.balance_index} type={difference_percent} obj_name='index_compliance_forecast_present_unbalance'/>
-                    <DisplayPieChart balance_index={globalState.balance_index} type={person_trust_index} obj_name='trust_index_PSK_fiz'/>
-                    <DisplayPieChart balance_index={globalState.balance_index} type={house_trust_index} obj_name='trust_index_PSK_ODN'/>
-                    <DisplayPieChart balance_index={globalState.balance_index} type={compnay_trust_index} obj_name='trust_index_PSK_urik'/>
+                    <FormControl className={classes.formControl}>
+        <InputLabel shrink id="demo-simple-select-label">Месяц</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={month}
+      onChange={handleMonthChange}
+        >
+          <MenuItem value={'май'}>Май</MenuItem>
+          <MenuItem value={'июнь'}>Июнь</MenuItem>
+          <MenuItem value={'июль'}>Июль</MenuItem>
+          <MenuItem value={'август'}>Август</MenuItem>
+          <MenuItem value={'сентябрь'}>Сентябрь</MenuItem>
+        </Select>
+      </FormControl>
+                    <DisplayPieChart month={month} balance_index={globalState.balance_index} type={transfer_percent} obj_name='percent_transmission_PU'/>
+                    <DisplayPieChart month={month} balance_index={globalState.balance_index} type={difference_percent} obj_name='index_compliance_forecast_present_unbalance'/>
+                    <DisplayPieChart month={month} balance_index={globalState.balance_index} type={person_trust_index} obj_name='trust_index_PSK_fiz'/>
+                    <DisplayPieChart month={month} balance_index={globalState.balance_index} type={house_trust_index} obj_name='trust_index_PSK_ODN'/>
+                    <DisplayPieChart month={month} balance_index={globalState.balance_index} type={compnay_trust_index} obj_name='trust_index_PSK_urik'/>
                   </Paper>
                 </Grid>
                 </Grid>
@@ -500,7 +535,7 @@ const GraphicGroup = () => {
   );
 };
 
-const DisplayBarChart = ({balance_index,type, obj_name}) => {
+const DisplayBarChart = ({balance_index, type, obj_name}) => {
 
   full_res.map(function (item) {
     if (item.balance_id.toString() === balance_index.toString()) {
@@ -516,12 +551,13 @@ return(<Plot
         />)
 };
 
-const DisplayPieChart = ({balance_index, type, obj_name}) => {
+const DisplayPieChart = ({month, balance_index, type, obj_name}) => {
+
 indexes.map((item) => {
       if (
         item.balance_id.toString() === balance_index.toString() &&
         item.date_year === 2020 &&
-        item.date_month === "сентябрь"
+        item.date_month === month
       ) {
         type.data[0].values.push(
           item.[obj_name],
@@ -544,11 +580,15 @@ indexes.map((item) => {
       }
     });
 
-    return(<Plot
-            data={type.data}
-            layout={type.layout}
-            config={type.config}
-            />)
+    return(
+      type.data[0].values.length > 0 ?
+       <Plot
+      data={type.data}
+      layout={type.layout}
+      config={type.config}
+    />
+    : null
+  )
 };
 
 

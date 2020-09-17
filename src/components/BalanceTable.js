@@ -235,14 +235,14 @@ export default function EnhancedTable() {
 /*Search for the ConsumerBuilding which belongs to selected balance group, in order to get is_clean and branch_id*/
 var building_obj = GetIsCleanByBalanceIndex(balance_index);
 
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
 
     globalDispach({
       type: "FILTERCOMPONENT",
-      kgis_id: GetKgisIdByBranchId(building_obj.branch_id),
+      kgis_id: typeof building_obj !== 'undefined' ? GetKgisIdByBranchId(building_obj.branch_id) : '',
       isPhantomic: false,
       balance_index: balance_index,
-      isClean: building_obj.is_clean,
+      isClean: typeof building_obj !== 'undefined' ? building_obj.is_clean : false,
       objSelected: true,
       building_address: "",
       obj_from: 'table_click',

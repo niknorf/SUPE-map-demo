@@ -243,6 +243,7 @@ const ShowDataState = () => {
                     inputProps: { "aria-label": "rows per page" },
                     native: true,
                   }}
+                  labelRowsPerPage = {"Строк на странице"}
                   onChangePage={handleChangePage}
                   onChangeRowsPerPage={handleChangeRowsPerPage}
                   ActionsComponent={TablePaginationActions}
