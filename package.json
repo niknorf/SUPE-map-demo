@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "file-loader": "^6.0.0"
+    "file-loader": "^6.0.0",
+    "terser": "^3.14.1"
   }
 }
