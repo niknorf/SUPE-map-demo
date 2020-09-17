@@ -84,7 +84,7 @@ const Drawer = props => {
   const itemsList = [
     {
       icon: <img src={logo} className={classes.logo} />,
-      onClick: () => history.push("/")
+      onClick: () => history.push("/home")
     },
     {
       text: "КАБИНЕТ",

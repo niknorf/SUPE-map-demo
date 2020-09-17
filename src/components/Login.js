@@ -7,6 +7,8 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
+import BackgoundImage from '../img/login-map.png'
+import logo from '../img/login-logo.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '64px',
     lineHeight: '76.8px',
     width: '500px',
+    color: 'white'
   },
   loginPaper: {
     display: 'flex',
@@ -52,6 +55,17 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'column',
+    backgroundImage: `url(${BackgoundImage})`,
+    backgroundSize: 'contain',
+    borderRadius: '0'
+  },
+  imageContainer: {
+    width: '500px'
+  },
+  logo: {
+    width: '115px',
+    marginTop: '18px'
   }
 }));
 
@@ -63,7 +77,7 @@ export default function CenteredGrid() {
       variant="contained"
       color="primary"
       className={classes.loginButton}
-      onClick={() => { history.push('/') }}
+      onClick={() => { history.push('/home') }}
     >
       Войти
     </Button>
@@ -77,6 +91,9 @@ export default function CenteredGrid() {
             <Typography className={classes.coverText}>
               Система управления передачей электроэнергии
             </Typography>
+            <Box className={classes.imageContainer}>
+              <img src={logo} className={classes.logo} />
+            </Box>
           </Paper>
         </Grid>
         <Grid item xs={4}>

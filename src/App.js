@@ -57,8 +57,8 @@ export default function App() {
       <CssBaseline />
       <Drawer />
         <Switch>
-          <Route exact from="/" render={props => <Home {...props} />} />
-          <Route exact from="/login" render={props => <Login {...props} />} />
+          <Route exact from="/home" render={props => <Home {...props} />} />
+          <Route exact from="/" render={props => <Login {...props} />} />
           <Route exact from="/balancegroup" render={props => <BalanceGroup {...props} />} />
           <Route exact path="/profile" render={props => <Profile {...props} />} />
           <Route exact path="/bubd" render={props => <BuBd {...props} />} />

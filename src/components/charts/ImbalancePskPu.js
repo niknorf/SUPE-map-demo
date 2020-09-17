@@ -1,4 +1,4 @@
-import { Grid, Paper, Switch } from "@material-ui/core";
+import { Grid, Paper, Switch, Typography, Box } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Plotly from "plotly.js";
 import React, { useContext, setState } from "react";
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "0px 6px 18px rgba(0, 0, 0, 0.06)",
   },
   fixedHeight: {
-    height: 500,
+    //height: 500,
   },
   switchRightText: {
     color: "#F19E69",
@@ -23,6 +23,26 @@ const useStyles = makeStyles((theme) => ({
   switchLeftText: {
     color: "#818E9B",
   },
+  pskGrid: {
+    maxWidth: '100%',
+  },
+  swith: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    paddingTop: '16px',
+  },
+  graphText: {
+    fontSize: '14px',
+    lineHeight: '14px',
+    paddingLeft: '16px',
+    paddingTop: '16px',
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+  }
 }));
 
 const OrangeSwitch = withStyles({
@@ -39,7 +59,7 @@ const OrangeSwitch = withStyles({
   track: {},
 })(Switch);
 
-const IsPhantomicIncluded = (balance_index) =>{
+const IsPhantomicIncluded = (balance_index) => {
   return typeof phantomic_buildings[balance_index] === 'undefined' ? false : true;
 }
 
@@ -151,7 +171,7 @@ const ImbalancePskPu = () => {
   var imbalance_psk_pu = {
     layout: {
       hoverinfo: "none",
-      title: "График небалансов между <br>показаниями ПСК и ПУ, в кВтч от ПУ",
+      //title: "График небалансов между <br>показаниями ПСК и ПУ, в кВтч от ПУ",
       width: 550,
     },
     data: [],
@@ -171,11 +191,13 @@ const ImbalancePskPu = () => {
 
   return globalState.balance_index !== "" && globalState.isClean == true
     ? [
-        <Grid item xs={12} md={6} lg={6}>
-          <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
-
+      <Grid item xs={12} md={6} lg={6} className={classes.pskGrid}>
+        <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
+          <Box className={classes.header}>
+            <Typography className={classes.graphText}>График небалансов между показаниями ПСК и ПУ, в кВтч от ПУ</Typography>
             {IsPhantomicIncluded(globalState.balance_index) ?
-              <Grid
+              <Box
+                className={classes.swith}
                 component="label"
                 container
                 alignItems="center"
@@ -183,30 +205,31 @@ const ImbalancePskPu = () => {
                 direction="row"
                 spacing={1}
               >
-                <Grid item className={classes.switchLeftText}>
+                <Box item className={classes.switchLeftText}>
                   Без фантомных обьектов
-                </Grid>
-                <Grid item>
+                </Box>
+                <Box item>
                   <OrangeSwitch
                     checked={switchState}
                     onChange={handleSwitchChange}
                     name="checkedA"
                   />
-                </Grid>
+                </Box>
                 <Grid item className={classes.switchRightText}>
                   Включая фантомные обьекты
                 </Grid>
-              </Grid>
-             : null }
+              </Box>
+              : null}
+          </Box>
 
-            <CreateImabalancePSK
-              balance_index={globalState.balance_index}
-              object={imbalance_psk_pu}
-              switchState={switchState}
-            />
-          </Paper>
-        </Grid>,
-      ]
+          <CreateImabalancePSK
+            balance_index={globalState.balance_index}
+            object={imbalance_psk_pu}
+            switchState={switchState}
+          />
+        </Paper>
+      </Grid>,
+    ]
     : null;
 };
 

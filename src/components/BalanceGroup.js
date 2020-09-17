@@ -25,9 +25,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import SelectMaterial from "@material-ui/core/Select";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import {GraphicGroup} from './Graphic'
+import { GraphicGroup } from './Graphic'
 import { InfoSection } from "./InfoSectionBG";
-import {ImbalancePskPu} from "./charts/ImbalancePskPu"
+import { ImbalancePskPu } from "./charts/ImbalancePskPu"
 import { SelectComponent, SearchComponent, TsSearchComponent } from "./FilterComponent";
 import BalanceTable from "./BalanceTable";
 import GeneralMap from "./MapBG";
@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
   },
   infoSectionStyles: {
     boxShadow: "0px 6px 18px rgba(0, 0, 0, 0.06)",
-    height: "35vh", //half of the map height
+    height: "100%", //half of the map height
   },
   tableContainer: {
     paddingTop: "24px",
@@ -151,6 +151,16 @@ const useStyles = makeStyles((theme) => ({
     width: "20px",
     height: "20px",
   },
+  content: {
+    width: '100%',
+    background: "#F5F6F8",
+  },
+  balancePaper: {
+    height: '100%',
+  },
+  BalanceTableStyles: {
+    height: '100%'
+  },
 }));
 
 const BalanceGroup = () => {
@@ -172,124 +182,78 @@ const BalanceGroup = () => {
 
   return (
     // <GlobalStateProvider>
-      <div className={classes.root}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <main className={classes.content}>
-            <Container maxWidth="lg" className={classes.container}>
-              <div className={classes.header}>
-                <Typography
-                  className={classes.balanceText}
-                  variant="h2"
-                  gutterBottom
-                >
-                  Балансовые группы
+    <div className={classes.root}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <main className={classes.content}>
+          <Container maxWidth="lg" className={classes.container}>
+            <div className={classes.header}>
+              <Typography
+                className={classes.balanceText}
+                variant="h2"
+                gutterBottom
+              >
+                Балансовые группы
                 </Typography>
-                <Link href="#balance-table" className={classes.balanceLink}>
-                  Посмотреть таблицу всех балансовых групп
+              <Link href="#balance-table" className={classes.balanceLink}>
+                Посмотреть таблицу всех балансовых групп
                 </Link>
-              </div>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <Paper className={classes.balanceGroupSelectors}>
-                    {/* SEARCH STREET COMPONENT */}
-                    <Grid item xs={12} sm={6} md={6} lg={6}>
-                      <SearchComponent />
-                    </Grid>
-                    {/* SELECT COMPONENT */}
-                    <Grid item xs={6} sm={6} md={6} lg={6}>
-                      <TsSearchComponent />
-                    </Grid>
-                    {/* PLACE FOR THIRD FILTER */}
-                    {/* <Grid
+            </div>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Paper className={classes.balanceGroupSelectors}>
+                  {/* SEARCH STREET COMPONENT */}
+                  <Grid item xs={12} sm={6} md={6} lg={6}>
+                    <SearchComponent />
+                  </Grid>
+                  {/* SELECT COMPONENT */}
+                  <Grid item xs={6} sm={6} md={6} lg={6}>
+                    <TsSearchComponent />
+                  </Grid>
+                  {/* PLACE FOR THIRD FILTER */}
+                  {/* <Grid
                       item
                       xs={6}
                       sm={3}
                       className={classes.balaceGroupType}
                     ></Grid> */}
-                  </Paper>
-                </Grid>
+                </Paper>
               </Grid>
+            </Grid>
 
-              <Grid container spacing={3}>
-                {/* MAP SECTION */}
-                <Grid item xs={12} sm={12} md={12} lg={6}>
-                    <GeneralMap />
-                </Grid>
-                {/* INFO SECTION */}
-                <Grid item xs={12} sm={6} md={6} lg={6}>
-                  <Paper
-                    className={clsx(fixedHeightPaper, classes.infoSectionStyles)}>
-                    <InfoSection />
-                  </Paper>
-                </Grid>
+            <Grid container spacing={3}>
+              {/* MAP SECTION */}
+              <Grid item xs={12} sm={12} md={12} lg={6}>
+                <GeneralMap />
+              </Grid>
+              {/* INFO SECTION */}
+              <Grid className={classes.tableContainer} item xs={6}>
+                <Paper className={clsx(classes.paper, classes.balancePaper)}>
+                  <BalanceTable className={classes.BalanceTableStyles} />
+                </Paper>
+              </Grid>
+              <Grid item xs={12} sm={6} md={6} lg={6}>
+                <Paper
+                  className={clsx(fixedHeightPaper, classes.infoSectionStyles)}>
+                  <InfoSection />
+                </Paper>
+              </Grid>
+              <Grid item xs={12} sm={6} md={6} lg={6}>
                 {/* IMBALACE GRAPHIC */}
-                <ImbalancePskPu/>
+                <ImbalancePskPu />
               </Grid>
-              {/* GRAPHIC SECTION */}
-              <GraphicGroup />
+            </Grid>
 
 
-              <Grid container className={classes.tableContainer}>
-                <Grid item xs={12}>
-                  <Paper className={classes.paper}>
-                    <Grid container spacing={3}>
-                      {/* <Grid item xs={8}>
-                        <FormControl
-                          className={clsx(
-                            classes.adressInputTable,
-                            classes.textField
-                          )}
-                        >
-                          <InputLabel htmlFor="standard-adornment-password">
-                            Найти балансовые группы
-                          </InputLabel>
-                          <Input
-                            id="standard-adornment-password"
-                            value=""
-                            endAdornment={
-                              <InputAdornment position="end">
-                                <IconButton>
-                                  <SearchIcon style={{ color: "#4A9CFF" }} />
-                                </IconButton>
-                              </InputAdornment>
-                            }
-                          />
-                        </FormControl>
-                      </Grid> */}
+            {/* GRAPHIC SECTION */}
+            <GraphicGroup />
 
-                      {/* <Grid item xs className={classes.tableSortButton}>
-                        <FormControl className={classes.formControl}>
-                          <InputLabel id="demo-simple-select-label">
-                            Сортировать
-                          </InputLabel>
-                          <SelectMaterial
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={sortItem}
-                            onChange={handleChange}
-                          >
-                            <MenuItem value={10}>По номеру группы</MenuItem>
-                          </SelectMaterial>
-                        </FormControl>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          className={classes.buttonFilter}
-                          endIcon={<Filter className={classes.filterIcon} />}
-                        >
-                          Фильтры
-                        </Button>
-                      </Grid> */}
-                      <BalanceTable />
-                    </Grid>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Container>
-          </main>
-        </ThemeProvider>
-      </div>
+
+
+          </Container>
+        </main>
+      </ThemeProvider>
+    </div>
     // </GlobalStateProvider>
   );
 };

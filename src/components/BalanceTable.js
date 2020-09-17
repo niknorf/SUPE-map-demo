@@ -98,7 +98,7 @@ const headCells = [
     id: "imbalanceKwh",
     numeric: true,
     disablePadding: false,
-    label: "Небалансы (кВт)",
+    label: "Небалансы (кВтч)",
   },
   // {
   //   id: "technicalPercent",
@@ -182,13 +182,14 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     padding: "0 15px",
+    height: '95%'
   },
   paper: {
     width: "100%",
     marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: 750,
+    
   },
   visuallyHidden: {
     border: 0,
@@ -203,6 +204,9 @@ const useStyles = makeStyles((theme) => ({
   },
   headCellStyle: {
     fontWeight: "bold",
+  },
+  tableBalance: {
+    height: '100%',
   },
 }));
 
@@ -252,7 +256,7 @@ var building_obj = GetIsCleanByBalanceIndex(balance_index);
 
   return (
     <div className={classes.root}>
-      <TableContainer id="balance-table">
+      <TableContainer id="balance-table" className={classes.tableBalance}>
         <Table
           className={classes.table}
           aria-labelledby="tableTitle"
