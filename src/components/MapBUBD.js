@@ -30,9 +30,15 @@ const  GeneralMap = () =>{
       <div>
         <Map className="markercluster-map"   center={position} zoom={16}>
             <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
-            <MarkerClusterGroup>
+            <MarkerClusterGroup
+              iconCreateFunction={createClusterCustomIcon}
+              spiderLegPolylineOptions={{
+            weight: 0,
+            opacity: 0,
+          }}
+  >
               {markers.map((item)=>
-                <Marker extra_data={item} position={[item.lat, item.lon]} key={item.object_id}  icon={m_icon} onClick={handleChange} ></Marker>
+                <Marker extra_data={item} position={[item.lat, item.lon]} key={item.object_id}  icon={MarkerColor(item)} onClick={handleChange} ></Marker>
               )}
               {/* <PlaceMarkers/> */}
             </MarkerClusterGroup>
@@ -44,6 +50,33 @@ const  GeneralMap = () =>{
 }
 
 const position = [60.047135, 30.384553];
+const createClusterCustomIcon = (cluster) =>{
+  return  (new L.divIcon({
+    html: `<span  class="marker-cluster-custom-label">${cluster.getChildCount()}</span>`,
+      className: 'marker-cluster-custom',
+      iconSize: new L.point(40, 40, true),
+  }))
+}
+
+const MarkerColor = (item) =>{
+
+let color = 'grey.png';
+
+if(parseInt(item.imbalance) > 75){
+  color = 'red.png';
+}else if (parseInt(item.imbalance) > 50) {
+  color = 'orange.png';
+}else if (parseInt(item.imbalance) > 25) {
+color = 'yellow.png';
+}else {
+  color = 'grey.png';
+}
+
+return ( new L.Icon({
+    iconUrl: require('../img/'+ color),
+    iconSize: [40, 40]
+  }))
+}
 
 function PlaceMarkers() {
 
