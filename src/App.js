@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import Login from './components/Login';
 import BalanceGroup from "./components/BalanceGroup";
 import Home from './components/Home';
 import GlobalStateProvider from "./store/GlobalStateProvider";
@@ -57,6 +58,7 @@ export default function App() {
       <Drawer />
         <Switch>
           <Route exact from="/" render={props => <Home {...props} />} />
+          <Route exact from="/login" render={props => <Login {...props} />} />
           <Route exact from="/balancegroup" render={props => <BalanceGroup {...props} />} />
           <Route exact path="/profile" render={props => <Profile {...props} />} />
           <Route exact path="/bubd" render={props => <BuBd {...props} />} />
