@@ -307,6 +307,7 @@ var building_obj = GetIsCleanByBalanceIndex(balance_index);
         page={page}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
+        labelRowsPerPage = {"Строк на странице"}
       />
     </div>
   );
