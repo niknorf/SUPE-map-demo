@@ -1,6 +1,7 @@
 import {
   Typography,
   Container,
+  Box,
   Paper,
   TablePagination,
   TableFooter,
@@ -202,7 +203,6 @@ const ShowDataState = () => {
 
   return (
     <Typography>
-      <Container>
         Балансовая группа №{balance_id} {address_name}
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
@@ -252,7 +252,6 @@ const ShowDataState = () => {
             </TableFooter>
           </Table>
         </TableContainer>
-      </Container>
     </Typography>
   );
 };
@@ -267,7 +266,7 @@ TablePaginationActions.propTypes = {
 const InfoSection = () => {
   const { state, globalState } = useContext(Contex);
   return (
-    <Container>
+    <Box>
       {(() => {
         if (globalState.isPhantomic && globalState.balance_index === "") {
           return (
@@ -292,7 +291,7 @@ const InfoSection = () => {
           return <InitialState />;
         }
       })()}
-    </Container>
+    </Box>
   );
 };
 

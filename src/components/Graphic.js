@@ -33,13 +33,21 @@ const useStyles = makeStyles((theme) => ({
   },
   barPaper: {
     display: 'flex',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    boxShadow: '0px 6px 18px rgba(0, 0, 0, 0.06)'
   },
   chartsContainer: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     padding: '0 16px'
+  },
+  chartsPaper: {
+    boxShadow: '0px 6px 18px rgba(0, 0, 0, 0.06)',
+    margin: '12px 0',
+  },
+  lastBlockPaper: {
+    marginTop: '12px'
   }
 }));
 
@@ -510,7 +518,7 @@ const GraphicGroup = () => {
 
               <Grid container spacing={3}>
                 <Grid item xs={6} md={12} lg={12}>
-                  <Paper>
+                  <Paper className={classes.chartsPaper}>
                     <Box className={classes.formControlBox}>
                       <Typography className={classes.reasonText}>Обоснование</Typography>
                       <FormControl className={classes.formControl}>
@@ -549,7 +557,7 @@ const GraphicGroup = () => {
               </Grid>
               <Grid container spacing={3}>
                 <Grid item xs={6} md={12} lg={12}>
-                  <Paper className={classes.barPaper}>
+                  <Paper className={classes.barPaper} className={clsx(classes.barPaper, classes.lastBlockPaper)}>
                     <DisplayBarChart balance_index={globalState.balance_index} type={balance_group_tech_loss} obj_name='imbalance_kwh' />
                     <DisplayBarChart balance_index={globalState.balance_index} type={meter_avg} obj_name='na_meter_avg' />
                   </Paper>

@@ -6,14 +6,21 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
 import WorkOutlineOutlinedIcon from '@material-ui/icons/WorkOutlineOutlined';
 import { Container, Grid, Paper, FormControl, InputLabel, Select, MenuItem, Box, Typography } from "@material-ui/core";
+import BuBdTable from './BuBdTable';
 import pieChart from '../img/pie-chart.png';
+import graphOne from '../img/graph-one.png';
+import graphTwo from '../img/graph-two.png';
+import '../css/home.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     padding: '24px',
-    width: '100%'
+    width: '100%',
+    maxWidth: '1372px',
+    margin: '0 auto',
+    background: '#F5F6F8',
   },
   buttonContainer: {
     display: 'flex',
@@ -53,10 +60,13 @@ const useStyles = makeStyles((theme) => ({
     left: '14px',
   },
   pieChartPaper: {
-    padding: '30px'
+    padding: '30px',
+    boxShadow: '4px 6px 18px rgba(0, 0, 0, 0.06)'
   },
-  pieCharts: {
-    display: 'flex'
+  firstColumn: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignContent: 'flex-start'
   },
   rightPieChart: {
     marginLeft: '12px'
@@ -73,6 +83,32 @@ const useStyles = makeStyles((theme) => ({
   buttonTasks: {
     background: 'linear-gradient(127.52deg, #00CAFF 20.68%, #4A9CFF 80.9%);',
     marginRight: '24px'
+  },
+  graph: {
+    marginTop: '24px',
+  },
+  graphPaper: {
+    padding: '20px',
+    boxShadow: '4px 6px 18px rgba(0, 0, 0, 0.06)'
+  },
+  graphOneImage: {
+    width: '120%'
+  },
+  bubdTable: {
+    marginTop: '24px',
+    boxShadow: '4px 6px 18px rgba(0, 0, 0, 0.06)',
+    '& .MuiTable-root': {
+      minWidth: 'auto'      
+    },
+    '& .MuiTableContainer-root': {
+      paddingRight: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      height: 'calc(100vh - 266px)'
+    },
+    '& .MuiTablePagination-toolbar-107': {
+      marginTop: 'auto'
+    }
   }
 }));
 
@@ -125,12 +161,18 @@ export default function Home() {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={6} spacing={3} className={classes.pieCharts}>
+        <Grid item xs={6} spacing={3} className={classes.firstColumn}>
           <Grid item xs={6}>
             <Paper className={clsx(classes.pieChartPaper, classes.leftPieChart)}><img src={pieChart} className={classes.pieChartImage} /></Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className={clsx(classes.pieChartPaper, classes.rightPieChart)}><img src={pieChart} className={classes.pieChartImage} /></Paper>
+          </Grid>
+          <Grid item xs={12} className={classes.graph}>
+            <Paper className={clsx(classes.graphPaper, classes.graphOne)}><img src={graphOne} className={classes.graphOneImage} /></Paper>
+          </Grid>
+          <Grid item xs={12} className={classes.graph}>
+            <Paper className={clsx(classes.graphPaper, classes.graphTwo)}><img src={graphTwo} className={classes.graphTwoImage} /></Paper>
           </Grid>
         </Grid>
         <Grid item xs={6}>
@@ -139,6 +181,9 @@ export default function Home() {
             <ButtonBalance />
             <ButtonBuBd />
           </Box>
+          <Paper className={classes.bubdTable}>
+            <BuBdTable />
+          </Paper>
         </Grid>
       </Grid>
     </div>
