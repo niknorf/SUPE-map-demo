@@ -61,12 +61,20 @@ const createClusterCustomIcon = (cluster) =>{
 const MarkerColor = (item) =>{
 
 let color = 'grey.png';
+let comparator;
 
-if(parseInt(item.imbalance) > 75){
+if(item.percent_probability_BU  === 0){
+comparator = item.percent_probability_BD;
+}else{
+comparator = item.percent_probability_BU;
+}
+
+
+if(parseInt(comparator) > 75){
   color = 'red.png';
-}else if (parseInt(item.imbalance) > 50) {
+}else if (parseInt(comparator) > 50) {
   color = 'orange.png';
-}else if (parseInt(item.imbalance) > 25) {
+}else if (parseInt(comparator) > 25) {
 color = 'yellow.png';
 }else {
   color = 'grey.png';
