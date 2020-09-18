@@ -104,7 +104,7 @@ export default function CenteredGrid() {
               </Typography>
               <form className={classes.loginForm} noValidate autoComplete="off">
                 <TextField className={classes.formInput} id="standard-basic" label="Логин" />
-                <TextField className={classes.formInput} id="standard-basic" label="Пароль" />
+                <TextField className={classes.formInput} id="standard-password-input" type="password" label="Пароль" />
               </form>
               <ButtonLogin />
             </Box>
