@@ -98,13 +98,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "baseline",
     paddingTop: 30
   },
-  balanceLink: {
-    fontSize: "14px",
-    lineHeight: "17px",
-    textDecoration: "underline",
-    marginLeft: "16px",
-    color: "#252F4A",
-  },
   balanceText: {
     fontSize: "32px",
     lineHeight: "38px",
@@ -195,9 +188,6 @@ const BalanceGroup = () => {
               >
                 Балансовые группы
                 </Typography>
-              <Link href="#balance-table" className={classes.balanceLink}>
-                Посмотреть таблицу всех балансовых групп
-                </Link>
             </div>
             <Grid container spacing={3}>
               <Grid item xs={12}>

@@ -57,7 +57,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     flexDirection: 'column',
     backgroundImage: `url(${BackgoundImage})`,
-    backgroundSize: 'contain',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
     borderRadius: '0'
   },
   imageContainer: {

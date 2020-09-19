@@ -13,14 +13,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
+    //padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    height: '100vh',
   },
-  fullHeight: {
-    height: '100vh',
-  }
 }));
 
 export default function CenteredGrid() {
@@ -34,11 +30,11 @@ export default function CenteredGrid() {
   var mapSize; 
 
   if (globalState.isOpenSidebar) {
-    displayedObject = <Grid item xs={3} className={classes.fullHeight}>
+    displayedObject = <Grid item xs={3}>
                         <BuBdSidebar />
                       </Grid>;
   } else if (globalState.isOpenSidebar == false) {
-    displayedObject = <Grid item xs={7} className={classes.fullHeight}>
+    displayedObject = <Grid item xs={5}>
                         <Paper className={classes.paper}><BuBdTable /></Paper>
                       </Grid>;
   }
@@ -47,7 +43,7 @@ export default function CenteredGrid() {
     <div className={classes.root}>
       <Grid container>
         {displayedObject}
-        <Grid item xs className={classes.fullHeight}>
+        <Grid item xs>
           <MapBuBd />
         </Grid>
       </Grid>

@@ -22,7 +22,7 @@ import L from "leaflet";
 delete L.Icon.Default.prototype._getIconUrl;
 
 const PhantomicBuildingstyle = {
-  fillColor: "rgba(241, 158, 105, 0.2)",
+  fillColor: "rgba(241, 158, 105, 0.4)",
   weight: 1,
   opacity: 1,
   color: "#EC8041", //Outline color
@@ -97,7 +97,7 @@ const DisplayMultipleBalanceGroups = (globalState) => {
   };
 
   const PhantomicStyle = {
-    fillColor: "rgba(241, 158, 105, 0.2)",
+    fillColor: "rgba(241, 158, 105, 0.4)",
     weight: 1,
     opacity: 1,
     color: "#EC8041", //Outline color

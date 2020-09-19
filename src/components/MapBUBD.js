@@ -25,10 +25,13 @@ const  GeneralMap = () =>{
         iconUrl: require('../img/red.png'),
         iconSize: [40, 40]
       });
+    
+    const mapStyle = {
+      height: '100%'
+    }
 
     return (
-      <div>
-        <Map className="markercluster-map"   center={position} zoom={16}>
+        <Map className="markercluster-map" style={mapStyle}  center={position} zoom={16}>
             <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
             <MarkerClusterGroup
               iconCreateFunction={createClusterCustomIcon}
@@ -44,8 +47,6 @@ const  GeneralMap = () =>{
             </MarkerClusterGroup>
             <GeoJsonLayer/>
           </Map>
-      </div>
-
     );
 }
 

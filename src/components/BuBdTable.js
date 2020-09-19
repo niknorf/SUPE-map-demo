@@ -129,7 +129,7 @@ EnhancedTableHead.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    padding: '0 15px'
+    padding: "0 12px 0 16px",
   },
   paper: {
     width: '100%',
@@ -152,13 +152,6 @@ const useStyles = makeStyles((theme) => ({
   headCellStyle: {
     fontWeight: 'bold'
   },
-  type: {
-    fontSize: '11px',
-    color: '#818E9B',
-  },
-  labelRowsPerPage: {
-
-  },
   markerIcon:{
   width: 25,
   height: 25,
@@ -168,7 +161,11 @@ iconContainer:{
   alignItems: 'center'
 },
 linkStyle:{
-  color: '#4A9CFF'
+  color: '#4A9CFF',
+  whiteSpace: 'nowrap'
+},
+tableIcon: {
+  paddingRight: '56px'
 }
 }));
 
@@ -178,7 +175,7 @@ export default function EnhancedTable() {
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -217,7 +214,7 @@ export default function EnhancedTable() {
     // borderColor: 'text.primary',
     // m: 1,
     // border: 0,
-    style: { width: '6.9rem', height: '1.5rem', color: 'rgba(140, 148, 158, 1)' },
+    style: { width: '6.9rem', height: '1.5rem', color: 'rgba(140, 148, 158, 1)', display: 'flex', justifyContent: 'center', alignItems: 'center' },
   };
 
   const theme = createMuiTheme({
@@ -250,7 +247,7 @@ export default function EnhancedTable() {
                       tabIndex={-1}
                       key={row.address}
                     >
-                      <TableCell component="th" scope="row" padding="none"  align="left">{row.address}<Box className={classes.type}>тип ГРЩ</Box></TableCell>
+                      <TableCell component="th" scope="row" padding="none"  align="left">{row.address}</TableCell>
                       <TableCell align="center">{CreateIcon(classes, row.percent_probability)}</TableCell>
                       <TableCell align="center">{row.probability_type}</TableCell>
                       <TableCell align="center"> <Link underline="always" className={classes.linkStyle}>{row.report}</Link></TableCell>
@@ -293,7 +290,7 @@ color = yellow_marker;
 }
 
   return(<Container className={classes.iconContainer}>
-    <Icon>
+    <Icon className={classes.tableIcon}>
       <img className={classes.markerIcon} src={color}/>
       </Icon>
       <Typography>{number.toString() + '%'}</Typography>

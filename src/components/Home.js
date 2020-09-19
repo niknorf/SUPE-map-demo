@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: 0,
       display: 'flex',
       flexDirection: 'column',
-      height: 'calc(100vh - 266px)'
+      overflowY: 'hidden'
     },
     '& .MuiTablePagination-toolbar-107': {
       marginTop: 'auto'
