@@ -287,7 +287,6 @@ export default function EnhancedTable() {
                   <TableRow
                     hover
                     tabIndex={-1}
-                    onClick={(event) => tableRowClick(event, row)}
                     key={row.address}
                     classes={{ hover: classes.rowHover }}
                     component={Link}
@@ -296,15 +295,16 @@ export default function EnhancedTable() {
                     <TableCell
                       component="th"
                       scope="row"
+                      onClick={(event) => tableRowClick(event, row)}
                       padding="none"
                       align="left"
                     >
                       {row.address}
                     </TableCell>
-                    <TableCell align="center">
+                    <TableCell align="center" onClick={(event) => tableRowClick(event, row)}>
                       {CreateIcon(classes, row.percent_probability)}
                     </TableCell>
-                    <TableCell align="center">{row.probability_type}</TableCell>
+                    <TableCell align="center" onClick={(event) => tableRowClick(event, row)}>{row.probability_type}</TableCell>
                     <TableCell align="center">
                       {" "}
                       <Link underline="always" className={classes.linkStyle}>

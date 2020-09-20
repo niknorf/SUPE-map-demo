@@ -25,7 +25,8 @@ const GeneralMap = () => {
   };
 
     const mapStyle = {
-      height: '100%'
+      height: '100%',
+      position: 'fixed'
     }
 
     return (

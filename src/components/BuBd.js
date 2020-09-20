@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  mapWithTableGrid: {
+    height: '100vh',
+    position: 'relative'
+  }
 }));
 
 export default function CenteredGrid() {
@@ -29,20 +33,36 @@ export default function CenteredGrid() {
     displayedObject = <Grid item xs={3}>
                         <BuBdSidebar />
                       </Grid>;
-  } else if (globalState.isOpenSidebar == false) {
+
+return (
+  <div className={classes.root}>
+    <Grid container>
+      {displayedObject}
+      <Grid item xs>
+        <MapBuBd />
+      </Grid>
+    </Grid>
+  </div>
+);
+  }
+  
+  
+  else if (globalState.isOpenSidebar == false) {
     displayedObject = <Grid item xs={5}>
                         <Paper className={classes.paper}><BuBdTable /></Paper>
                       </Grid>;
+
+return (
+  <div className={classes.root}>
+    <Grid container>
+      {displayedObject}
+      <Grid item xs={7} className={classes.mapWithTableGrid}>
+        <MapBuBd />
+      </Grid>
+    </Grid>
+  </div>
+);
   }
 
-  return (
-    <div className={classes.root}>
-      <Grid container>
-        {displayedObject}
-        <Grid item xs>
-          <MapBuBd />
-        </Grid>
-      </Grid>
-    </div>
-  );
+  
 }

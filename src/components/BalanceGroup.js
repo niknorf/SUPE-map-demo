@@ -176,11 +176,11 @@ const BalanceGroup = () => {
 
             <Grid container spacing={3}>
               {/* MAP SECTION */}
-              <Grid item xs={12} sm={12} md={12} lg={6}>
+              <Grid item xs={12} sm={12} md={12} lg={8}>
                 <GeneralMap />
               </Grid>
               {/* INFO SECTION */}
-              <Grid className={classes.tableContainer} item xs={6}>
+              <Grid className={classes.tableContainer} item xs={4}>
                 <Paper className={clsx(classes.paper, classes.balancePaper)}>
                   <BalanceTable className={classes.BalanceTableStyles} />
                 </Paper>
