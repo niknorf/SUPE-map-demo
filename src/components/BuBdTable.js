@@ -19,7 +19,7 @@ import {
   makeStyles,
 } from "@material-ui/core/styles";
 import { ruRU } from "@material-ui/core/locale";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import grey_marker from "../img/grey.png";
 import orange_marker from "../img/orange.png";
@@ -140,7 +140,7 @@ EnhancedTableHead.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
     padding: "0 12px 0 16px",
   },
   paper: {
@@ -164,21 +164,21 @@ const useStyles = makeStyles((theme) => ({
   headCellStyle: {
     fontWeight: "bold",
   },
-  markerIcon:{
-  width: 25,
-  height: 25,
-},
-iconContainer:{
-  display: 'flex',
-  alignItems: 'center'
-},
-linkStyle:{
-  color: '#4A9CFF',
-  whiteSpace: 'nowrap'
-},
-tableIcon: {
-  paddingRight: '56px'
-}
+  markerIcon: {
+    width: 25,
+    height: 25,
+  },
+  iconContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+  linkStyle: {
+    color: "#4A9CFF",
+    whiteSpace: "nowrap",
+  },
+  tableIcon: {
+    paddingRight: "56px",
+  },
 }));
 
 export default function EnhancedTable() {
@@ -231,7 +231,14 @@ export default function EnhancedTable() {
     // borderColor: 'text.primary',
     // m: 1,
     // border: 0,
-    style: { width: '6.9rem', height: '1.5rem', color: 'rgba(140, 148, 158, 1)', display: 'flex', justifyContent: 'center', alignItems: 'center' },
+    style: {
+      width: "6.9rem",
+      height: "1.5rem",
+      color: "rgba(140, 148, 158, 1)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
   };
 
   const theme = createMuiTheme({}, ruRU);
@@ -264,19 +271,37 @@ export default function EnhancedTable() {
                       padding="none"
                       align="left"
                     ></TableCell>
-                      <TableCell component="th" scope="row" padding="none"  align="left">{row.address}</TableCell>
-                      <TableCell align="center">{CreateIcon(classes, row.percent_probability)}</TableCell>
-                      <TableCell align="center">{row.probability_type}</TableCell>
-                      <TableCell align="center"> <Link underline="always" className={classes.linkStyle}>{row.report}</Link></TableCell>
-                      <TableCell align="center"><Box borderRadius={5} {...defaultProps}>{row.status}</Box></TableCell>
-                      {/* <TableCell align="center">{row.notTechnicalKwt}</TableCell> */}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <ThemeProvider theme={theme}>
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      padding="none"
+                      align="left"
+                    >
+                      {row.address}
+                    </TableCell>
+                    <TableCell align="center">
+                      {CreateIcon(classes, row.percent_probability)}
+                    </TableCell>
+                    <TableCell align="center">{row.probability_type}</TableCell>
+                    <TableCell align="center">
+                      {" "}
+                      <Link underline="always" className={classes.linkStyle}>
+                        {row.report}
+                      </Link>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Box borderRadius={5} {...defaultProps}>
+                        {row.status}
+                      </Box>
+                    </TableCell>
+                    {/* <TableCell align="center">{row.notTechnicalKwt}</TableCell> */}
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <ThemeProvider theme={theme}>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
@@ -304,23 +329,10 @@ const CreateIcon = (classes, number) => {
     color = grey_marker;
   }
 
-const CreateIcon = (classes, number)=>{
-
-let color = grey_marker;
-
-if(parseInt(number) > 75){
-  color = red_marker;
-}else if (parseInt(number) > 50) {
-  color = orange_marker;
-}else if (parseInt(number) > 25) {
-color = yellow_marker;
-}else {
-  color = grey_marker;
-}
-
-  return(<Container className={classes.iconContainer}>
-    <Icon className={classes.tableIcon}>
-      <img className={classes.markerIcon} src={color} alt=''/>
+  return (
+    <Container className={classes.iconContainer}>
+      <Icon className={classes.tableIcon}>
+        <img className={classes.markerIcon} src={color} alt="" />
       </Icon>
       <Typography>{number.toString() + "%"}</Typography>
     </Container>
