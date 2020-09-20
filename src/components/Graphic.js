@@ -5,9 +5,7 @@ import Contex from "../store/context";
 import clsx from "clsx";
 import Plotly from "plotly.js";
 import createPlotlyComponent from "react-plotly.js/factory";
-import differencePercent from "../data/graphic/transfer_percent.json";
 import indexes from "../data/graphic/indexes.json";
-import tech_losses from "../data/graphic/tech_losses.json";
 import full_res from "../data/graphic/full_res_imbalance.json";
 import "../css/graphic.css";
 const Plot = createPlotlyComponent(Plotly);
@@ -74,7 +72,7 @@ const column_title_font = {
 
 const GraphicGroup = () => {
   const [month, setMonth] = React.useState('сентябрь');
-  const { state, globalState } = useContext(Contex);
+  const {globalState } = useContext(Contex);
   const classes = useStyles();
 
 
@@ -263,38 +261,6 @@ const GraphicGroup = () => {
       displaylogo: false
     },
   };
-  // // var tech_loss_index = {
-  //   layout: {
-  //     showlegend: false,
-  //     hoverinfo: "none",
-  //     width: 270,
-  //     height: 300,
-  //     title: {
-  //       text: "Индекс технических потерь",
-  //       x: 0.5,
-  //       xanchor: "center",
-  //       y: 0.2,
-  //       yanchor: "bottom",
-  //       font: pie_title_font,
-  //     },
-  //     legend: pie_legend,
-  //     annotations: pie_annotations,
-  //   },
-  //   data: [
-  //     {
-  //       values: [""],
-  //       labels: ["", ""],
-  //       type: "pie",
-  //       hole: hole_size,
-  //       textinfo: "none",
-  //       hoverinfo: "none",
-  //       marker: pie_markers,
-  //     },
-  //   ],
-  //   config: {
-  //     responsive: true,
-  //   },
-  // };
   var house_trust_index = {
     layout: {
       showlegend: false,
@@ -500,14 +466,6 @@ const GraphicGroup = () => {
     },
   };
 
-  let paperGraph = "paper-graph";
-  let secondBlock = "second-block";
-  let firstGraph = "first-graph";
-  let secondGraph = "second-graph";
-  let thirdtGraph = "third-graph";
-  let fourthGraph = "fourth-graph";
-  let pieCharts = "pie-charts";
-
   return (
     <div>
       {(() => {
@@ -557,7 +515,7 @@ const GraphicGroup = () => {
               </Grid>
               <Grid container spacing={3}>
                 <Grid item xs={6} md={12} lg={12}>
-                  <Paper className={classes.barPaper} className={clsx(classes.barPaper, classes.lastBlockPaper)}>
+                  <Paper className={clsx(classes.barPaper, classes.lastBlockPaper)}>
                     <DisplayBarChart balance_index={globalState.balance_index} type={balance_group_tech_loss} obj_name='imbalance_kwh' />
                     <DisplayBarChart balance_index={globalState.balance_index} type={meter_avg} obj_name='na_meter_avg' />
                   </Paper>
@@ -578,6 +536,7 @@ const DisplayBarChart = ({ balance_index, type, obj_name }) => {
       type.data[0].x.push(item.month);
       type.data[0].y.push(item[obj_name]);
     }
+    return type;
   });
 
   return (<Plot
@@ -614,6 +573,7 @@ const DisplayPieChart = ({ month, balance_index, type, obj_name }) => {
           "rgba(96, 200, 125, 0.4)";
       }
     }
+    return type;
   });
 
   return (

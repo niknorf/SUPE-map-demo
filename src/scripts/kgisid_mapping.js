@@ -1,4 +1,3 @@
-import React from "react";
 import balance_result_full from "../data/balance_result_full.json";
 import kgis_upe from "../data/kgis_upe.json";
 import buildingsPolygon from "../building_polygon.json";
@@ -108,7 +107,7 @@ const GetKgisIdByBranchId = (branch_id) => {
 const GetAllObjBalanaceId = (balance_index) => {
   //get all the balance group objects
   var object_ep_list = balance_result_full.filter((element) => {
-    return element.balance_index == balance_index;
+    return element.balance_index.toString() === balance_index.toString();
   });
 
   //extract to array branch ids

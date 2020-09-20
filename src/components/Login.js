@@ -94,7 +94,7 @@ export default function CenteredGrid() {
               Система управления передачей электроэнергии
             </Typography>
             <Box className={classes.imageContainer}>
-              <img src={logo} className={classes.logo} />
+              <img src={logo} className={classes.logo} alt=''/>
             </Box>
           </Paper>
         </Grid>

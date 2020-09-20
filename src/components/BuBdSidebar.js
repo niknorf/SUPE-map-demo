@@ -1,5 +1,5 @@
-import React, { globalState, useContext } from 'react';
-import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import React, { useContext } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import CloseIcon from '@material-ui/icons/Close';
@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimplePaper() {
-  const { state, globalState, globalDispach } = useContext(Contex);
+  const { globalState, globalDispach } = useContext(Contex);
   const classes = useStyles();
 
 

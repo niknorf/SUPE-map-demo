@@ -1,12 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import BuBdTable from './BuBdTable';
-import  MapBuBd from './MapBUBD';
-import BuBdSidebar from './BuBdSidebar'; 
+import "../css/mapBuBd.css";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Paper } from "@material-ui/core";
+import React, { useContext } from "react";
+import BuBdSidebar from "./BuBdSidebar";
+import BuBdTable from "./BuBdTable";
 import Contex from "../store/context";
-import '../css/mapBuBd.css';
+import MapBuBd from "./MapBUBD";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,12 +21,9 @@ const useStyles = makeStyles((theme) => ({
 export default function CenteredGrid() {
   const classes = useStyles();
 
-  const { state, globalState } = useContext(Contex);
-
-
+  const { globalState } = useContext(Contex);
 
   var displayedObject;
-  var mapSize; 
 
   if (globalState.isOpenSidebar) {
     displayedObject = <Grid item xs={3}>

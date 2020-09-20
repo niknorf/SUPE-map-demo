@@ -13,13 +13,14 @@
     "keycloak-js": "^11.0.2",
     "leaflet": "^1.6.0",
     "load-json-file": "^6.2.0",
-    "plotly.js": "^1.54.7",
+    "plotly.js": "^1.55.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
     "react-leaflet": "^2.7.0",
     "react-leaflet-markercluster": "^2.0.0",
-    "react-plotly.js": "^2.4.0",
+    "react-loading-overlay": "^1.0.1",
+    "react-plotly.js": "^2.5.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "react-select": "^3.1.0",
@@ -28,7 +29,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI= react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -46,6 +47,6 @@
   },
   "devDependencies": {
     "file-loader": "^6.0.0",
-    "terser": "^3.14.1"
+    "terser": "^3.17.0"
   }
 }

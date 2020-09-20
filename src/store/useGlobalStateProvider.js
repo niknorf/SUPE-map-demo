@@ -16,10 +16,8 @@ const reducer = (state, action) => {
 				building_address: action.building_address,
 				obj_from: action.obj_from,
 				balance_index_array: action.balance_index_array,
-				// zoom_level: action.zoom_level,
-				// position: action.position,
+				isLoading: action.isLoading,
 			};
-			break;
 			case "BUBD":
 			return{
 				isOpenSidebar: action.isOpenSidebar,
@@ -38,8 +36,7 @@ const useGlobalState = () => {
 		isPhantomic: false,
 		balance_index_array: [],
 		balance_index: '',
-		// zoom_level: 16,
-		// position: [60.04506711185432, 30.39647037897212],
+		isLoading: false,
 		isClean: '',
 		obj_from: '',
 		objSelected: false,

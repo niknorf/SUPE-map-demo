@@ -1,7 +1,5 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import Contex from "../store/context";
 import { makeStyles } from "@material-ui/core/styles";
+import React, { useContext } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,8 +8,14 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
+import PropTypes from "prop-types";
+
+import {
+  GetIsCleanByBalanceIndex,
+  GetKgisIdByBranchId,
+} from "../scripts/kgisid_mapping.js";
+import Contex from "../store/context";
 import table_down from "../data/table_down.json";
-import { GetIsCleanByBalanceIndex, GetKgisIdByBranchId } from "../scripts/kgisid_mapping.js";
 
 function createData(
   balanceGroup,
@@ -36,19 +40,20 @@ function createData(
 const createRows = () => {
   var rows = [];
   table_down.map((item) => {
-  if(item.date_month === 'сентябрь'){
-    rows.push(
-      createData(
-        item.balance_id,
-        item.imbalance_percent,
-        item.imbalance_kwh,
-        item.technical_losses_percent,
-        item.technical_losses_kwh,
-        item.non_technical_losses_percent,
-        item.non_technical_losses_kwh
-      )
-    );
-  }
+    if (item.date_month === "сентябрь") {
+      rows.push(
+        createData(
+          item.balance_id,
+          item.imbalance_percent,
+          item.imbalance_kwh,
+          item.technical_losses_percent,
+          item.technical_losses_kwh,
+          item.non_technical_losses_percent,
+          item.non_technical_losses_kwh
+        )
+      );
+    }
+    return item;
   });
   return rows;
 };
@@ -131,8 +136,8 @@ function EnhancedTableHead(props) {
     classes,
     order,
     orderBy,
-    numSelected,
-    rowCount,
+    // numSelected,
+    // rowCount,
     onRequestSort,
   } = props;
   const createSortHandler = (property) => (event) => {
@@ -182,15 +187,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     padding: "0 15px",
-    height: '95%'
+    height: "95%",
   },
   paper: {
     width: "100%",
     marginBottom: theme.spacing(2),
   },
-  table: {
-    
-  },
+  table: {},
   visuallyHidden: {
     border: 0,
     clip: "rect(0 0 0 0)",
@@ -206,7 +209,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
   },
   tableBalance: {
-    height: '100%',
+    height: "100%",
   },
 }));
 
@@ -214,7 +217,7 @@ export default function EnhancedTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
-  const [selected, setSelected] = React.useState([]);
+  const [selected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const { globalDispach } = useContext(Contex);
@@ -235,21 +238,22 @@ export default function EnhancedTable() {
   };
 
   const handleRowClick = (event, balance_index) => {
-
-/*Search for the ConsumerBuilding which belongs to selected balance group, in order to get is_clean and branch_id*/
-var building_obj = GetIsCleanByBalanceIndex(balance_index);
-
-    // window.scrollTo(0, 0);
+    /*Search for the ConsumerBuilding which belongs to selected balance group, in order to get is_clean and branch_id*/
+    var building_obj = GetIsCleanByBalanceIndex(balance_index);
 
     globalDispach({
       type: "FILTERCOMPONENT",
-      kgis_id: typeof building_obj !== 'undefined' ? GetKgisIdByBranchId(building_obj.branch_id) : '',
+      kgis_id:
+        typeof building_obj !== "undefined"
+          ? GetKgisIdByBranchId(building_obj.branch_id)
+          : "",
       isPhantomic: false,
       balance_index: balance_index,
-      isClean: typeof building_obj !== 'undefined' ? building_obj.is_clean : false,
+      isClean:
+        typeof building_obj !== "undefined" ? building_obj.is_clean : false,
       objSelected: true,
       building_address: "",
-      obj_from: 'table_click',
+      obj_from: "table_click",
       isInPSK: false,
     });
   };
@@ -307,7 +311,7 @@ var building_obj = GetIsCleanByBalanceIndex(balance_index);
         page={page}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
-        labelRowsPerPage = {"Строк на странице"}
+        labelRowsPerPage={"Строк на странице"}
       />
     </div>
   );

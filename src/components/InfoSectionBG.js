@@ -14,21 +14,22 @@ import {
   Table,
   TableBody,
 } from "@material-ui/core";
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import Contex from "../store/context";
-import { makeStyles, useTheme } from "@material-ui/styles";
 import FirstPageIcon from "@material-ui/icons/FirstPage";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
+import React, { useContext } from "react";
+
+import { makeStyles, useTheme } from "@material-ui/styles";
+import PropTypes from "prop-types";
+
+import Contex from "../store/context";
+import balance_group_items from "../data/balance_result_full.json";
 import info_icon from "../img/info_icon.svg";
 import triangle_icon from "../img/triangle_icon.svg";
-import balance_group_items from "../data/balance_result_full.json";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   imageIcon: {
-    // height: '100%'
     width: 40,
     height: 40,
   },
@@ -37,21 +38,8 @@ const useStyles = makeStyles({
   },
   table: {
     minWidth: 150,
-  },
-  root: {
-    flexShrink: 0,
-    // marginLeft: theme.spacing(2.5),
-  },
-});
-
-const useStyles2 = makeStyles({
-  table: {
-    minWidth: 150,
     borderBottom: "none",
   },
-});
-
-const useStyles1 = makeStyles((theme) => ({
   root: {
     flexShrink: 0,
     marginLeft: theme.spacing(2.5),
@@ -64,7 +52,7 @@ const InitialState = () => {
     <Container>
       <Typography>Балансовая группа</Typography>
       <Icon classes={{ root: classes.iconRoot }}>
-        <img className={classes.imageIcon} src={info_icon} />
+        <img className={classes.imageIcon} src={info_icon} alt="" />
       </Icon>
       <Typography>
         Чтобы посмотреть балансовую группу, выберите обьект на карте или
@@ -74,19 +62,6 @@ const InitialState = () => {
   );
 };
 
-const Data_not_found = () => {
-  const classes = useStyles();
-
-  return (
-    <Container>
-      <Typography>Балансовая группа</Typography>
-      <Icon classes={{ root: classes.iconRoot }}>
-        <img className={classes.imageIcon} src={triangle_icon} />
-      </Icon>
-      <Typography>Не удалось загрузить данные для текущего объта</Typography>
-    </Container>
-  );
-};
 const WarningState = ({ label }) => {
   const classes = useStyles();
 
@@ -94,7 +69,7 @@ const WarningState = ({ label }) => {
     <Container>
       <Typography>Балансовая группа</Typography>
       <Icon classes={{ root: classes.iconRoot }}>
-        <img className={classes.imageIcon} src={triangle_icon} />
+        <img className={classes.imageIcon} src={triangle_icon} alt="" />
       </Icon>
       <Typography>{label}</Typography>
     </Container>
@@ -106,7 +81,7 @@ function createData(name, type) {
 }
 
 function TablePaginationActions(props) {
-  const classes = useStyles1();
+  const classes = useStyles();
   const theme = useTheme();
   const { count, page, rowsPerPage, onChangePage } = props;
 
@@ -172,7 +147,7 @@ const ShowDataState = () => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const { state, globalState } = useContext(Contex);
+  const { globalState } = useContext(Contex);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -193,9 +168,10 @@ const ShowDataState = () => {
   var rows = [];
 
   balance_group_items.map((item) => {
-    if (item.balance_index.toString() == balance_id) {
+    if (item.balance_index.toString() === balance_id.toString()) {
       rows.push(createData(item.name, item.type));
     }
+    return item;
   });
 
   const emptyRows =
@@ -203,55 +179,52 @@ const ShowDataState = () => {
 
   return (
     <Typography>
-        Балансовая группа №{balance_id} {address_name}
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="left">Назвавание</TableCell>
-                <TableCell align="right">Тип</TableCell>
+      Балансовая группа №{balance_id} {address_name}
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">Назвавание</TableCell>
+              <TableCell align="right">Тип</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {(rowsPerPage > 0
+              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              : rows
+            ).map((row) => (
+              <TableRow key={row.name}>
+                <TableCell>{row.name}</TableCell>
+                <TableCell align="right">{row.type}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {(rowsPerPage > 0
-                ? rows.slice(
-                    page * rowsPerPage,
-                    page * rowsPerPage + rowsPerPage
-                  )
-                : rows
-              ).map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell align="right">{row.type}</TableCell>
-                </TableRow>
-              ))}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                  colSpan={3}
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  SelectProps={{
-                    inputProps: { "aria-label": "rows per page" },
-                    native: true,
-                  }}
-                  labelRowsPerPage = {"Строк на странице"}
-                  onChangePage={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                />
+            ))}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
               </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
+            )}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                colSpan={3}
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: { "aria-label": "rows per page" },
+                  native: true,
+                }}
+                labelRowsPerPage={"Строк на странице"}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
     </Typography>
   );
 };
@@ -264,7 +237,8 @@ TablePaginationActions.propTypes = {
 };
 
 const InfoSection = () => {
-  const { state, globalState } = useContext(Contex);
+  const { globalState } = useContext(Contex);
+
   return (
     <Box>
       {(() => {
@@ -278,7 +252,7 @@ const InfoSection = () => {
         ) {
           return <WarningState label="balance_id_not_found" />;
         } else if (
-          globalState.isClean == false &&
+          !globalState.isClean &&
           globalState.balance_index !== ""
         ) {
           return (

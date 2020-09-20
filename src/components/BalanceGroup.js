@@ -1,41 +1,27 @@
 import {
-  Button,
   Container,
   CssBaseline,
-  FormControl,
   Grid,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
   Link,
-  MenuItem,
   Paper,
   Typography,
 } from "@material-ui/core";
-import { Filter } from "react-feather";
 import {
   ThemeProvider,
   createMuiTheme,
   makeStyles,
   withStyles,
 } from "@material-ui/core/styles";
-import React, { useState } from "react";
-import SearchIcon from "@material-ui/icons/Search";
-import SelectMaterial from "@material-ui/core/Select";
+import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { GraphicGroup } from './Graphic'
+import { GraphicGroup } from "./Graphic";
+import { ImbalancePskPu } from "./charts/ImbalancePskPu";
 import { InfoSection } from "./InfoSectionBG";
-import { ImbalancePskPu } from "./charts/ImbalancePskPu"
-import { SelectComponent, SearchComponent, TsSearchComponent } from "./FilterComponent";
+import { SearchComponent, TsSearchComponent } from "./FilterComponent";
 import BalanceTable from "./BalanceTable";
 import GeneralMap from "./MapBG";
-import GlobalStateProvider from "../store/GlobalStateProvider";
 import PFDinRegularWoff from "../fonts/PFDinTextCondPro-Regular.woff";
-
-
-const drawerWidth = 100;
 
 const pfdinRegular = {
   fontFamily: "PFDinTextCondPro-Regular",
@@ -72,10 +58,6 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
   },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
   paper: {
     padding: theme.spacing(2),
     display: "flex",
@@ -87,6 +69,8 @@ const useStyles = makeStyles((theme) => ({
     height: 500,
   },
   container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
     background: "#F5F6F8",
     paddingLeft: 40,
     paddingRight: 40,
@@ -96,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "baseline",
-    paddingTop: 30
+    paddingTop: 30,
   },
   balanceText: {
     fontSize: "32px",
@@ -145,36 +129,22 @@ const useStyles = makeStyles((theme) => ({
     height: "20px",
   },
   content: {
-    width: '100%',
+    width: "100%",
     background: "#F5F6F8",
   },
   balancePaper: {
-    height: '100%',
+    height: "100%",
   },
   BalanceTableStyles: {
-    height: '100%'
+    height: "100%",
   },
 }));
 
 const BalanceGroup = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
-  const [sortItem, setSortItem] = useState("");
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const handleChange = (event) => {
-    setSortItem(event.target.value);
-  };
-
   return (
-    // <GlobalStateProvider>
     <div className={classes.root}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -200,13 +170,6 @@ const BalanceGroup = () => {
                   <Grid item xs={6} sm={6} md={6} lg={6}>
                     <TsSearchComponent />
                   </Grid>
-                  {/* PLACE FOR THIRD FILTER */}
-                  {/* <Grid
-                      item
-                      xs={6}
-                      sm={3}
-                      className={classes.balaceGroupType}
-                    ></Grid> */}
                 </Paper>
               </Grid>
             </Grid>
@@ -224,7 +187,8 @@ const BalanceGroup = () => {
               </Grid>
               <Grid item xs={12} sm={6} md={6} lg={6}>
                 <Paper
-                  className={clsx(fixedHeightPaper, classes.infoSectionStyles)}>
+                  className={clsx(fixedHeightPaper, classes.infoSectionStyles)}
+                >
                   <InfoSection />
                 </Paper>
               </Grid>
@@ -234,17 +198,12 @@ const BalanceGroup = () => {
               </Grid>
             </Grid>
 
-
             {/* GRAPHIC SECTION */}
             <GraphicGroup />
-
-
-
           </Container>
         </main>
       </ThemeProvider>
     </div>
-    // </GlobalStateProvider>
   );
 };
 

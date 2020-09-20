@@ -1,13 +1,13 @@
 import { Grid, Paper, Switch, Typography, Box } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Plotly from "plotly.js";
-import React, { useContext, setState } from "react";
+import React, { useContext, useState } from "react";
 import createPlotlyComponent from "react-plotly.js/factory";
+import clsx from "clsx";
+import Contex from "../../store/context";
 import full_res from "../../data/graphic/full_res_imbalance.json";
 import full_res_phantom from "../../data/graphic/imbalance_phantom.json";
-import clsx from "clsx";
 import phantomic_buildings from "../../data/balance_phantom_dict.json";
-import Contex from "../../store/context";
 
 const Plot = createPlotlyComponent(Plotly);
 const useStyles = makeStyles((theme) => ({
@@ -24,25 +24,25 @@ const useStyles = makeStyles((theme) => ({
     color: "#818E9B",
   },
   pskGrid: {
-    maxWidth: '100%',
+    maxWidth: "100%",
   },
   swith: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    paddingLeft: '16px',
-    paddingRight: '16px',
-    paddingTop: '16px',
+    display: "flex",
+    justifyContent: "flex-end",
+    paddingLeft: "16px",
+    paddingRight: "16px",
+    paddingTop: "16px",
   },
   graphText: {
-    fontSize: '14px',
-    lineHeight: '14px',
-    paddingLeft: '16px',
-    paddingTop: '16px',
+    fontSize: "14px",
+    lineHeight: "14px",
+    paddingLeft: "16px",
+    paddingTop: "16px",
   },
   header: {
-    display: 'flex',
-    flexDirection: 'row',
-  }
+    display: "flex",
+    flexDirection: "row",
+  },
 }));
 
 const OrangeSwitch = withStyles({
@@ -60,8 +60,10 @@ const OrangeSwitch = withStyles({
 })(Switch);
 
 const IsPhantomicIncluded = (balance_index) => {
-  return typeof phantomic_buildings[balance_index] === 'undefined' ? false : true;
-}
+  return typeof phantomic_buildings[balance_index] === "undefined"
+    ? false
+    : true;
+};
 
 const CreateImabalancePSK = ({ balance_index, object, switchState }) => {
   let year_2017 = {
@@ -102,7 +104,6 @@ const CreateImabalancePSK = ({ balance_index, object, switchState }) => {
   };
 
   if (switchState) {
-
     full_res_phantom.map(function (item) {
       if (item.balance_id.toString() === balance_index.toString()) {
         if (item.year.toString() === "2017") {
@@ -123,9 +124,9 @@ const CreateImabalancePSK = ({ balance_index, object, switchState }) => {
           year_2020.y.push(item.out_phantom_kwh);
         }
       }
+      return item;
     });
   } else {
-
     full_res.map(function (item) {
       if (item.balance_id.toString() === balance_index.toString()) {
         if (item.year.toString() === "2017") {
@@ -146,6 +147,7 @@ const CreateImabalancePSK = ({ balance_index, object, switchState }) => {
           year_2020.y.push(item.imbalance_kwh);
         }
       }
+      return item;
     });
   }
 
@@ -159,8 +161,8 @@ const CreateImabalancePSK = ({ balance_index, object, switchState }) => {
 };
 
 const ImbalancePskPu = () => {
-  const [switchState, setState] = React.useState(false);
-  const { state, globalState } = useContext(Contex);
+  const [switchState, setState] = useState(false);
+  const { globalState } = useContext(Contex);
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -189,47 +191,49 @@ const ImbalancePskPu = () => {
     },
   };
 
-  return globalState.balance_index !== "" && globalState.isClean == true
+  return globalState.balance_index !== "" && globalState.isClean
     ? [
-      <Grid item xs={12} md={6} lg={6} className={classes.pskGrid}>
-        <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
-          <Box className={classes.header}>
-            <Typography className={classes.graphText}>График небалансов между показаниями ПСК и ПУ, в кВтч от ПУ</Typography>
-            {IsPhantomicIncluded(globalState.balance_index) ?
-              <Box
-                className={classes.swith}
-                component="label"
-                container
-                alignItems="center"
-                justify="flex-end"
-                direction="row"
-                spacing={1}
-              >
-                <Box item className={classes.switchLeftText}>
-                  Без фантомных обьектов
+        <Grid item xs={12} md={6} lg={6} className={classes.pskGrid}>
+          <Paper className={clsx(fixedHeightPaper, classes.paperStyles)}>
+            <Box className={classes.header}>
+              <Typography className={classes.graphText}>
+                График небалансов между показаниями ПСК и ПУ, в кВтч от ПУ
+              </Typography>
+              {IsPhantomicIncluded(globalState.balance_index) ? (
+                <Box
+                  className={classes.swith}
+                  component="label"
+                  container
+                  alignItems="center"
+                  justify="flex-end"
+                  direction="row"
+                  spacing={1}
+                >
+                  <Box item className={classes.switchLeftText}>
+                    Без фантомных обьектов
+                  </Box>
+                  <Box item>
+                    <OrangeSwitch
+                      checked={switchState}
+                      onChange={handleSwitchChange}
+                      name="checkedA"
+                    />
+                  </Box>
+                  <Grid item className={classes.switchRightText}>
+                    Включая фантомные обьекты
+                  </Grid>
                 </Box>
-                <Box item>
-                  <OrangeSwitch
-                    checked={switchState}
-                    onChange={handleSwitchChange}
-                    name="checkedA"
-                  />
-                </Box>
-                <Grid item className={classes.switchRightText}>
-                  Включая фантомные обьекты
-                </Grid>
-              </Box>
-              : null}
-          </Box>
+              ) : null}
+            </Box>
 
-          <CreateImabalancePSK
-            balance_index={globalState.balance_index}
-            object={imbalance_psk_pu}
-            switchState={switchState}
-          />
-        </Paper>
-      </Grid>,
-    ]
+            <CreateImabalancePSK
+              balance_index={globalState.balance_index}
+              object={imbalance_psk_pu}
+              switchState={switchState}
+            />
+          </Paper>
+        </Grid>,
+      ]
     : null;
 };
 
