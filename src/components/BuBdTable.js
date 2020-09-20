@@ -2,7 +2,7 @@ import {
   Table,
   TableBody,
   TableCell,
-  Link,
+  // Link,
   TableContainer,
   TableHead,
   TablePagination,
@@ -18,8 +18,10 @@ import {
   ThemeProvider,
   makeStyles,
 } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import { ruRU } from "@material-ui/core/locale";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import Contex from "../store/context";
 import PropTypes from "prop-types";
 import grey_marker from "../img/grey.png";
 import orange_marker from "../img/orange.png";
@@ -179,6 +181,12 @@ const useStyles = makeStyles((theme) => ({
   tableIcon: {
     paddingRight: "56px",
   },
+  rowHover: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+    textDecoration: "none",
+  },
 }));
 
 export default function EnhancedTable() {
@@ -188,6 +196,7 @@ export default function EnhancedTable() {
   const [selected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
+  const { globalDispach } = useContext(Contex);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -243,6 +252,17 @@ export default function EnhancedTable() {
 
   const theme = createMuiTheme({}, ruRU);
 
+  const tableRowClick = (event, row) => {
+
+    row.tp = "данные подгружаются";
+
+    globalDispach({
+      type: "BUBD",
+      isOpenSidebar: true,
+      markerValue: row,
+    });
+  };
+
   return (
     <div className={classes.root}>
       <TableContainer id="balance-table">
@@ -264,13 +284,15 @@ export default function EnhancedTable() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
                 return (
-                  <TableRow hover tabIndex={-1} key={row.address}>
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      padding="none"
-                      align="left"
-                    ></TableCell>
+                  <TableRow
+                    hover
+                    tabIndex={-1}
+                    onClick={(event) => tableRowClick(event, row)}
+                    key={row.address}
+                    classes={{ hover: classes.rowHover }}
+                    component={Link}
+                    to="/bubd"
+                  >
                     <TableCell
                       component="th"
                       scope="row"
