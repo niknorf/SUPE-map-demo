@@ -13,13 +13,14 @@ import {
   TableCell,
   Table,
   TableBody,
+  Grid,
 } from "@material-ui/core";
 import FirstPageIcon from "@material-ui/icons/FirstPage";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
 import React, { useContext } from "react";
-
+import full_res from "../data/graphic/full_res_imbalance.json";
 import { makeStyles, useTheme } from "@material-ui/styles";
 import PropTypes from "prop-types";
 
@@ -43,6 +44,40 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexShrink: 0,
     marginLeft: theme.spacing(2.5),
+  },
+  boxStyle: {
+    background: "linear-gradient(127.52deg, #00CAFF 20.68%, #4A9CFF 80.9%);",
+    marginRight: theme.spacing(2),
+    marginTop: theme.spacing(2.5),
+    marginBottom: theme.spacing(2.5),
+    height: 80,
+    borderRadius: "4px",
+    boxShadow: "4px 6px 18px rgba(0, 0, 0, 0.06)",
+    color: "#FFFFFF",
+  },
+  boxTopText: {
+    position: "absolute",
+    height: "17px",
+    fontFamily: "PF Din Text Cond Pro",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    fontSize: "14px",
+    lineHeight: "17px",
+    marginTop: "9px",
+    marginLeft: "12px",
+  },
+  boxMiddleText: {
+    position: "absolute",
+    height: "40px",
+    marginTop: "30px",
+    marginLeft: "12px",
+    marginRight: "33px",
+    fontFamily: "PF Din Text Cond Pro",
+    fontStyle: "normal",
+    fontWeight: "bold",
+    fontSize: "32px",
+    lineHeight: "40px",
+    textShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
   },
 }));
 
@@ -165,6 +200,24 @@ const ShowDataState = () => {
       ? "(" + globalState.building_address + ")"
       : "";
 
+    let value  = full_res.map(function(item) {
+      if(item.balance_id.toString() === balance_id.toString() && item.year === 2020){
+        return item;
+      }
+    });
+    value = value.filter((obj) => {
+      return typeof obj !== "undefined";
+    });
+
+    let biggest_month = Math.max.apply(Math, value.map(function(o) { return o.month; }))
+
+    value = value.filter((obj) => {
+      return obj.month === biggest_month;
+    });
+
+    let input_month = value[0].input_month;
+    let imbalance_kwh = value[0].imbalance_kwh;
+
   var rows = [];
 
   balance_group_items.map((item) => {
@@ -180,6 +233,22 @@ const ShowDataState = () => {
   return (
     <Typography>
       Балансовая группа №{balance_id} {address_name}
+      <Grid container spacing={2}>
+        <Grid item xs={5}>
+          <Box className={classes.boxStyle}>
+            <Typography className={classes.boxTopText}>Небалансы</Typography>
+            <Typography className={classes.boxMiddleText}>{imbalance_kwh} кВтч</Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={5}>
+          <Box className={classes.boxStyle}>
+            <Typography className={classes.boxTopText}>
+              Отпуск в сеть
+            </Typography>
+            <Typography className={classes.boxMiddleText}>{input_month} кВтч</Typography>
+          </Box>
+        </Grid>
+      </Grid>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -251,10 +320,7 @@ const InfoSection = () => {
           globalState.isClean === "balance_id_not_found"
         ) {
           return <WarningState label="balance_id_not_found" />;
-        } else if (
-          !globalState.isClean &&
-          globalState.balance_index !== ""
-        ) {
+        } else if (!globalState.isClean && globalState.balance_index !== "") {
           return (
             <WarningState label="Рекомендуем проверить наличие ПУ в данной балансовой группе и при необходимости доставить их, с целью расчета небалансов" />
           );
