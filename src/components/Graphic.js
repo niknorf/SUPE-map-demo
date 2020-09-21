@@ -71,12 +71,13 @@ const column_title_font = {
 };
 
 const GraphicGroup = () => {
-  const [month, setMonth] = React.useState('сентябрь');
+  const [month, setMonth] = React.useState(7);
   const {globalState } = useContext(Contex);
   const classes = useStyles();
 
 
   const handleMonthChange = (event) => {
+    console.log(event.target.value);
     setMonth(event.target.value);
   };
 
@@ -487,11 +488,11 @@ const GraphicGroup = () => {
                           value={month}
                           onChange={handleMonthChange}
                         >
-                          <MenuItem value={'май'}>Май</MenuItem>
-                          <MenuItem value={'июнь'}>Июнь</MenuItem>
-                          <MenuItem value={'июль'}>Июль</MenuItem>
-                          <MenuItem value={'август'}>Август</MenuItem>
-                          <MenuItem value={'сентябрь'}>Сентябрь</MenuItem>
+                          <MenuItem value={5}>Май</MenuItem>
+                          <MenuItem value={6}>Июнь</MenuItem>
+                          <MenuItem value={7}>Июль</MenuItem>
+                          <MenuItem value={8}>Август</MenuItem>
+                          <MenuItem value={9}>Сентябрь</MenuItem>
                         </Select>
                       </FormControl>
                     </Box>
@@ -539,6 +540,11 @@ const DisplayBarChart = ({ balance_index, type, obj_name }) => {
     return type;
   });
 
+  if (obj_name === 'imbalance_kwh'){
+    type.data = [];
+    type.layout.title.text = "Недостаточно данных для расчета технических потерь";
+  }
+
   return (<Plot
     data={type.data}
     layout={type.layout}
@@ -559,7 +565,7 @@ const DisplayPieChart = ({ month, balance_index, type, obj_name }) => {
         100 - parseInt(item.[obj_name])
       );
       type.layout.annotations[0].text =
-        item.[obj_name].toString() + "%";
+        item.[obj_name] +  "%";
 
       if (parseInt(item.[obj_name]) > 50) {
         type.layout.annotations[1].text = "Высокий";
