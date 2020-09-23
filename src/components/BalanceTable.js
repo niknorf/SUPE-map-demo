@@ -211,6 +211,13 @@ const useStyles = makeStyles((theme) => ({
   tableBalance: {
     height: "100%",
   },
+  pagination: {
+    marginTop: '-22px',
+    disableGutters: true,
+    "& .MuiToolbar-root-403": {
+      padding: 0
+    }
+  }
 }));
 
 export default function EnhancedTable() {
@@ -304,6 +311,7 @@ export default function EnhancedTable() {
         </Table>
       </TableContainer>
       <TablePagination
+        className={classes.pagination}
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
         count={rows.length}

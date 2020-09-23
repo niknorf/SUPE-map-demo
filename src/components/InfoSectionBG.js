@@ -2,7 +2,6 @@ import {
   Typography,
   Container,
   Box,
-  Paper,
   TablePagination,
   TableFooter,
   Icon,
@@ -79,6 +78,9 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "40px",
     textShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
   },
+  error: {
+    padding: '24px 0'
+  }
 }));
 
 const InitialState = () => {
@@ -249,7 +251,7 @@ const ShowDataState = () => {
           </Box>
         </Grid>
       </Grid>
-      <TableContainer component={Paper}>
+      <TableContainer>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -307,9 +309,10 @@ TablePaginationActions.propTypes = {
 
 const InfoSection = () => {
   const { globalState } = useContext(Contex);
+  const classes = useStyles();
 
   return (
-    <Box>
+    <Box className={classes.error}>
       {(() => {
         if (globalState.isPhantomic && globalState.balance_index === "") {
           return (
